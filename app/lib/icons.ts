@@ -1,98 +1,112 @@
 /**
- * SVG icon strings keyed by Good id.
+ * Mapping from Good id to its icon filename in `public/icons/`.
  *
- * Inline SVGs are intentionally hand-tuned to be small (single-tag, no
- * external defs) so they can be dropped straight into the DOM with v-html
- * without forcing a separate HTTP request per icon.
+ * The PNGs are sourced from https://github.com/Sovgut/avorion-tools (CC-BY).
+ * They live under `public/icons/{file}.png` and are served at `/icons/{file}.png`
+ * by Nuxt's static asset pipeline. Several goods intentionally share the same
+ * file (e.g. gold/silver/platinum all use `metal-bar`) — that mirrors the
+ * upstream choice.
  *
- * Use {@link goodIcon} to fetch with a generic fallback.
+ * Use {@link goodIconUrl} to resolve a URL with a generic fallback.
  */
-export const ICONS: Record<string, string> = {
-  'iron-ore': `<svg viewBox="0 0 24 24"><polygon points="12,3 21,8 21,16 12,21 3,16 3,8" fill="#7a5a3a" stroke="#c49a6a" stroke-width="1.2"/><polygon points="12,7 17,10 17,14 12,17 7,14 7,10" fill="#9a7050"/><circle cx="10" cy="11" r="1" fill="#e0b080" opacity=".6"/></svg>`,
-  'coal': `<svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2" fill="#1a1a1a" stroke="#444" stroke-width="1.2"/><rect x="6" y="8" width="5" height="4" rx="1" fill="#333"/><rect x="13" y="10" width="5" height="4" rx="1" fill="#333"/><circle cx="9" cy="15" r="1" fill="#555" opacity=".7"/></svg>`,
-  'raw-oil': `<svg viewBox="0 0 24 24"><ellipse cx="12" cy="16" rx="7" ry="3.5" fill="#1a1a2e" stroke="#3030a0" stroke-width="1"/><rect x="10" y="5" width="4" height="12" rx="1" fill="#2a2a40"/><path d="M8 7 Q12 3 16 7" fill="none" stroke="#4a4a80" stroke-width="1.5"/><ellipse cx="12" cy="16" rx="3" ry="1.2" fill="#4040c0" opacity=".4"/></svg>`,
-  'silicon': `<svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2" fill="#3a4a6a" stroke="#7090ba" stroke-width="1.2"/><line x1="9" y1="5" x2="9" y2="19" stroke="#7090ba" stroke-width=".8"/><line x1="15" y1="5" x2="15" y2="19" stroke="#7090ba" stroke-width=".8"/><line x1="5" y1="9" x2="19" y2="9" stroke="#7090ba" stroke-width=".8"/><line x1="5" y1="15" x2="19" y2="15" stroke="#7090ba" stroke-width=".8"/><rect x="9" y="9" width="6" height="6" fill="#5070a0" opacity=".5"/></svg>`,
-  'copper': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="#a05028" stroke="#d07040" stroke-width="1.2"/><circle cx="12" cy="12" r="5" fill="#c06838"/><circle cx="10" cy="10" r="1.5" fill="#e09060" opacity=".6"/></svg>`,
-  'lead': `<svg viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="10" rx="2" fill="#4a4a5a" stroke="#7a7a8a" stroke-width="1.2"/><rect x="8" y="10" width="8" height="4" rx="1" fill="#6a6a7a"/><circle cx="12" cy="12" r="1" fill="#9a9aaa" opacity=".5"/></svg>`,
-  'zinc': `<svg viewBox="0 0 24 24"><polygon points="12,4 20,9 20,15 12,20 4,15 4,9" fill="#5a7a6a" stroke="#8aba9a" stroke-width="1.2"/><polygon points="12,8 16,10.5 16,13.5 12,16 8,13.5 8,10.5" fill="#7a9a8a"/></svg>`,
-  'aluminium': `<svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="8" rx="2" fill="#8aa0b0" stroke="#b0c8d8" stroke-width="1.2"/><line x1="8" y1="8" x2="8" y2="16" stroke="#c0d8e8" stroke-width=".8"/><line x1="12" y1="8" x2="12" y2="16" stroke="#c0d8e8" stroke-width=".8"/><line x1="16" y1="8" x2="16" y2="16" stroke="#c0d8e8" stroke-width=".8"/></svg>`,
-  'gold': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="#b08818" stroke="#e8c028" stroke-width="1.5"/><circle cx="12" cy="12" r="5" fill="#d0a828"/><text x="12" y="15.5" text-anchor="middle" font-size="8" fill="#806010" font-weight="bold">Au</text></svg>`,
-  'silver': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="#7a8888" stroke="#b0c8c8" stroke-width="1.5"/><circle cx="12" cy="12" r="5" fill="#98a8a8"/><text x="12" y="15.5" text-anchor="middle" font-size="8" fill="#405858" font-weight="bold">Ag</text></svg>`,
-  'platinum': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="#606070" stroke="#a0a0c0" stroke-width="1.5"/><circle cx="12" cy="12" r="5" fill="#808090"/><text x="12" y="15.5" text-anchor="middle" font-size="8" fill="#282830" font-weight="bold">Pt</text></svg>`,
-  'water': `<svg viewBox="0 0 24 24"><path d="M12 3 Q18 10 18 15 A6 6 0 0 1 6 15 Q6 10 12 3Z" fill="#1858b8" opacity=".85"/><ellipse cx="12" cy="15" rx="4.5" ry="1.8" fill="#4088e0" opacity=".4"/></svg>`,
-  'energy-cell': `<svg viewBox="0 0 24 24"><rect x="7" y="5" width="10" height="14" rx="2" fill="#0a2a0a" stroke="#30b030" stroke-width="1.5"/><rect x="9" y="3" width="6" height="3" rx="1" fill="#30b030"/><path d="M12 8 L10 13 L12.5 13 L10 18" stroke="#60f060" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>`,
-  'hydrogen': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="#081828" stroke="#2858b0" stroke-width="1.5" stroke-dasharray="3 2"/><text x="12" y="15.5" text-anchor="middle" font-size="9" fill="#5888e8" font-weight="bold">H₂</text></svg>`,
-  'helium': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="#180828" stroke="#7038b0" stroke-width="1.5" stroke-dasharray="3 2"/><text x="12" y="15.5" text-anchor="middle" font-size="9" fill="#b878e8" font-weight="bold">He</text></svg>`,
-  'neon': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="#280818" stroke="#b83870" stroke-width="1.5" stroke-dasharray="3 2"/><text x="12" y="15.5" text-anchor="middle" font-size="9" fill="#f05898" font-weight="bold">Ne</text></svg>`,
-  'chlorine': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="#182808" stroke="#78b018" stroke-width="1.5" stroke-dasharray="3 2"/><text x="12" y="15.5" text-anchor="middle" font-size="9" fill="#98e038" font-weight="bold">Cl</text></svg>`,
-  'fluorine': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="#082828" stroke="#18b0b0" stroke-width="1.5" stroke-dasharray="3 2"/><text x="12" y="15.5" text-anchor="middle" font-size="9" fill="#38e8e8" font-weight="bold">F</text></svg>`,
-  'nitrogen': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="#081820" stroke="#187898" stroke-width="1.5" stroke-dasharray="3 2"/><text x="12" y="15.5" text-anchor="middle" font-size="9" fill="#38a8d0" font-weight="bold">N₂</text></svg>`,
-  'oxygen': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="#082030" stroke="#1888b8" stroke-width="1.5" stroke-dasharray="3 2"/><text x="12" y="15.5" text-anchor="middle" font-size="9" fill="#38b8e8" font-weight="bold">O₂</text></svg>`,
-  'wheat': `<svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="8" stroke="#b09028" stroke-width="1.5"/><ellipse cx="12" cy="7" rx="2.5" ry="4.5" fill="#c8a830"/><ellipse cx="9" cy="12" rx="2" ry="3.5" fill="#c8a830" transform="rotate(-30 9 12)"/><ellipse cx="15" cy="12" rx="2" ry="3.5" fill="#c8a830" transform="rotate(30 15 12)"/></svg>`,
-  'bio-gas': `<svg viewBox="0 0 24 24"><ellipse cx="12" cy="14" rx="7" ry="5.5" fill="#204010" stroke="#58982a" stroke-width="1.2"/><path d="M9 9 Q12 4 15 9" fill="none" stroke="#78c040" stroke-width="1.5"/><circle cx="12" cy="5.5" r="1.5" fill="#78c040" opacity=".8"/></svg>`,
-  'livestock': `<svg viewBox="0 0 24 24"><ellipse cx="12" cy="13" rx="6" ry="5" fill="#806858"/><circle cx="12" cy="8" r="3.5" fill="#907868"/><circle cx="10.5" cy="7" r="1" fill="#5a3828"/><circle cx="13.5" cy="7" r="1" fill="#5a3828"/></svg>`,
-  'sheep': `<svg viewBox="0 0 24 24"><ellipse cx="12" cy="13" rx="6" ry="5" fill="#c8c8c8"/><circle cx="12" cy="8" r="3.5" fill="#d8d8d8"/><circle cx="10.5" cy="7" r=".8" fill="#282828"/><circle cx="13.5" cy="7" r=".8" fill="#282828"/><line x1="9" y1="18" x2="9" y2="21" stroke="#908070" stroke-width="1.5"/><line x1="15" y1="18" x2="15" y2="21" stroke="#908070" stroke-width="1.5"/></svg>`,
-  'glass': `<svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="1" fill="none" stroke="#90c8e8" stroke-width="1.5"/><line x1="5" y1="5" x2="19" y2="19" stroke="#b8e0f8" stroke-width="1" opacity=".5"/><rect x="5" y="5" width="14" height="14" rx="1" fill="#90c8e8" opacity=".08"/></svg>`,
-  'steel': `<svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="10" rx="1" fill="#485868" stroke="#7898a8" stroke-width="1.2"/><line x1="4" y1="11" x2="20" y2="11" stroke="#7898a8" stroke-width=".7"/><line x1="4" y1="15" x2="20" y2="15" stroke="#7898a8" stroke-width=".7"/><rect x="8" y="8" width="8" height="3" rx=".5" fill="#607888" opacity=".5"/></svg>`,
-  'oil': `<svg viewBox="0 0 24 24"><rect x="7" y="5" width="10" height="14" rx="3" fill="#101028" stroke="#3838a0" stroke-width="1.5"/><ellipse cx="12" cy="12" rx="3" ry="5" fill="#2020a0" opacity=".5"/><circle cx="12" cy="9" r="1.5" fill="#4848c0" opacity=".6"/></svg>`,
-  'plastic': `<svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="8" rx="4" fill="#285880" stroke="#4898c8" stroke-width="1.2"/><circle cx="9" cy="12" r="1.5" fill="#70b8e8" opacity=".6"/><circle cx="15" cy="12" r="1.5" fill="#70b8e8" opacity=".6"/></svg>`,
-  'rubber': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="#1a1a1a" stroke="#444" stroke-width="1.5"/><circle cx="12" cy="12" r="5" fill="#252525"/><circle cx="12" cy="12" r="2" fill="#101010"/></svg>`,
-  'chemicals': `<svg viewBox="0 0 24 24"><path d="M10 4 L10 11 L5 19 L19 19 L14 11 L14 4Z" fill="#203810" stroke="#50c850" stroke-width="1.2"/><ellipse cx="12" cy="17" rx="4" ry="1.5" fill="#38c038" opacity=".5"/><circle cx="9" cy="17" r=".8" fill="#80f080" opacity=".5"/></svg>`,
-  'carbon': `<svg viewBox="0 0 24 24"><polygon points="12,4 20,9 17,18 7,18 4,9" fill="#181818" stroke="#585858" stroke-width="1.2"/><polygon points="12,7 17,10 15,16 9,16 7,10" fill="#282828"/></svg>`,
-  'fabric': `<svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="8" rx="1" fill="#583870" stroke="#9068b0" stroke-width="1.2"/><line x1="7" y1="8" x2="7" y2="16" stroke="#9068b0" stroke-width=".8"/><line x1="12" y1="8" x2="12" y2="16" stroke="#9068b0" stroke-width=".8"/><line x1="17" y1="8" x2="17" y2="16" stroke="#9068b0" stroke-width=".8"/><line x1="4" y1="12" x2="20" y2="12" stroke="#9068b0" stroke-width=".8"/></svg>`,
-  'paint': `<svg viewBox="0 0 24 24"><path d="M9 4 Q7 10 9 17 Q12 21 15 17 Q17 10 15 4Z" fill="#b03818" stroke="#d85830" stroke-width="1.2"/><ellipse cx="12" cy="17" rx="3.5" ry="1.5" fill="#d85830" opacity=".5"/></svg>`,
-  'adhesive': `<svg viewBox="0 0 24 24"><rect x="8" y="5" width="8" height="14" rx="2" fill="#685818" stroke="#b09028" stroke-width="1.2"/><path d="M8 12 Q4 14 4 17 Q7 20 10 18" fill="none" stroke="#b09028" stroke-width="1.5"/></svg>`,
-  'scrap-metal': `<svg viewBox="0 0 24 24"><rect x="4" y="10" width="7" height="5" rx="1" fill="#484040" stroke="#787070" stroke-width="1" transform="rotate(-15 7.5 12.5)"/><rect x="13" y="8" width="7" height="5" rx="1" fill="#484040" stroke="#787070" stroke-width="1" transform="rotate(10 16.5 10.5)"/><rect x="7" y="14" width="10" height="4" rx="1" fill="#383030" stroke="#686060" stroke-width="1"/></svg>`,
-  'crystal': `<svg viewBox="0 0 24 24"><polygon points="12,3 16,8 16,16 12,21 8,16 8,8" fill="#102838" stroke="#3090b8" stroke-width="1.5"/><polygon points="12,7 14,10 14,14 12,17 10,14 10,10" fill="#185870" opacity=".8"/><line x1="12" y1="3" x2="12" y2="21" stroke="#68c8e8" stroke-width=".6" opacity=".5"/></svg>`,
-  'fuel': `<svg viewBox="0 0 24 24"><rect x="8" y="6" width="8" height="12" rx="2" fill="#302008" stroke="#b07018" stroke-width="1.5"/><path d="M12 9 L10 13 L12.5 13 L10 17" stroke="#e8c038" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>`,
-  'ammunition': `<svg viewBox="0 0 24 24"><rect x="10" y="4" width="4" height="10" rx="1" fill="#806018" stroke="#b89030" stroke-width="1"/><rect x="9" y="14" width="6" height="6" rx="1" fill="#604808" stroke="#907018" stroke-width="1"/><polygon points="10,4 14,4 12,2" fill="#b09028"/></svg>`,
-  'conductor': `<svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12" stroke="#b07818" stroke-width="2.5"/><circle cx="8" cy="12" r="2.5" fill="#d89828" stroke="#b07818" stroke-width="1"/><circle cx="16" cy="12" r="2.5" fill="#d89828" stroke="#b07818" stroke-width="1"/></svg>`,
-  'wire': `<svg viewBox="0 0 24 24"><path d="M4 16 Q8 8 12 16 Q16 8 20 16" fill="none" stroke="#b89018" stroke-width="2" stroke-linecap="round"/></svg>`,
-  'semi-conductor': `<svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2" fill="#202838" stroke="#5070b0" stroke-width="1.5"/><line x1="9" y1="6" x2="9" y2="4" stroke="#5070b0" stroke-width="1.2"/><line x1="12" y1="6" x2="12" y2="4" stroke="#5070b0" stroke-width="1.2"/><line x1="15" y1="6" x2="15" y2="4" stroke="#5070b0" stroke-width="1.2"/><line x1="9" y1="18" x2="9" y2="20" stroke="#5070b0" stroke-width="1.2"/><line x1="12" y1="18" x2="12" y2="20" stroke="#5070b0" stroke-width="1.2"/><line x1="15" y1="18" x2="15" y2="20" stroke="#5070b0" stroke-width="1.2"/><rect x="9" y="9" width="6" height="6" fill="#183018" rx=".5"/></svg>`,
-  'transformator': `<svg viewBox="0 0 24 24"><circle cx="9" cy="12" r="5" fill="none" stroke="#905818" stroke-width="2"/><circle cx="15" cy="12" r="5" fill="none" stroke="#905818" stroke-width="2"/><line x1="4" y1="12" x2="6" y2="12" stroke="#b07828" stroke-width="1.5"/><line x1="18" y1="12" x2="20" y2="12" stroke="#b07828" stroke-width="1.5"/></svg>`,
-  'servo': `<svg viewBox="0 0 24 24"><rect x="6" y="8" width="12" height="8" rx="2" fill="#282838" stroke="#505090" stroke-width="1.5"/><circle cx="12" cy="12" r="3" fill="none" stroke="#7070b8" stroke-width="1.5"/><circle cx="12" cy="12" r="1" fill="#7070b8"/><line x1="12" y1="6" x2="12" y2="8" stroke="#505090" stroke-width="1.5"/><line x1="12" y1="16" x2="12" y2="18" stroke="#505090" stroke-width="1.5"/></svg>`,
-  'steel-tube': `<svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="6" rx="3" fill="none" stroke="#7898a8" stroke-width="2"/><line x1="5" y1="12" x2="19" y2="12" stroke="#485868" stroke-width=".8" stroke-dasharray="3 2"/></svg>`,
-  'high-pressure-tube': `<svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="6" rx="3" fill="none" stroke="#b07838" stroke-width="2.5"/><line x1="5" y1="12" x2="19" y2="12" stroke="#804808" stroke-width=".8" stroke-dasharray="3 2"/><circle cx="12" cy="12" r="1.5" fill="#b07838" opacity=".7"/></svg>`,
-  'metal-plate': `<svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="10" rx="1" fill="#385060" stroke="#608898" stroke-width="1.5"/><line x1="4" y1="12" x2="20" y2="12" stroke="#608898" stroke-width=".8"/><rect x="7" y="8" width="4" height="3" rx=".5" fill="#508090" opacity=".5"/></svg>`,
-  'electromagnet': `<svg viewBox="0 0 24 24"><path d="M8 8 Q6 12 8 16" fill="none" stroke="#b05818" stroke-width="2.5" stroke-linecap="round"/><path d="M16 8 Q18 12 16 16" fill="none" stroke="#b05818" stroke-width="2.5" stroke-linecap="round"/><line x1="8" y1="8" x2="16" y2="8" stroke="#883808" stroke-width="2"/><circle cx="12" cy="6" r="2" fill="#d87830"/></svg>`,
-  'microchip': `<svg viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1" fill="#102010" stroke="#389838" stroke-width="1.5"/><line x1="9" y1="7" x2="9" y2="5" stroke="#389838" stroke-width="1"/><line x1="12" y1="7" x2="12" y2="5" stroke="#389838" stroke-width="1"/><line x1="15" y1="7" x2="15" y2="5" stroke="#389838" stroke-width="1"/><line x1="9" y1="17" x2="9" y2="19" stroke="#389838" stroke-width="1"/><line x1="12" y1="17" x2="12" y2="19" stroke="#389838" stroke-width="1"/><line x1="15" y1="17" x2="15" y2="19" stroke="#389838" stroke-width="1"/><line x1="7" y1="9" x2="5" y2="9" stroke="#389838" stroke-width="1"/><line x1="7" y1="15" x2="5" y2="15" stroke="#389838" stroke-width="1"/><line x1="17" y1="9" x2="19" y2="9" stroke="#389838" stroke-width="1"/><line x1="17" y1="15" x2="19" y2="15" stroke="#389838" stroke-width="1"/><rect x="9.5" y="9.5" width="5" height="5" fill="#183818" rx=".5"/></svg>`,
-  'nanobot': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="#189870" stroke="#38c8a0" stroke-width="1"/><line x1="12" y1="9" x2="12" y2="5" stroke="#38c8a0" stroke-width="1.2"/><line x1="14.6" y1="10.5" x2="17.6" y2="7" stroke="#38c8a0" stroke-width="1.2"/><line x1="14.6" y1="13.5" x2="17.6" y2="17" stroke="#38c8a0" stroke-width="1.2"/><line x1="12" y1="15" x2="12" y2="19" stroke="#38c8a0" stroke-width="1.2"/><line x1="9.4" y1="13.5" x2="6.4" y2="17" stroke="#38c8a0" stroke-width="1.2"/><line x1="9.4" y1="10.5" x2="6.4" y2="7" stroke="#38c8a0" stroke-width="1.2"/></svg>`,
-  'energy-container': `<svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2" fill="#0a200a" stroke="#309030" stroke-width="1.5"/><rect x="8" y="8" width="8" height="8" rx="1" fill="#186018" opacity=".7"/><line x1="12" y1="5" x2="12" y2="3" stroke="#309030" stroke-width="2"/><line x1="12" y1="19" x2="12" y2="21" stroke="#309030" stroke-width="2"/></svg>`,
-  'plasma-cell': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7" fill="#180a28" stroke="#b038d0" stroke-width="1.5"/><circle cx="12" cy="12" r="4" fill="#300a50" opacity=".8"/><circle cx="12" cy="12" r="2" fill="#b838d0" opacity=".9"/></svg>`,
-  'energy-tube': `<svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="6" rx="3" fill="#080830" stroke="#3838c0" stroke-width="2"/><ellipse cx="12" cy="12" rx="5" ry="2" fill="#3838c0" opacity=".4"/></svg>`,
-  'power-unit': `<svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2" fill="#101828" stroke="#3878b8" stroke-width="1.5"/><path d="M13 8 L10 12 L12.5 12 L11 16" stroke="#5898e8" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>`,
-  'turbine': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="#303848" stroke="#586880" stroke-width="1"/><path d="M12 9 Q15 7 16 4 Q13 6 12 9Z" fill="#607890"/><path d="M15 12 Q17 15 20 16 Q18 13 15 12Z" fill="#607890"/><path d="M12 15 Q9 17 8 20 Q11 18 12 15Z" fill="#607890"/><path d="M9 12 Q7 9 4 8 Q6 11 9 12Z" fill="#607890"/></svg>`,
-  'gauss-rail': `<svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="4" rx="1" fill="#384858" stroke="#6888a8" stroke-width="1"/><rect x="6" y="8" width="3" height="8" rx=".5" fill="#587898"/><rect x="15" y="8" width="3" height="8" rx=".5" fill="#587898"/><circle cx="12" cy="12" r="2.5" fill="#b0c8d8" opacity=".8"/></svg>`,
-  'ammunition-1': `<svg viewBox="0 0 24 24"><rect x="10" y="5" width="4" height="9" rx="1" fill="#806018"/><rect x="9" y="14" width="6" height="5" rx="1" fill="#604808"/><polygon points="10,5 14,5 12,3" fill="#b09028"/></svg>`,
-  'ammunition-2': `<svg viewBox="0 0 24 24"><rect x="10" y="4" width="4" height="10" rx="1" fill="#705010"/><rect x="9" y="14" width="6" height="6" rx="1" fill="#503808"/><polygon points="10,4 14,4 12,2" fill="#b08018"/><circle cx="12" cy="16" r="1.5" fill="#906018" opacity=".7"/></svg>`,
-  'solar-cell': `<svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="10" rx="1" fill="#102010" stroke="#388838" stroke-width="1"/><rect x="6" y="9" width="5" height="6" fill="#188018" opacity=".7" rx=".5"/><rect x="13" y="9" width="5" height="6" fill="#188018" opacity=".7" rx=".5"/><line x1="12" y1="3" x2="12" y2="7" stroke="#c8c838" stroke-width="1.5"/></svg>`,
-  'solar-panel': `<svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="10" rx="1" fill="#102010" stroke="#388838" stroke-width="1"/><line x1="3" y1="12" x2="21" y2="12" stroke="#388838" stroke-width=".8"/><line x1="9" y1="7" x2="9" y2="17" stroke="#388838" stroke-width=".8"/><line x1="15" y1="7" x2="15" y2="17" stroke="#388838" stroke-width=".8"/><line x1="12" y1="3" x2="12" y2="7" stroke="#c8c838" stroke-width="1.5"/></svg>`,
-  'computer-component': `<svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2" fill="#101028" stroke="#383898" stroke-width="1.5"/><rect x="8" y="8" width="8" height="8" rx="1" fill="#181850"/><circle cx="12" cy="12" r="2" fill="#3838c0"/><line x1="10" y1="8" x2="10" y2="5" stroke="#383898" stroke-width="1"/><line x1="14" y1="8" x2="14" y2="5" stroke="#383898" stroke-width="1"/><line x1="8" y1="10" x2="5" y2="10" stroke="#383898" stroke-width="1"/><line x1="8" y1="14" x2="5" y2="14" stroke="#383898" stroke-width="1"/></svg>`,
-  'laser-head': `<svg viewBox="0 0 24 24"><polygon points="12,4 18,10 18,14 12,20 6,14 6,10" fill="#102028" stroke="#3898b8" stroke-width="1.5"/><circle cx="12" cy="12" r="2.5" fill="#38c0e0"/><line x1="12" y1="3" x2="12" y2="4" stroke="#68e8f8" stroke-width="2"/></svg>`,
-  'gun': `<svg viewBox="0 0 24 24"><rect x="4" y="11" width="12" height="4" rx="1" fill="#484848" stroke="#787878" stroke-width="1"/><rect x="16" y="12" width="4" height="2" rx=".5" fill="#686868"/><rect x="8" y="7" width="3" height="4" rx="1" fill="#585858"/></svg>`,
-  'warhead': `<svg viewBox="0 0 24 24"><polygon points="12,3 16,9 16,18 8,18 8,9" fill="#602020" stroke="#b03838" stroke-width="1.5"/><polygon points="12,3 16,9 8,9" fill="#b03838" opacity=".6"/><circle cx="12" cy="14" r="2" fill="#e05858" opacity=".7"/></svg>`,
-  'laser-compressor': `<svg viewBox="0 0 24 24"><rect x="5" y="8" width="14" height="8" rx="2" fill="#100828" stroke="#7030b0" stroke-width="1.5"/><line x1="5" y1="12" x2="19" y2="12" stroke="#b050e8" stroke-width="2"/><circle cx="5" cy="12" r="2" fill="#9030d0"/><circle cx="19" cy="12" r="2" fill="#9030d0"/></svg>`,
-  'laser-modulator': `<svg viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="10" rx="2" fill="#100828" stroke="#5030b0" stroke-width="1.5"/><path d="M8 12 Q10 9 12 12 Q14 15 16 12" fill="none" stroke="#9070e8" stroke-width="1.5"/></svg>`,
-  'energy-invertor': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="#0a0818" stroke="#3030b0" stroke-width="1.5"/><path d="M9 9 L16 12 L9 15" fill="#3030b0" opacity=".7"/></svg>`,
-  'anti-grav-unit': `<svg viewBox="0 0 24 24"><ellipse cx="12" cy="14" rx="8" ry="4" fill="#102030" stroke="#3898b8" stroke-width="1.5"/><path d="M8 14 Q12 8 16 14" fill="none" stroke="#58c0e0" stroke-width="1.5"/><circle cx="12" cy="10" r="2" fill="#38c0e0" opacity=".8"/></svg>`,
-  'targeting-system': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#b03838" stroke-width="1.5"/><circle cx="12" cy="12" r="4" fill="none" stroke="#b03838" stroke-width="1"/><circle cx="12" cy="12" r="1.5" fill="#e05858"/><line x1="12" y1="4" x2="12" y2="8" stroke="#b03838" stroke-width="1"/><line x1="12" y1="16" x2="12" y2="20" stroke="#b03838" stroke-width="1"/><line x1="4" y1="12" x2="8" y2="12" stroke="#b03838" stroke-width="1"/><line x1="16" y1="12" x2="20" y2="12" stroke="#b03838" stroke-width="1"/></svg>`,
-  'processor': `<svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2" fill="#0a0818" stroke="#7030b0" stroke-width="1.5"/><rect x="9" y="9" width="6" height="6" rx="1" fill="#280848"/><line x1="9" y1="6" x2="9" y2="4" stroke="#7030b0" stroke-width="1"/><line x1="12" y1="6" x2="12" y2="4" stroke="#7030b0" stroke-width="1"/><line x1="15" y1="6" x2="15" y2="4" stroke="#7030b0" stroke-width="1"/><line x1="9" y1="18" x2="9" y2="20" stroke="#7030b0" stroke-width="1"/><line x1="12" y1="18" x2="12" y2="20" stroke="#7030b0" stroke-width="1"/><line x1="15" y1="18" x2="15" y2="20" stroke="#7030b0" stroke-width="1"/><line x1="6" y1="10" x2="4" y2="10" stroke="#7030b0" stroke-width="1"/><line x1="6" y1="14" x2="4" y2="14" stroke="#7030b0" stroke-width="1"/><line x1="18" y1="10" x2="20" y2="10" stroke="#7030b0" stroke-width="1"/><line x1="18" y1="14" x2="20" y2="14" stroke="#7030b0" stroke-width="1"/></svg>`,
-  'medical-supplies': `<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" fill="#102818" stroke="#309858" stroke-width="1.5"/><rect x="10" y="7" width="4" height="10" rx="1" fill="#30b868"/><rect x="7" y="10" width="10" height="4" rx="1" fill="#30b868"/></svg>`,
-  'tools': `<svg viewBox="0 0 24 24"><line x1="5" y1="19" x2="14" y2="10" stroke="#887848" stroke-width="2.5" stroke-linecap="round"/><circle cx="16.5" cy="7.5" r="3" fill="none" stroke="#887848" stroke-width="2"/><line x1="19" y1="5" x2="21" y2="3" stroke="#887848" stroke-width="2" stroke-linecap="round"/></svg>`,
-  'liquor': `<svg viewBox="0 0 24 24"><path d="M9 4 L9 10 Q5 14 5 18 Q5 21 12 21 Q19 21 19 18 Q19 14 15 10 L15 4Z" fill="#301808" stroke="#985818" stroke-width="1.5"/><rect x="8" y="3" width="8" height="3" rx="1" fill="#582808"/><ellipse cx="12" cy="18" rx="5" ry="2" fill="#c07828" opacity=".4"/></svg>`,
-  'body-armor': `<svg viewBox="0 0 24 24"><path d="M12 3 L19 7 L19 14 Q19 20 12 21 Q5 20 5 14 L5 7Z" fill="#303848" stroke="#587890" stroke-width="1.5"/><path d="M12 7 L16 9 L16 14 Q16 18 12 19 Q8 18 8 14 L8 9Z" fill="#405060" opacity=".7"/></svg>`,
-  'vehicle': `<svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="8" rx="2" fill="#2a3828" stroke="#587860" stroke-width="1.5"/><rect x="7" y="6" width="10" height="5" rx="2" fill="#384830" stroke="#587860" stroke-width="1"/><circle cx="7" cy="19" r="2.5" fill="#181818" stroke="#585858" stroke-width="1"/><circle cx="17" cy="19" r="2.5" fill="#181818" stroke="#585858" stroke-width="1"/></svg>`,
-  'war-robot': `<svg viewBox="0 0 24 24"><rect x="8" y="4" width="8" height="8" rx="2" fill="#282838" stroke="#686880" stroke-width="1.5"/><rect x="6" y="12" width="12" height="8" rx="1" fill="#383848" stroke="#686880" stroke-width="1"/><circle cx="10" cy="8" r="1.5" fill="#e03838"/><circle cx="14" cy="8" r="1.5" fill="#e03838"/><line x1="4" y1="13" x2="6" y2="18" stroke="#686880" stroke-width="1.5"/><line x1="20" y1="13" x2="18" y2="18" stroke="#686880" stroke-width="1.5"/></svg>`,
-  'mining-robot': `<svg viewBox="0 0 24 24"><rect x="8" y="4" width="8" height="8" rx="2" fill="#283820" stroke="#588048" stroke-width="1.5"/><rect x="6" y="12" width="12" height="8" rx="1" fill="#384828" stroke="#588048" stroke-width="1"/><circle cx="10" cy="8" r="1.5" fill="#e0b838"/><circle cx="14" cy="8" r="1.5" fill="#e0b838"/><line x1="3" y1="14" x2="6" y2="14" stroke="#b09820" stroke-width="2" stroke-linecap="round"/><line x1="18" y1="14" x2="21" y2="14" stroke="#b09820" stroke-width="2" stroke-linecap="round"/></svg>`,
-  'accelerator': `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#38b8d8" stroke-width="1.5"/><circle cx="12" cy="12" r="5" fill="none" stroke="#38b8d8" stroke-width="1"/><path d="M8 12 L16 12 M13 9 L16 12 L13 15" stroke="#78d8f0" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-  'satellite': `<svg viewBox="0 0 24 24"><rect x="10" y="10" width="4" height="4" rx="1" fill="#485868" stroke="#7898a8" stroke-width="1"/><rect x="3" y="11" width="7" height="2" rx="1" fill="#188018" opacity=".9"/><rect x="14" y="11" width="7" height="2" rx="1" fill="#188018" opacity=".9"/><line x1="12" y1="6" x2="12" y2="10" stroke="#7898a8" stroke-width="1"/><line x1="12" y1="14" x2="12" y2="18" stroke="#7898a8" stroke-width="1"/></svg>`,
-  'turret': `<svg viewBox="0 0 24 24"><rect x="7" y="14" width="10" height="5" rx="2" fill="#384858" stroke="#6890a8" stroke-width="1.5"/><rect x="10" y="10" width="4" height="5" rx="1" fill="#485868"/><rect x="11" y="5" width="2" height="6" rx="1" fill="#a8b8c0"/><line x1="12" y1="5" x2="19" y2="3" stroke="#c03838" stroke-width="1.5" stroke-linecap="round"/></svg>`,
-  'rocket': `<svg viewBox="0 0 24 24"><path d="M12 3 Q16 7 16 14 L12 21 L8 14 Q8 7 12 3Z" fill="#502818" stroke="#b85838" stroke-width="1.5"/><path d="M12 5 Q14 8 14 13" fill="none" stroke="#d87858" stroke-width="1" opacity=".6"/><path d="M8 14 Q6 16 5 20 L8 18Z" fill="#b83818" opacity=".7"/><path d="M16 14 Q18 16 19 20 L16 18Z" fill="#b83818" opacity=".7"/></svg>`,
-  'tesla-coil': `<svg viewBox="0 0 24 24"><rect x="10" y="14" width="4" height="6" rx="1" fill="#282850" stroke="#5050c0" stroke-width="1"/><circle cx="12" cy="10" r="4" fill="none" stroke="#9898f0" stroke-width="1.5"/><path d="M12 6 L10 10 L13 10 L11 14" stroke="#d8d8ff" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>`,
+const ICON_FILES: Record<string, string> = {
+  // raw
+  'iron-ore': 'rock',
+  'coal': 'fossil-fuel',
+  'raw-oil': 'oil-drum',
+  'silicon': 'silicium',
+  'copper': 'copper',
+  'lead': 'lead',
+  'zinc': 'zinc',
+  'aluminium': 'aluminium',
+  'gold': 'metal-bar',
+  'silver': 'metal-bar',
+  'platinum': 'metal-bar',
+
+  // basic
+  'water': 'water',
+  'energy-cell': 'battery-pack-alt',
+  'hydrogen': 'hydrogen',
+  'helium': 'helium',
+  'neon': 'neon',
+  'chlorine': 'chlorine',
+  'fluorine': 'fluorine',
+  'nitrogen': 'nitrogen',
+  'oxygen': 'oxygen',
+  'wheat': 'wheat',
+  'bio-gas': 'bio-gas',
+  'livestock': 'cattle',
+  'sheep': 'sheep',
+  'glass': 'metal-disc',
+  'steel': 'i-beam',
+  'oil': 'oil-drum',
+  'plastic': 'cargo-hold',
+  'rubber': 'cubes',
+  'chemicals': 'chemical',
+  'carbon': 'carbon',
+  'fabric': 'fabric',
+  'paint': 'paint',
+  'adhesive': 'adhesive',
+  'scrap-metal': 'scrap-metal',
+  'crystal': 'crystal',
+  'fuel': 'fuel',
+  'ammunition': 'ammo-box',
+
+  // mid
+  'conductor': 'conductor',
+  'wire': 'wire',
+  'semi-conductor': 'semi-conductor',
+  'transformator': 'grenade',
+  'servo': 'servo',
+  'steel-tube': 'steel-tube',
+  'high-pressure-tube': 'high-pressure-tube',
+  'metal-plate': 'metal-scales',
+  'electromagnet': 'electro-magnet',
+  'microchip': 'microchip',
+  'nanobot': 'nanobots',
+  'energy-container': 'electric',
+  'plasma-cell': 'plasma-cell',
+  'energy-tube': 'energy-tube',
+  'power-unit': 'power-unit',
+  'turbine': 'turbine',
+  'gauss-rail': 'gauss-rail',
+  'ammunition-1': 'ammunition-s',
+  'ammunition-2': 'ammunition-l',
+  'solar-cell': 'solar-cell',
+  'solar-panel': 'satellite-solarpanel',
+  'computer-component': 'microchip',
+  'laser-head': 'laser-head',
+  'gun': 'bolter-gun',
+  'warhead': 'warhead',
+
+  // adv
+  'laser-compressor': 'laser-compressor',
+  'laser-modulator': 'laser-modulator',
+  'energy-invertor': 'energy-inverter',
+  'anti-grav-unit': 'antigrav-unit',
+  'targeting-system': 'targeting-system',
+  'processor': 'processor',
+
+  // end
+  'medical-supplies': 'medical-supplies',
+  'tools': 'tools',
+  'liquor': 'martini',
+  'body-armor': 'kevlar-vest',
+  'vehicle': 'apc',
+  'war-robot': 'missile-mech',
+  'mining-robot': 'robot-golem',
+  'accelerator': 'electron-accelerator',
+  'satellite': 'satellite',
+
+  // hi
+  'turret': 'turret',
+  'rocket': 'rocket',
+  'tesla-coil': 'industrial-tesla-coil',
 }
 
-const FALLBACK = `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="#1a1a2a" stroke="#444466" stroke-width="1.5"/></svg>`
+const FALLBACK = '/icons/rock.png'
 
-export function goodIcon(id: string): string {
-  return ICONS[id] ?? FALLBACK
+export function goodIconUrl(id: string): string {
+  const file = ICON_FILES[id]
+  return file ? `/icons/${file}.png` : FALLBACK
 }
