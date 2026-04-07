@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { Handle, Position, type Connection, type NodeProps } from '@vue-flow/core'
+import { Handle, Position, useVueFlow, type Connection, type NodeProps } from '@vue-flow/core'
 import { useGameData } from '~/composables/useGameData'
 import { CATEGORY_STYLES } from '~/lib/categories'
+import type { FactoryNodeData } from '~/composables/useSupplyChain'
 import GoodIcon from '~/components/GoodIcon.vue'
 
 /**
@@ -24,6 +25,7 @@ const emit = defineEmits<{
 }>()
 
 const { getFactory, getGood } = useGameData()
+const { edges: allEdges, nodes: allNodes } = useVueFlow()
 
 const factory = computed(() => getFactory(props.data.factoryId))
 const style = computed(() => (factory.value ? CATEGORY_STYLES[factory.value.category] : null))
@@ -53,6 +55,53 @@ function formatRate(n: number): string {
   if (n >= 100) return n.toFixed(0)
   if (n >= 10) return n.toFixed(1)
   return n.toFixed(2)
+}
+
+/**
+ * Sum the per-hour rate of all upstream factories feeding `goodId` into
+ * this node. Walks the edges that target our matching `in-<goodId>`
+ * handle, and uses each source node's factory + line count to compute
+ * what it actually delivers.
+ */
+function suppliedRate(goodId: string): number {
+  const handle = 'in-' + goodId
+  let total = 0
+  for (const e of allEdges.value) {
+    if (e.target !== props.id || e.targetHandle !== handle) continue
+    const src = allNodes.value.find(n => n.id === e.source)
+    if (!src) continue
+    const srcData = src.data as FactoryNodeData | undefined
+    if (!srcData) continue
+    const srcFactory = getFactory(srcData.factoryId)
+    if (!srcFactory) continue
+    const out = srcFactory.outputs.find(o => o.goodId === goodId)
+    if (!out) continue
+    const lines = Math.max(1, Math.floor(srcData.lines ?? 1))
+    total += (out.amount * 3600 / srcFactory.cycleSeconds) * lines
+  }
+  return total
+}
+
+/**
+ * Compares this node's required input rate against what upstream
+ * factories actually deliver. Returns:
+ *   'none'  — no incoming edges yet, no judgement
+ *   'short' — supply is below demand (red)
+ *   'over'  — supply exceeds demand (yellow)
+ *   'ok'    — supply matches demand within rounding (green)
+ */
+function inputStatus(goodId: string, amount: number): 'none' | 'short' | 'over' | 'ok' {
+  const handle = 'in-' + goodId
+  const hasConnection = allEdges.value.some(
+    e => e.target === props.id && e.targetHandle === handle,
+  )
+  if (!hasConnection) return 'none'
+  const need = ratePerHour(amount)
+  const have = suppliedRate(goodId)
+  const eps = Math.max(need * 0.005, 0.01)
+  if (have + eps < need) return 'short'
+  if (have - eps > need) return 'over'
+  return 'ok'
 }
 
 function setLines(value: number) {
@@ -141,7 +190,30 @@ function isValidConnection(connection: Connection): boolean {
             <span class="truncate">{{ goodName(inp.goodId) }}</span>
             <span v-if="inp.optional" class="text-[9px] uppercase">опц.</span>
           </button>
-          <span class="ml-auto pl-1 text-[10px] tabular-nums opacity-70 shrink-0">
+          <span
+            class="ml-auto pl-1 text-[10px] tabular-nums shrink-0"
+            :class="{
+              'text-rose-400 font-semibold': inp.optional ? false : inputStatus(inp.goodId, inp.amount) === 'none',
+              'text-rose-300/60': inp.optional && inputStatus(inp.goodId, inp.amount) === 'none',
+              'text-emerald-300': inputStatus(inp.goodId, inp.amount) === 'ok',
+              'text-rose-300 font-semibold': inputStatus(inp.goodId, inp.amount) === 'short',
+              'text-amber-300': inputStatus(inp.goodId, inp.amount) === 'over',
+            }"
+            :title="
+              inputStatus(inp.goodId, inp.amount) === 'short'
+                ? 'Не хватает: поступает ' + formatRate(suppliedRate(inp.goodId)) + '/ч'
+                : inputStatus(inp.goodId, inp.amount) === 'over'
+                ? 'Избыток: поступает ' + formatRate(suppliedRate(inp.goodId)) + '/ч'
+                : inputStatus(inp.goodId, inp.amount) === 'ok'
+                ? 'Покрыто'
+                : inp.optional
+                ? 'Опциональный вход не подключён'
+                : 'Нет поставщика'
+            "
+          >
+            <span v-if="inputStatus(inp.goodId, inp.amount) === 'short'">⚠ </span>
+            <span v-else-if="inputStatus(inp.goodId, inp.amount) === 'none' && !inp.optional">✕ </span>
+            <span v-else-if="inputStatus(inp.goodId, inp.amount) === 'none' && inp.optional">○ </span>
             {{ formatRate(ratePerHour(inp.amount)) }}/ч
           </span>
         </div>
