@@ -2,9 +2,24 @@
 import { computed } from 'vue'
 import { Handle, Position, useVueFlow, type Connection, type NodeProps } from '@vue-flow/core'
 import { useGameData } from '~/composables/useGameData'
-import { CATEGORY_STYLES } from '~/lib/categories'
+import type { FactoryCategory } from '~/types/factory'
 import type { FactoryNodeData } from '~/composables/useSupplyChain'
 import GoodIcon from '~/components/GoodIcon.vue'
+
+/**
+ * Per-category framing for the supply-chain node. We keep the brand
+ * color on the header strip + border only, so the recipe body sits on
+ * a neutral dark surface where text is easy to read. Class strings are
+ * written verbatim for the Tailwind v4 JIT scanner.
+ */
+const NODE_STYLES: Record<FactoryCategory, { border: string; header: string }> = {
+  mine: { border: 'border-green-600/60', header: 'bg-green-900/70 text-green-50' },
+  basic: { border: 'border-blue-600/60', header: 'bg-blue-900/70 text-blue-50' },
+  mid: { border: 'border-amber-600/60', header: 'bg-amber-900/70 text-amber-50' },
+  adv: { border: 'border-purple-600/60', header: 'bg-purple-900/70 text-purple-50' },
+  end: { border: 'border-teal-600/60', header: 'bg-teal-900/70 text-teal-50' },
+  hi: { border: 'border-red-600/60', header: 'bg-red-900/70 text-red-50' },
+}
 
 /**
  * Custom vue-flow node that renders a factory's recipe: inputs on the
@@ -28,13 +43,7 @@ const { getFactory, getGood } = useGameData()
 const { edges: allEdges, nodes: allNodes } = useVueFlow()
 
 const factory = computed(() => getFactory(props.data.factoryId))
-const style = computed(() => (factory.value ? CATEGORY_STYLES[factory.value.category] : null))
-
-// Strip the hover: classes from the shared chip style — we don't want
-// the whole node to shift colors on hover like a small pill does.
-const frameClass = computed(() =>
-  style.value ? style.value.chip.replace(/hover:[^\s]+/g, '').trim() : '',
-)
+const nodeStyle = computed(() => (factory.value ? NODE_STYLES[factory.value.category] : null))
 
 function goodName(id: string) {
   return getGood(id)?.name ?? id
@@ -130,12 +139,15 @@ function isValidConnection(connection: Connection): boolean {
 
 <template>
   <div
-    v-if="factory && style"
-    class="rounded-md border shadow-xl min-w-[240px] font-sans"
-    :class="frameClass"
+    v-if="factory && nodeStyle"
+    class="rounded-lg border-2 shadow-2xl min-w-[260px] font-sans bg-zinc-900 text-zinc-100 overflow-hidden"
+    :class="nodeStyle.border"
   >
-    <div class="px-3 py-2 border-b border-black/40 flex items-center justify-between gap-2">
-      <div class="flex items-center gap-1.5 text-sm font-semibold min-w-0">
+    <div
+      class="px-3 py-2 flex items-center justify-between gap-2"
+      :class="nodeStyle.header"
+    >
+      <div class="flex items-center gap-2 text-[13px] font-semibold min-w-0">
         <GoodIcon
           v-if="factory.outputs[0]"
           :good-id="factory.outputs[0].goodId"
@@ -143,15 +155,18 @@ function isValidConnection(connection: Connection): boolean {
         />
         <span class="truncate">{{ factory.name }}</span>
       </div>
-      <div class="flex items-center gap-1 shrink-0">
-        <label class="flex items-center gap-1 text-[10px] uppercase tracking-wider opacity-70" title="Линий производства">
+      <div class="flex items-center gap-1.5 shrink-0">
+        <label
+          class="flex items-center gap-1 text-[10px] uppercase tracking-wider opacity-80"
+          title="Линий производства"
+        >
           <span>×</span>
           <input
             type="number"
             min="1"
             step="1"
             :value="props.data.lines ?? 1"
-            class="nodrag w-10 h-5 px-1 rounded bg-black/40 border border-white/10 text-xs text-right outline-none focus:border-white/40"
+            class="nodrag w-10 h-5 px-1 rounded bg-black/50 border border-white/20 text-xs text-right outline-none focus:border-white/60 text-white"
             @input="setLines(Number(($event.target as HTMLInputElement).value))"
             @click.stop
             @mousedown.stop
@@ -159,45 +174,45 @@ function isValidConnection(connection: Connection): boolean {
         </label>
         <button
           type="button"
-          class="text-xs leading-none w-5 h-5 rounded hover:bg-black/40 opacity-60 hover:opacity-100"
+          class="text-sm leading-none w-5 h-5 rounded hover:bg-black/40 opacity-70 hover:opacity-100"
           title="Удалить"
           @click.stop="emit('remove', props.id)"
         >✕</button>
       </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-x-3 py-2 text-xs">
-      <div class="space-y-1">
+    <div class="grid grid-cols-2 gap-x-4 py-2 text-[13px]">
+      <div class="space-y-0.5">
         <div
           v-for="inp in factory.inputs"
           :key="inp.goodId"
-          class="relative flex items-center gap-1.5 pl-3 pr-1 py-0.5"
+          class="relative flex items-center gap-2 pl-4 pr-2 py-1"
         >
           <Handle
             :id="'in-' + inp.goodId"
             type="target"
             :position="Position.Left"
             :is-valid-connection="isValidConnection"
-            class="!bg-white/70 !border-0 !w-2 !h-2"
+            class="!bg-white !border-0 !w-2.5 !h-2.5"
           />
           <button
             type="button"
-            class="inline-flex items-center gap-1 hover:text-white truncate min-w-0"
+            class="inline-flex items-center gap-1.5 hover:text-white truncate min-w-0 text-zinc-200"
             :class="{ 'opacity-60': inp.optional }"
             @click.stop="emit('pick', { nodeId: props.id, direction: 'in', goodId: inp.goodId })"
           >
-            <GoodIcon :good-id="inp.goodId" class="w-3 h-3 shrink-0" />
+            <GoodIcon :good-id="inp.goodId" class="w-3.5 h-3.5 shrink-0" />
             <span class="truncate">{{ goodName(inp.goodId) }}</span>
-            <span v-if="inp.optional" class="text-[9px] uppercase">опц.</span>
+            <span v-if="inp.optional" class="text-[9px] uppercase opacity-70">опц.</span>
           </button>
           <span
-            class="ml-auto pl-1 text-[10px] tabular-nums shrink-0"
+            class="ml-auto pl-2 text-[12px] tabular-nums shrink-0"
             :class="{
-              'text-rose-400 font-semibold': inp.optional ? false : inputStatus(inp.goodId, inp.amount) === 'none',
+              'text-rose-400 font-semibold': !inp.optional && inputStatus(inp.goodId, inp.amount) === 'none',
               'text-rose-300/60': inp.optional && inputStatus(inp.goodId, inp.amount) === 'none',
-              'text-emerald-300': inputStatus(inp.goodId, inp.amount) === 'ok',
+              'text-emerald-300 font-semibold': inputStatus(inp.goodId, inp.amount) === 'ok',
               'text-rose-300 font-semibold': inputStatus(inp.goodId, inp.amount) === 'short',
-              'text-amber-300': inputStatus(inp.goodId, inp.amount) === 'over',
+              'text-amber-300 font-semibold': inputStatus(inp.goodId, inp.amount) === 'over',
             }"
             :title="
               inputStatus(inp.goodId, inp.amount) === 'short'
@@ -219,33 +234,33 @@ function isValidConnection(connection: Connection): boolean {
         </div>
         <div
           v-if="factory.inputs.length === 0"
-          class="pl-3 pr-1 py-0.5 text-muted-foreground/70 italic"
+          class="pl-4 pr-2 py-1 text-zinc-500 italic text-[12px]"
         >нет входов</div>
       </div>
 
-      <div class="space-y-1">
+      <div class="space-y-0.5">
         <div
           v-for="out in factory.outputs"
           :key="out.goodId"
-          class="relative flex items-center justify-end gap-1.5 pr-3 pl-1 py-0.5 text-right"
+          class="relative flex items-center justify-end gap-2 pr-4 pl-2 py-1 text-right"
         >
-          <span class="mr-auto pr-1 text-[10px] tabular-nums opacity-70 shrink-0">
+          <span class="mr-auto pr-2 text-[12px] tabular-nums shrink-0 text-sky-300 font-semibold">
             {{ formatRate(ratePerHour(out.amount)) }}/ч
           </span>
           <button
             type="button"
-            class="inline-flex items-center gap-1 hover:text-white truncate min-w-0"
+            class="inline-flex items-center gap-1.5 hover:text-white truncate min-w-0 text-zinc-200"
             @click.stop="emit('pick', { nodeId: props.id, direction: 'out', goodId: out.goodId })"
           >
             <span class="truncate">{{ goodName(out.goodId) }}</span>
-            <GoodIcon :good-id="out.goodId" class="w-3 h-3 shrink-0" />
+            <GoodIcon :good-id="out.goodId" class="w-3.5 h-3.5 shrink-0" />
           </button>
           <Handle
             :id="'out-' + out.goodId"
             type="source"
             :position="Position.Right"
             :is-valid-connection="isValidConnection"
-            class="!bg-white/70 !border-0 !w-2 !h-2"
+            class="!bg-white !border-0 !w-2.5 !h-2.5"
           />
         </div>
       </div>
