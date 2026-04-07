@@ -140,14 +140,14 @@ function isValidConnection(connection: Connection): boolean {
 <template>
   <div
     v-if="factory && nodeStyle"
-    class="rounded-lg border-2 shadow-2xl min-w-[260px] font-sans bg-zinc-900 text-zinc-100 overflow-hidden"
+    class="rounded-sm border-2 shadow-2xl min-w-[260px] font-mono bg-zinc-900 text-zinc-100 overflow-hidden"
     :class="nodeStyle.border"
   >
     <div
-      class="px-3 py-2 flex items-center justify-between gap-2"
+      class="px-3 py-1 flex items-center justify-between gap-2"
       :class="nodeStyle.header"
     >
-      <div class="flex items-center gap-2 text-[13px] font-semibold min-w-0">
+      <div class="flex items-center gap-2 text-[15px] font-semibold min-w-0">
         <GoodIcon
           v-if="factory.outputs[0]"
           :good-id="factory.outputs[0].goodId"
@@ -166,7 +166,7 @@ function isValidConnection(connection: Connection): boolean {
             min="1"
             step="1"
             :value="props.data.lines ?? 1"
-            class="nodrag w-10 h-5 px-1 rounded bg-black/50 border border-white/20 text-xs text-right outline-none focus:border-white/60 text-white"
+            class="nodrag w-12 h-6 px-1 rounded bg-black/50 border border-white/20 text-sm text-right outline-none focus:border-white/60 text-white"
             @input="setLines(Number(($event.target as HTMLInputElement).value))"
             @click.stop
             @mousedown.stop
@@ -226,10 +226,13 @@ function isValidConnection(connection: Connection): boolean {
                 : 'Нет поставщика'
             "
           >
-            <span v-if="inputStatus(inp.goodId, inp.amount) === 'short'">⚠ </span>
-            <span v-else-if="inputStatus(inp.goodId, inp.amount) === 'none' && !inp.optional">✕ </span>
-            <span v-else-if="inputStatus(inp.goodId, inp.amount) === 'none' && inp.optional">○ </span>
-            {{ formatRate(ratePerHour(inp.amount)) }}/ч
+            <span class="inline-block w-3 text-center mr-0.5">
+              <template v-if="inputStatus(inp.goodId, inp.amount) === 'short'">⚠</template>
+              <template v-else-if="inputStatus(inp.goodId, inp.amount) === 'over'">▲</template>
+              <template v-else-if="inputStatus(inp.goodId, inp.amount) === 'ok'">✓</template>
+              <template v-else-if="inp.optional">○</template>
+              <template v-else>✕</template>
+            </span>{{ formatRate(ratePerHour(inp.amount)) }}/ч
           </span>
         </div>
         <div
