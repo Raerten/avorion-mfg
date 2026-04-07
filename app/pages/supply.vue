@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { VueFlow, useVueFlow, type Connection } from '@vue-flow/core'
+import { VueFlow, useVueFlow, type Connection, type GraphNode } from '@vue-flow/core'
 import { Background } from '@vue-flow/background'
 import { Controls } from '@vue-flow/controls'
 import { MiniMap } from '@vue-flow/minimap'
+import { CATEGORY_HEX } from '~/lib/categories'
 import '@vue-flow/core/dist/style.css'
 import '@vue-flow/core/dist/theme-default.css'
 import '@vue-flow/controls/dist/style.css'
@@ -46,7 +47,29 @@ const {
   onViewportChangeEnd,
   onEdgeDoubleClick,
   fitView,
+  setCenter,
 } = useVueFlow()
+
+/**
+ * MiniMap node fill = the factory's category color, so the preview
+ * mirrors what the user sees on the canvas instead of vue-flow's
+ * default uniform grey.
+ */
+function miniMapNodeColor(node: GraphNode): string {
+  const data = node.data as { factoryId?: string } | undefined
+  const factory = data?.factoryId ? getFactory(data.factoryId) : undefined
+  return factory ? CATEGORY_HEX[factory.category] : '#3f3f46'
+}
+
+/**
+ * Treat MiniMap nodes as links: clicking one centers the canvas on
+ * that factory at a comfortable zoom, like jumping to an anchor.
+ */
+function onMiniMapNodeClick({ node }: { node: GraphNode }) {
+  const x = node.position.x + (node.dimensions?.width ?? 0) / 2
+  const y = node.position.y + (node.dimensions?.height ?? 0) / 2
+  setCenter(x, y, { zoom: 1, duration: 400 })
+}
 
 onEdgeDoubleClick(({ edge }) => {
   removeEdges([edge.id])
@@ -270,7 +293,16 @@ function onClear() {
 
           <Background pattern-color="#2a2f3a" :gap="18" />
           <Controls position="bottom-right" />
-          <MiniMap pannable zoomable class="!bg-card/60 !border !border-border" />
+          <MiniMap
+            pannable
+            zoomable
+            :node-color="miniMapNodeColor"
+            :node-stroke-color="miniMapNodeColor"
+            :node-stroke-width="3"
+            :node-border-radius="2"
+            class="!bg-card/60 !border !border-border supply-minimap"
+            @node-click="onMiniMapNodeClick"
+          />
         </VueFlow>
 
         <div
@@ -309,5 +341,12 @@ function onClear() {
 }
 .supply-flow .vue-flow__minimap {
   border-radius: 6px;
+}
+.supply-flow .supply-minimap .vue-flow__minimap-node {
+  cursor: pointer;
+  transition: opacity 120ms ease;
+}
+.supply-flow .supply-minimap .vue-flow__minimap-node:hover {
+  opacity: 0.75;
 }
 </style>
