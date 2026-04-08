@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { Handle, Position, useVueFlow, type Connection, type NodeProps } from '@vue-flow/core'
+import { Info, Power, PowerOff, Trash2 } from 'lucide-vue-next'
 import { useGameData } from '~/composables/useGameData'
 import type { FactoryCategory } from '~/types/factory'
 import type { FactoryNodeData } from '~/composables/useSupplyChain'
@@ -162,12 +163,47 @@ function isValidConnection(connection: Connection): boolean {
 <template>
   <div
     v-if="factory && nodeStyle"
-    class="rounded-sm border-2 shadow-2xl min-w-[260px] font-mono bg-zinc-900 text-zinc-100 overflow-hidden transition-opacity"
+    class="group relative rounded-sm border-2 shadow-2xl min-w-[260px] font-mono bg-zinc-900 text-zinc-100 transition-opacity"
     :class="[
       nodeStyle.border,
       props.data.disabled ? 'opacity-50 grayscale border-dashed' : '',
     ]"
   >
+    <!--
+      Floating action toolbar (n8n-style): sits above the node, hidden
+      until the node (or the toolbar itself, since it lives inside the
+      group) is hovered. `nodrag` so clicks don't initiate a drag.
+    -->
+    <div
+      class="nodrag absolute left-1/2 -translate-x-1/2 -top-12 py-3 -mt-3 flex items-center gap-0 opacity-0 group-hover:opacity-100 hover:opacity-100 transition-opacity z-10"
+    >
+      <button
+        v-tooltip="'Подробнее'"
+        type="button"
+        class="w-10 h-10 text-zinc-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+        @click.stop="emit('info', props.data.factoryId)"
+        @mousedown.stop
+      ><Info class="w-[18px] h-[18px]" stroke-width="2" /></button>
+      <button
+        v-tooltip="props.data.disabled ? 'Включить' : 'Отключить'"
+        type="button"
+        class="w-10 h-10 text-zinc-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+        @click.stop="toggleDisabled"
+        @mousedown.stop
+      >
+        <PowerOff v-if="props.data.disabled" class="w-[18px] h-[18px]" stroke-width="2" />
+        <Power v-else class="w-[18px] h-[18px]" stroke-width="2" />
+      </button>
+      <button
+        v-tooltip="'Удалить'"
+        type="button"
+        class="w-10 h-10 text-zinc-400 hover:text-rose-300 flex items-center justify-center transition-colors cursor-pointer"
+        @click.stop="emit('remove', props.id)"
+        @mousedown.stop
+      ><Trash2 class="w-[18px] h-[18px]" stroke-width="2" /></button>
+    </div>
+
+    <div class="overflow-hidden rounded-sm">
     <div
       class="px-3 py-1 flex items-center justify-between gap-2"
       :class="nodeStyle.header"
@@ -197,26 +233,6 @@ function isValidConnection(connection: Connection): boolean {
             @mousedown.stop
           >
         </label>
-        <button
-          v-tooltip="'Подробнее'"
-          type="button"
-          class="nodrag text-sm leading-none w-5 h-5 rounded hover:bg-black/40 opacity-70 hover:opacity-100"
-          @click.stop="emit('info', props.data.factoryId)"
-          @mousedown.stop
-        >ⓘ</button>
-        <button
-          v-tooltip="props.data.disabled ? 'Включить' : 'Отключить'"
-          type="button"
-          class="nodrag text-sm leading-none w-5 h-5 rounded hover:bg-black/40 opacity-70 hover:opacity-100"
-          @click.stop="toggleDisabled"
-          @mousedown.stop
-        >⏻</button>
-        <button
-          v-tooltip="'Удалить'"
-          type="button"
-          class="text-sm leading-none w-5 h-5 rounded hover:bg-black/40 opacity-70 hover:opacity-100"
-          @click.stop="emit('remove', props.id)"
-        >✕</button>
       </div>
     </div>
 
@@ -284,6 +300,7 @@ function isValidConnection(connection: Connection): boolean {
         >нет входов</div>
       </div>
 
+
       <div class="space-y-0.5">
         <div
           v-for="out in factory.outputs"
@@ -313,6 +330,7 @@ function isValidConnection(connection: Connection): boolean {
           />
         </div>
       </div>
+    </div>
     </div>
   </div>
 </template>
