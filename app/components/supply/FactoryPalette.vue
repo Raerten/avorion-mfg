@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import Fuse from 'fuse.js'
 import { useGameData } from '~/composables/useGameData'
 import { CATEGORY_GROUPS, CATEGORY_STYLES } from '~/lib/categories'
 import { goodIconUrl } from '~/lib/icons'
@@ -65,15 +66,106 @@ function inputsTooltipHtml(factory: Factory): string {
 
 const query = ref('')
 
+interface PaletteItem {
+  factory: Factory
+  matchName: boolean
+  matchedInputGoodId: string | null
+  matchedOutputGoodId: string | null
+}
+
+/**
+ * Flattened search record per factory so Fuse can score name / input /
+ * output matches independently. `inputGoodIds` / `outputGoodIds` keep
+ * positional parity with the name arrays so we can map a matched index
+ * back to the actual good id.
+ */
+interface SearchRecord {
+  factory: Factory
+  name: string
+  inputNames: string[]
+  outputNames: string[]
+  inputGoodIds: string[]
+  outputGoodIds: string[]
+}
+
+const searchRecords = computed<SearchRecord[]>(() =>
+  factories.map(f => {
+    const inputGoodIds = f.inputs.map(i => i.goodId)
+    const outputGoodIds = f.outputs.map(o => o.goodId)
+    return {
+      factory: f,
+      name: f.name,
+      inputNames: inputGoodIds.map(id => getGood(id)?.name ?? id),
+      outputNames: outputGoodIds.map(id => getGood(id)?.name ?? id),
+      inputGoodIds,
+      outputGoodIds,
+    }
+  }),
+)
+
+const fuse = computed(
+  () =>
+    new Fuse(searchRecords.value, {
+      includeMatches: true,
+      ignoreLocation: true,
+      threshold: 0.2,
+      minMatchCharLength: 2,
+      keys: [
+        { name: 'name', weight: 2 },
+        { name: 'outputNames', weight: 1 },
+        { name: 'inputNames', weight: 0.8 },
+      ],
+    }),
+)
+
+/**
+ * Run fuzzy search and fold results into `PaletteItem`s. The Fuse match
+ * metadata tells us *which* key hit (name / inputNames / outputNames)
+ * and — for array keys — the index, which we use to recover the exact
+ * good id that matched.
+ */
+const matchedItems = computed<PaletteItem[]>(() => {
+  const q = query.value.trim()
+  if (!q) {
+    return searchRecords.value.map(r => ({
+      factory: r.factory,
+      matchName: false,
+      matchedInputGoodId: null,
+      matchedOutputGoodId: null,
+    }))
+  }
+  return fuse.value.search(q).map(result => {
+    let matchName = false
+    let matchedInputGoodId: string | null = null
+    let matchedOutputGoodId: string | null = null
+    for (const m of result.matches ?? []) {
+      if (m.key === 'name') {
+        matchName = true
+      } else if (m.key === 'inputNames' && typeof m.refIndex === 'number') {
+        matchedInputGoodId ??= result.item.inputGoodIds[m.refIndex] ?? null
+      } else if (m.key === 'outputNames' && typeof m.refIndex === 'number') {
+        matchedOutputGoodId ??= result.item.outputGoodIds[m.refIndex] ?? null
+      }
+    }
+    return {
+      factory: result.item.factory,
+      matchName,
+      matchedInputGoodId,
+      matchedOutputGoodId,
+    }
+  })
+})
+
 const byCategory = computed(() => {
-  const q = query.value.trim().toLowerCase()
-  const groups: { title: string; category: FactoryCategory; items: Factory[] }[] = []
+  const hasQuery = query.value.trim().length > 0
+  const groups: { title: string; category: FactoryCategory; items: PaletteItem[] }[] = []
   for (const group of CATEGORY_GROUPS) {
     const cat = group.categories[0]!
-    const items = factories
-      .filter(f => f.category === cat)
-      .filter(f => !q || f.name.toLowerCase().includes(q))
-      .sort((a, b) => a.name.localeCompare(b.name, 'ru'))
+    const items = matchedItems.value.filter(item => item.factory.category === cat)
+    if (!hasQuery) {
+      items.sort((a, b) => a.factory.name.localeCompare(b.factory.name, 'ru'))
+    }
+    // When a query is active we keep Fuse's score-based order.
     if (items.length > 0) {
       groups.push({ title: group.title, category: cat, items })
     }
@@ -116,19 +208,39 @@ function onDragStart(event: DragEvent, factoryId: string) {
         </div>
         <ul class="space-y-0.5">
           <li
-            v-for="f in group.items"
-            :key="f.id"
+            v-for="item in group.items"
+            :key="item.factory.id"
             :draggable="true"
-            v-tooltip="{ html: inputsTooltipHtml(f), placement: 'bottom' }"
-            class="group px-2 py-1 rounded text-sm cursor-grab active:cursor-grabbing border border-transparent hover:border-border hover:bg-muted flex items-center gap-2"
-            @dragstart="onDragStart($event, f.id)"
+            v-tooltip="{ html: inputsTooltipHtml(item.factory), placement: 'bottom' }"
+            :class="[
+              'group px-2 py-1 rounded text-sm cursor-grab active:cursor-grabbing border border-transparent hover:border-border hover:bg-muted flex items-center gap-2',
+              item.matchName ? 'font-bold' : '',
+              !item.matchName && (item.matchedInputGoodId || item.matchedOutputGoodId) ? 'opacity-70 hover:opacity-100' : '',
+            ]"
+            @dragstart="onDragStart($event, item.factory.id)"
           >
             <GoodIcon
-              v-if="f.outputs[0]"
-              :good-id="f.outputs[0].goodId"
+              v-if="item.factory.outputs[0]"
+              :good-id="item.factory.outputs[0].goodId"
               class="w-4 h-4 shrink-0 opacity-80 group-hover:opacity-100"
             />
-            <span class="truncate">{{ f.name }}</span>
+            <span class="truncate flex-1">{{ item.factory.name }}</span>
+            <span
+              v-if="!item.matchName && item.matchedInputGoodId"
+              class="shrink-0 inline-flex items-center gap-1 h-5 pl-1 pr-1.5 rounded bg-cyan-500/10 ring-1 ring-cyan-500/40 text-[9px] font-mono uppercase tracking-wider text-cyan-300"
+              :title="`Используется как вход: ${getGood(item.matchedInputGoodId)?.name ?? item.matchedInputGoodId}`"
+            >
+              <GoodIcon :good-id="item.matchedInputGoodId" class="w-3.5 h-3.5" />
+              вх
+            </span>
+            <span
+              v-if="!item.matchName && item.matchedOutputGoodId"
+              class="shrink-0 inline-flex items-center gap-1 h-5 pl-1 pr-1.5 rounded bg-amber-500/10 ring-1 ring-amber-500/40 text-[9px] font-mono uppercase tracking-wider text-amber-300"
+              :title="`Производится как выход: ${getGood(item.matchedOutputGoodId)?.name ?? item.matchedOutputGoodId}`"
+            >
+              <GoodIcon :good-id="item.matchedOutputGoodId" class="w-3.5 h-3.5" />
+              вых
+            </span>
           </li>
         </ul>
       </div>
