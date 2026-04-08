@@ -3025,7 +3025,7 @@
   },
   {
     "id": "luxury-food-factory",
-    "name": "Завод деликатесов",
+    "name": "Фабрика дорогой еды",
     "category": "end",
     "cycleSeconds": 15,
     "inputs": [
