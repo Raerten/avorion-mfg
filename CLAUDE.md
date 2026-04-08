@@ -96,7 +96,7 @@ The `shadcn-nuxt` module (configured in `nuxt.config.ts` with `componentDir: './
 
 - **Rates are always per hour** in UI and `ChainNode`. Factory JSON stores per-cycle amounts + `cycleSeconds`; conversion happens in the resolver.
 - **IDs are kebab-case strings** (`"iron-ore"`, `"steel-factory"`) and must be unique within their file. Referential integrity between `goods.json` and `factories.json` is not validated at build time yet — if you break it, the resolver will silently drop nodes. Consider adding a validation step before committing data changes.
-- **JSON data is the product, not an afterthought** — when editing `goods.json` / `factories.json`, double-check amounts and cycle times against the source (Avorion wiki or game files). Bad data looks identical to bad code to the user.
+- **JSON data is the product, not an afterthought** — when editing `goods.json` / `factories.json`, double-check amounts and cycle times against the source (Avorion wiki or game files). Bad data looks identical to bad code to the user. Reference manufactory database: https://github.com/Sovgut/avorion-tools
 - **No SSR**. Don't reach for `useAsyncData`/`useFetch` for the bundled JSON — just `import` it. `useState` is fine for cross-component client state.
 - **Keep components and pages small.** Big SFCs are a smell — split them. A page should mostly compose smaller components from `app/components/`, not own large `<template>` trees or fat `<script setup>` blocks. Extract:
   - distinct UI sections into their own components
