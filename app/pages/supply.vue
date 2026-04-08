@@ -139,14 +139,6 @@ function onDrop(event: DragEvent) {
   addFactoryAt(factoryId, position)
 }
 
-function onQuickAdd(factoryId: string) {
-  const position = screenToFlowCoordinate({
-    x: window.innerWidth / 2,
-    y: window.innerHeight / 2,
-  })
-  addFactoryAt(factoryId, position)
-}
-
 // --- Connections --------------------------------------------------------------
 
 onConnect((connection: Connection) => {
@@ -273,7 +265,7 @@ function onClear() {
     </header>
 
     <div class="flex-1 flex min-h-0">
-      <FactoryPalette @quick-add="onQuickAdd" />
+      <FactoryPalette />
 
       <div class="flex-1 relative" @drop="onDrop" @dragover="onDragOver">
         <VueFlow

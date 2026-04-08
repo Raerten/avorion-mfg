@@ -10,14 +10,10 @@ import GoodIcon from '~/components/GoodIcon.vue'
  * Left sidebar palette of all factories, grouped by category.
  *
  * Each row is draggable — `dragstart` sets a custom mime type that the
- * canvas reads on drop to know which factory to spawn. Clicking a row
- * emits `quick-add` so the canvas can drop it at a default position
- * (useful on touch / as a keyboard fallback).
+ * canvas reads on drop to know which factory to spawn. Drag is the only
+ * way to add: clicks are intentionally inert so users don't accidentally
+ * spawn nodes when scanning the list.
  */
-
-const emit = defineEmits<{
-  quickAdd: [factoryId: string]
-}>()
 
 const { factories, getGood } = useGameData()
 
@@ -114,7 +110,6 @@ function onDragStart(event: DragEvent, factoryId: string) {
             v-tooltip="{ html: inputsTooltipHtml(f), placement: 'bottom' }"
             class="group px-2 py-1 rounded text-sm cursor-grab active:cursor-grabbing border border-transparent hover:border-border hover:bg-muted flex items-center gap-2"
             @dragstart="onDragStart($event, f.id)"
-            @click="emit('quickAdd', f.id)"
           >
             <GoodIcon
               v-if="f.outputs[0]"
