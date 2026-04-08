@@ -1,88 +1,657 @@
 [
-  { "id": "iron-ore", "name": "Железная руда", "category": "raw" },
-  { "id": "coal", "name": "Уголь", "category": "raw" },
-  { "id": "raw-oil", "name": "Сырая нефть", "category": "raw" },
-  { "id": "silicon", "name": "Кремний", "category": "raw" },
-  { "id": "copper", "name": "Медь", "category": "raw" },
-  { "id": "lead", "name": "Свинец", "category": "raw" },
-  { "id": "zinc", "name": "Цинк", "category": "raw" },
-  { "id": "aluminium", "name": "Алюминий", "category": "raw" },
-  { "id": "gold", "name": "Золото", "category": "raw" },
-  { "id": "silver", "name": "Серебро", "category": "raw" },
-  { "id": "platinum", "name": "Платина", "category": "raw" },
-
-  { "id": "water", "name": "Вода", "category": "basic" },
-  { "id": "energy-cell", "name": "Энергоячейки", "category": "basic" },
-  { "id": "hydrogen", "name": "Водород", "category": "basic" },
-  { "id": "helium", "name": "Гелий", "category": "basic" },
-  { "id": "neon", "name": "Неон", "category": "basic" },
-  { "id": "chlorine", "name": "Хлор", "category": "basic" },
-  { "id": "fluorine", "name": "Фтор", "category": "basic" },
-  { "id": "nitrogen", "name": "Азот", "category": "basic" },
-  { "id": "oxygen", "name": "Кислород", "category": "basic" },
-  { "id": "wheat", "name": "Пшеница", "category": "basic" },
-  { "id": "bio-gas", "name": "Биогаз", "category": "basic" },
-  { "id": "livestock", "name": "Скот", "category": "basic" },
-  { "id": "sheep", "name": "Овцы", "category": "basic" },
-  { "id": "glass", "name": "Стекло", "category": "basic" },
-  { "id": "steel", "name": "Сталь", "category": "basic" },
-  { "id": "oil", "name": "Нефть", "category": "basic" },
-  { "id": "plastic", "name": "Пластик", "category": "basic" },
-  { "id": "rubber", "name": "Резина", "category": "basic" },
-  { "id": "chemicals", "name": "Химикаты", "category": "basic" },
-  { "id": "carbon", "name": "Углерод", "category": "basic" },
-  { "id": "fabric", "name": "Ткань", "category": "basic" },
-  { "id": "paint", "name": "Краска", "category": "basic" },
-  { "id": "adhesive", "name": "Клей", "category": "basic" },
-  { "id": "scrap-metal", "name": "Металлолом", "category": "basic" },
-  { "id": "crystal", "name": "Кристаллы", "category": "basic" },
-  { "id": "fuel", "name": "Топливо", "category": "basic" },
-  { "id": "ammunition", "name": "Боеприпасы", "category": "basic" },
-
-  { "id": "conductor", "name": "Проводник", "category": "mid" },
-  { "id": "wire", "name": "Провода", "category": "mid" },
-  { "id": "semi-conductor", "name": "Полупроводник", "category": "mid" },
-  { "id": "transformator", "name": "Трансформатор", "category": "mid" },
-  { "id": "servo", "name": "Сервопривод", "category": "mid" },
-  { "id": "steel-tube", "name": "Стальная труба", "category": "mid" },
-  { "id": "high-pressure-tube", "name": "Труба высокого давления", "category": "mid" },
-  { "id": "metal-plate", "name": "Металлопластина", "category": "mid" },
-  { "id": "electromagnet", "name": "Электромагнит", "category": "mid" },
-  { "id": "microchip", "name": "Микросхема", "category": "mid" },
-  { "id": "nanobot", "name": "Нанобот", "category": "mid" },
-  { "id": "energy-container", "name": "Энергоконтейнер", "category": "mid" },
-  { "id": "plasma-cell", "name": "Плазменная ячейка", "category": "mid" },
-  { "id": "energy-tube", "name": "Энерготрубка", "category": "mid" },
-  { "id": "power-unit", "name": "Энергоблок", "category": "mid" },
-  { "id": "turbine", "name": "Турбина", "category": "mid" },
-  { "id": "gauss-rail", "name": "Рельс Гаусса", "category": "mid" },
-  { "id": "ammunition-1", "name": "Боеприпасы тип 1", "category": "mid" },
-  { "id": "ammunition-2", "name": "Боеприпасы тип 2", "category": "mid" },
-  { "id": "solar-cell", "name": "Солнечный элемент", "category": "mid" },
-  { "id": "solar-panel", "name": "Солнечная панель", "category": "mid" },
-  { "id": "computer-component", "name": "Компьютерный компонент", "category": "mid" },
-  { "id": "laser-head", "name": "Лазерная головка", "category": "mid" },
-  { "id": "gun", "name": "Оружие", "category": "mid" },
-  { "id": "warhead", "name": "Боеголовка", "category": "mid" },
-
-  { "id": "laser-compressor", "name": "Лазерный компрессор", "category": "adv" },
-  { "id": "laser-modulator", "name": "Лазерный модулятор", "category": "adv" },
-  { "id": "energy-invertor", "name": "Энергоинвертор", "category": "adv" },
-  { "id": "anti-grav-unit", "name": "Антигравитационный блок", "category": "adv" },
-  { "id": "targeting-system", "name": "Система наведения", "category": "adv" },
-  { "id": "processor", "name": "Процессор", "category": "adv" },
-
-  { "id": "medical-supplies", "name": "Медикаменты", "category": "end" },
-  { "id": "tools", "name": "Инструменты", "category": "end" },
-  { "id": "liquor", "name": "Ликёр", "category": "end" },
-  { "id": "body-armor", "name": "Бронежилет", "category": "end" },
-  { "id": "vehicle", "name": "Транспорт", "category": "end" },
-  { "id": "war-robot", "name": "Боевой робот", "category": "end" },
-  { "id": "mining-robot", "name": "Горный робот", "category": "end" },
-  { "id": "accelerator", "name": "Ускоритель", "category": "end" },
-  { "id": "satellite", "name": "Спутник", "category": "end" },
-
-  { "id": "turret", "name": "Турель", "category": "hi" },
-  { "id": "rocket", "name": "Ракета", "category": "hi" },
-  { "id": "tesla-coil", "name": "Катушка Тесла", "category": "hi" }
+  {
+    "id": "coal",
+    "name": "Уголь",
+    "category": "raw"
+  },
+  {
+    "id": "copper",
+    "name": "Медь",
+    "category": "raw"
+  },
+  {
+    "id": "diamond",
+    "name": "Алмаз",
+    "category": "raw"
+  },
+  {
+    "id": "gem",
+    "name": "Самоцвет",
+    "category": "raw"
+  },
+  {
+    "id": "gold",
+    "name": "Золото",
+    "category": "raw"
+  },
+  {
+    "id": "lead",
+    "name": "Свинец",
+    "category": "raw"
+  },
+  {
+    "id": "platinum",
+    "name": "Платина",
+    "category": "raw"
+  },
+  {
+    "id": "raw-oil",
+    "name": "Сырая нефть",
+    "category": "raw"
+  },
+  {
+    "id": "silicon",
+    "name": "Кремний",
+    "category": "raw"
+  },
+  {
+    "id": "silver",
+    "name": "Серебро",
+    "category": "raw"
+  },
+  {
+    "id": "zinc",
+    "name": "Цинк",
+    "category": "raw"
+  },
+  {
+    "id": "adhesive",
+    "name": "Клей",
+    "category": "basic"
+  },
+  {
+    "id": "aluminum",
+    "name": "Алюминий",
+    "category": "basic"
+  },
+  {
+    "id": "ammunition",
+    "name": "Боеприпасы",
+    "category": "basic"
+  },
+  {
+    "id": "bio-gas",
+    "name": "Биогаз",
+    "category": "basic"
+  },
+  {
+    "id": "carbon",
+    "name": "Углерод",
+    "category": "basic"
+  },
+  {
+    "id": "chemicals",
+    "name": "Химикаты",
+    "category": "basic"
+  },
+  {
+    "id": "chlorine",
+    "name": "Хлор",
+    "category": "basic"
+  },
+  {
+    "id": "crystal",
+    "name": "Кристаллы",
+    "category": "basic"
+  },
+  {
+    "id": "energy-cell",
+    "name": "Энергоячейки",
+    "category": "basic"
+  },
+  {
+    "id": "fabric",
+    "name": "Ткань",
+    "category": "basic"
+  },
+  {
+    "id": "fluorine",
+    "name": "Фтор",
+    "category": "basic"
+  },
+  {
+    "id": "fuel",
+    "name": "Топливо",
+    "category": "basic"
+  },
+  {
+    "id": "glass",
+    "name": "Стекло",
+    "category": "basic"
+  },
+  {
+    "id": "helium",
+    "name": "Гелий",
+    "category": "basic"
+  },
+  {
+    "id": "hydrogen",
+    "name": "Водород",
+    "category": "basic"
+  },
+  {
+    "id": "mineral",
+    "name": "Минералы",
+    "category": "basic"
+  },
+  {
+    "id": "neon",
+    "name": "Неон",
+    "category": "basic"
+  },
+  {
+    "id": "nitrogen",
+    "name": "Азот",
+    "category": "basic"
+  },
+  {
+    "id": "oil",
+    "name": "Нефть",
+    "category": "basic"
+  },
+  {
+    "id": "ore",
+    "name": "Руда",
+    "category": "basic"
+  },
+  {
+    "id": "oxygen",
+    "name": "Кислород",
+    "category": "basic"
+  },
+  {
+    "id": "paint",
+    "name": "Краска",
+    "category": "basic"
+  },
+  {
+    "id": "plankton",
+    "name": "Планктон",
+    "category": "basic"
+  },
+  {
+    "id": "plastic",
+    "name": "Пластик",
+    "category": "basic"
+  },
+  {
+    "id": "rubber",
+    "name": "Резина",
+    "category": "basic"
+  },
+  {
+    "id": "scrap-metal",
+    "name": "Металлолом",
+    "category": "basic"
+  },
+  {
+    "id": "sheep",
+    "name": "Овцы",
+    "category": "basic"
+  },
+  {
+    "id": "steel",
+    "name": "Сталь",
+    "category": "basic"
+  },
+  {
+    "id": "water",
+    "name": "Вода",
+    "category": "basic"
+  },
+  {
+    "id": "wheat",
+    "name": "Пшеница",
+    "category": "basic"
+  },
+  {
+    "id": "acid",
+    "name": "Кислота",
+    "category": "mid"
+  },
+  {
+    "id": "cattle",
+    "name": "Скот",
+    "category": "mid"
+  },
+  {
+    "id": "cocoa",
+    "name": "Какао",
+    "category": "mid"
+  },
+  {
+    "id": "coffee",
+    "name": "Кофе",
+    "category": "mid"
+  },
+  {
+    "id": "conductor",
+    "name": "Проводник",
+    "category": "mid"
+  },
+  {
+    "id": "corn",
+    "name": "Кукуруза",
+    "category": "mid"
+  },
+  {
+    "id": "energy-container",
+    "name": "Энергоконтейнер",
+    "category": "mid"
+  },
+  {
+    "id": "energy-tube",
+    "name": "Энерготрубка",
+    "category": "mid"
+  },
+  {
+    "id": "fertilizer",
+    "name": "Удобрение",
+    "category": "mid"
+  },
+  {
+    "id": "fish",
+    "name": "Рыба",
+    "category": "mid"
+  },
+  {
+    "id": "food-bar",
+    "name": "Пищевой брикет",
+    "category": "mid"
+  },
+  {
+    "id": "fruit",
+    "name": "Фрукты",
+    "category": "mid"
+  },
+  {
+    "id": "gauss-rail",
+    "name": "Рельс Гаусса",
+    "category": "mid"
+  },
+  {
+    "id": "gun",
+    "name": "Оружие",
+    "category": "mid"
+  },
+  {
+    "id": "high-pressure-tube",
+    "name": "Труба высокого давления",
+    "category": "mid"
+  },
+  {
+    "id": "jewelry",
+    "name": "Ювелирные изделия",
+    "category": "mid"
+  },
+  {
+    "id": "laser-head",
+    "name": "Лазерная головка",
+    "category": "mid"
+  },
+  {
+    "id": "metal-plate",
+    "name": "Металлопластина",
+    "category": "mid"
+  },
+  {
+    "id": "microchip",
+    "name": "Микросхема",
+    "category": "mid"
+  },
+  {
+    "id": "nanobot",
+    "name": "Нанобот",
+    "category": "mid"
+  },
+  {
+    "id": "paper",
+    "name": "Бумага",
+    "category": "mid"
+  },
+  {
+    "id": "plant",
+    "name": "Растения",
+    "category": "mid"
+  },
+  {
+    "id": "plasma-cell",
+    "name": "Плазменная ячейка",
+    "category": "mid"
+  },
+  {
+    "id": "potato",
+    "name": "Картофель",
+    "category": "mid"
+  },
+  {
+    "id": "power-unit",
+    "name": "Энергоблок",
+    "category": "mid"
+  },
+  {
+    "id": "rice",
+    "name": "Рис",
+    "category": "mid"
+  },
+  {
+    "id": "semi-conductor",
+    "name": "Полупроводник",
+    "category": "mid"
+  },
+  {
+    "id": "servo",
+    "name": "Сервопривод",
+    "category": "mid"
+  },
+  {
+    "id": "solar-cell",
+    "name": "Солнечный элемент",
+    "category": "mid"
+  },
+  {
+    "id": "solar-panel",
+    "name": "Солнечная панель",
+    "category": "mid"
+  },
+  {
+    "id": "spices",
+    "name": "Специи",
+    "category": "mid"
+  },
+  {
+    "id": "steel-tube",
+    "name": "Стальная труба",
+    "category": "mid"
+  },
+  {
+    "id": "tea",
+    "name": "Чай",
+    "category": "mid"
+  },
+  {
+    "id": "toxic-waste",
+    "name": "Токсичные отходы",
+    "category": "mid"
+  },
+  {
+    "id": "transformator",
+    "name": "Трансформатор",
+    "category": "mid"
+  },
+  {
+    "id": "turbine",
+    "name": "Турбина",
+    "category": "mid"
+  },
+  {
+    "id": "vegetable",
+    "name": "Овощи",
+    "category": "mid"
+  },
+  {
+    "id": "warhead",
+    "name": "Боеголовка",
+    "category": "mid"
+  },
+  {
+    "id": "wire",
+    "name": "Провода",
+    "category": "mid"
+  },
+  {
+    "id": "wood",
+    "name": "Древесина",
+    "category": "mid"
+  },
+  {
+    "id": "ammunition-l",
+    "name": "Боеприпасы (крупные)",
+    "category": "adv"
+  },
+  {
+    "id": "ammunition-m",
+    "name": "Боеприпасы (средние)",
+    "category": "adv"
+  },
+  {
+    "id": "ammunition-s",
+    "name": "Боеприпасы (малые)",
+    "category": "adv"
+  },
+  {
+    "id": "beer",
+    "name": "Пиво",
+    "category": "adv"
+  },
+  {
+    "id": "book",
+    "name": "Книга",
+    "category": "adv"
+  },
+  {
+    "id": "clothes",
+    "name": "Одежда",
+    "category": "adv"
+  },
+  {
+    "id": "coolant",
+    "name": "Охладитель",
+    "category": "adv"
+  },
+  {
+    "id": "dairy",
+    "name": "Молочные продукты",
+    "category": "adv"
+  },
+  {
+    "id": "drone",
+    "name": "Дрон",
+    "category": "adv"
+  },
+  {
+    "id": "electro-magnet",
+    "name": "Электромагнит",
+    "category": "adv"
+  },
+  {
+    "id": "energy-inverter",
+    "name": "Энергоинвертор",
+    "category": "adv"
+  },
+  {
+    "id": "explosive-charge",
+    "name": "Взрывной заряд",
+    "category": "adv"
+  },
+  {
+    "id": "food",
+    "name": "Пища",
+    "category": "adv"
+  },
+  {
+    "id": "fungus",
+    "name": "Грибы",
+    "category": "adv"
+  },
+  {
+    "id": "fusion-core",
+    "name": "Термоядерное ядро",
+    "category": "adv"
+  },
+  {
+    "id": "high-capacity-lens",
+    "name": "Линза высокой ёмкости",
+    "category": "adv"
+  },
+  {
+    "id": "laser-compressor",
+    "name": "Лазерный компрессор",
+    "category": "adv"
+  },
+  {
+    "id": "laser-modulator",
+    "name": "Лазерный модулятор",
+    "category": "adv"
+  },
+  {
+    "id": "leather",
+    "name": "Кожа",
+    "category": "adv"
+  },
+  {
+    "id": "meat",
+    "name": "Мясо",
+    "category": "adv"
+  },
+  {
+    "id": "processor",
+    "name": "Процессор",
+    "category": "adv"
+  },
+  {
+    "id": "protein",
+    "name": "Белок",
+    "category": "adv"
+  },
+  {
+    "id": "solvent",
+    "name": "Растворитель",
+    "category": "adv"
+  },
+  {
+    "id": "targeting-system",
+    "name": "Система наведения",
+    "category": "adv"
+  },
+  {
+    "id": "wine",
+    "name": "Вино",
+    "category": "adv"
+  },
+  {
+    "id": "body-armor",
+    "name": "Бронежилет",
+    "category": "end"
+  },
+  {
+    "id": "display",
+    "name": "Дисплей",
+    "category": "end"
+  },
+  {
+    "id": "electromagnetic-charge",
+    "name": "Электромагнитный заряд",
+    "category": "end"
+  },
+  {
+    "id": "energy-generator",
+    "name": "Энергогенератор",
+    "category": "end"
+  },
+  {
+    "id": "fusion-generator",
+    "name": "Термоядерный генератор",
+    "category": "end"
+  },
+  {
+    "id": "industrial-tesla-coil",
+    "name": "Промышленная катушка Тесла",
+    "category": "end"
+  },
+  {
+    "id": "liquor",
+    "name": "Ликёр",
+    "category": "end"
+  },
+  {
+    "id": "luxury-food",
+    "name": "Деликатесы",
+    "category": "end"
+  },
+  {
+    "id": "medical-supplies",
+    "name": "Медикаменты",
+    "category": "end"
+  },
+  {
+    "id": "military-tesla-coil",
+    "name": "Военная катушка Тесла",
+    "category": "end"
+  },
+  {
+    "id": "mining-robot",
+    "name": "Горный робот",
+    "category": "end"
+  },
+  {
+    "id": "satellite",
+    "name": "Спутник",
+    "category": "end"
+  },
+  {
+    "id": "targeting-card",
+    "name": "Карта наведения",
+    "category": "end"
+  },
+  {
+    "id": "tools",
+    "name": "Инструменты",
+    "category": "end"
+  },
+  {
+    "id": "vehicle",
+    "name": "Транспорт",
+    "category": "end"
+  },
+  {
+    "id": "war-robot",
+    "name": "Боевой робот",
+    "category": "end"
+  },
+  {
+    "id": "antigrav-generator",
+    "name": "Антигравитационный генератор",
+    "category": "hi"
+  },
+  {
+    "id": "antigrav-unit",
+    "name": "Антигравитационный блок",
+    "category": "hi"
+  },
+  {
+    "id": "computation-mainframe",
+    "name": "Вычислительный мейнфрейм",
+    "category": "hi"
+  },
+  {
+    "id": "drill",
+    "name": "Бур",
+    "category": "hi"
+  },
+  {
+    "id": "electron-accelerator",
+    "name": "Электронный ускоритель",
+    "category": "hi"
+  },
+  {
+    "id": "neutron-accelerator",
+    "name": "Нейтронный ускоритель",
+    "category": "hi"
+  },
+  {
+    "id": "proton-accelerator",
+    "name": "Протонный ускоритель",
+    "category": "hi"
+  },
+  {
+    "id": "rocket",
+    "name": "Ракета",
+    "category": "hi"
+  },
+  {
+    "id": "teleporter",
+    "name": "Телепортер",
+    "category": "hi"
+  }
 ]

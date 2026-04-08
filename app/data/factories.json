@@ -1,85 +1,3535 @@
 [
-  { "id": "iron-mine", "name": "Железная шахта", "category": "mine", "cycleSeconds": 60, "inputs": [], "outputs": [{ "goodId": "iron-ore", "amount": 30 }] },
-  { "id": "coal-mine", "name": "Угольная шахта", "category": "mine", "cycleSeconds": 60, "inputs": [], "outputs": [{ "goodId": "coal", "amount": 4 }] },
-  { "id": "oil-platform", "name": "Нефтяная платформа", "category": "mine", "cycleSeconds": 60, "inputs": [], "outputs": [{ "goodId": "raw-oil", "amount": 5 }] },
-  { "id": "silicon-mine", "name": "Кремниевая шахта", "category": "mine", "cycleSeconds": 60, "inputs": [], "outputs": [{ "goodId": "silicon", "amount": 4 }] },
-  { "id": "copper-mine", "name": "Медная шахта", "category": "mine", "cycleSeconds": 60, "inputs": [], "outputs": [{ "goodId": "copper", "amount": 5 }] },
-  { "id": "lead-mine", "name": "Свинцовая шахта", "category": "mine", "cycleSeconds": 60, "inputs": [], "outputs": [{ "goodId": "lead", "amount": 10 }] },
-  { "id": "zinc-mine", "name": "Цинковая шахта", "category": "mine", "cycleSeconds": 60, "inputs": [], "outputs": [{ "goodId": "zinc", "amount": 10 }] },
-  { "id": "aluminium-mine", "name": "Алюминиевая шахта", "category": "mine", "cycleSeconds": 60, "inputs": [], "outputs": [{ "goodId": "aluminium", "amount": 10 }] },
-  { "id": "noble-mine-1", "name": "Рудник благородных металлов I", "category": "mine", "cycleSeconds": 60, "inputs": [], "outputs": [{ "goodId": "gold", "amount": 1 }, { "goodId": "platinum", "amount": 1 }] },
-  { "id": "noble-mine-2", "name": "Рудник благородных металлов II", "category": "mine", "cycleSeconds": 60, "inputs": [], "outputs": [{ "goodId": "silver", "amount": 1 }, { "goodId": "platinum", "amount": 1 }] },
-  { "id": "noble-mine-3", "name": "Рудник благородных металлов III", "category": "mine", "cycleSeconds": 60, "inputs": [], "outputs": [{ "goodId": "gold", "amount": 1 }, { "goodId": "silver", "amount": 1 }, { "goodId": "platinum", "amount": 1 }] },
-  { "id": "ice-mine", "name": "Ледяная шахта", "category": "mine", "cycleSeconds": 60, "inputs": [], "outputs": [{ "goodId": "water", "amount": 75 }] },
-
-  { "id": "water-collector", "name": "Сборщик воды", "category": "basic", "cycleSeconds": 60, "inputs": [], "outputs": [{ "goodId": "water", "amount": 75 }] },
-  { "id": "solar-power-plant", "name": "Солнечная электростанция", "category": "basic", "cycleSeconds": 60, "inputs": [], "outputs": [{ "goodId": "energy-cell", "amount": 25 }] },
-  { "id": "gas-collector-1", "name": "Газосборник тип 1", "category": "basic", "cycleSeconds": 60, "inputs": [], "outputs": [{ "goodId": "hydrogen", "amount": 3 }, { "goodId": "helium", "amount": 3 }, { "goodId": "neon", "amount": 3 }, { "goodId": "chlorine", "amount": 3 }] },
-  { "id": "gas-collector-2", "name": "Газосборник тип 2", "category": "basic", "cycleSeconds": 60, "inputs": [], "outputs": [{ "goodId": "nitrogen", "amount": 3 }, { "goodId": "hydrogen", "amount": 3 }, { "goodId": "chlorine", "amount": 3 }, { "goodId": "fluorine", "amount": 3 }] },
-  { "id": "gas-collector-3", "name": "Газосборник тип 3", "category": "basic", "cycleSeconds": 60, "inputs": [], "outputs": [{ "goodId": "nitrogen", "amount": 8 }, { "goodId": "hydrogen", "amount": 8 }, { "goodId": "oxygen", "amount": 8 }] },
-  { "id": "gas-collector-4", "name": "Газосборник тип 4", "category": "basic", "cycleSeconds": 60, "inputs": [], "outputs": [{ "goodId": "helium", "amount": 3 }, { "goodId": "nitrogen", "amount": 3 }, { "goodId": "neon", "amount": 3 }, { "goodId": "chlorine", "amount": 3 }, { "goodId": "fluorine", "amount": 3 }] },
-  { "id": "wheat-farm", "name": "Ферма пшеницы", "category": "basic", "cycleSeconds": 60, "inputs": [{ "goodId": "water", "amount": 40 }, { "goodId": "energy-cell", "amount": 4 }], "outputs": [{ "goodId": "wheat", "amount": 48 }, { "goodId": "oxygen", "amount": 4 }] },
-  { "id": "cattle-ranch", "name": "Ранчо (скот)", "category": "basic", "cycleSeconds": 60, "inputs": [{ "goodId": "water", "amount": 15 }, { "goodId": "wheat", "amount": 15 }, { "goodId": "oxygen", "amount": 10 }, { "goodId": "energy-cell", "amount": 1, "optional": true }], "outputs": [{ "goodId": "bio-gas", "amount": 1 }, { "goodId": "livestock", "amount": 8 }] },
-  { "id": "sheep-ranch", "name": "Ранчо овец", "category": "basic", "cycleSeconds": 60, "inputs": [{ "goodId": "water", "amount": 12 }, { "goodId": "wheat", "amount": 18 }, { "goodId": "oxygen", "amount": 10 }, { "goodId": "energy-cell", "amount": 2 }], "outputs": [{ "goodId": "sheep", "amount": 15 }, { "goodId": "fabric", "amount": 2 }, { "goodId": "bio-gas", "amount": 1 }] },
-  { "id": "glass-factory", "name": "Стекольный завод", "category": "basic", "cycleSeconds": 60, "inputs": [{ "goodId": "iron-ore", "amount": 4 }, { "goodId": "crystal", "amount": 4 }], "outputs": [{ "goodId": "glass", "amount": 8 }] },
-  { "id": "steel-factory", "name": "Сталелитейный завод", "category": "basic", "cycleSeconds": 60, "inputs": [{ "goodId": "iron-ore", "amount": 8 }, { "goodId": "coal", "amount": 3 }, { "goodId": "scrap-metal", "amount": 12, "optional": true }], "outputs": [{ "goodId": "steel", "amount": 8 }] },
-  { "id": "oil-refinery", "name": "Нефтеперерабатывающий завод", "category": "basic", "cycleSeconds": 60, "inputs": [{ "goodId": "raw-oil", "amount": 10 }, { "goodId": "energy-cell", "amount": 5 }], "outputs": [{ "goodId": "oil", "amount": 5 }] },
-  { "id": "plastic-factory", "name": "Завод пластика", "category": "basic", "cycleSeconds": 60, "inputs": [{ "goodId": "oil", "amount": 3 }, { "goodId": "energy-cell", "amount": 3 }], "outputs": [{ "goodId": "plastic", "amount": 15 }] },
-  { "id": "rubber-factory", "name": "Завод резины", "category": "basic", "cycleSeconds": 60, "inputs": [{ "goodId": "oil", "amount": 3 }, { "goodId": "energy-cell", "amount": 1 }], "outputs": [{ "goodId": "rubber", "amount": 3 }] },
-  { "id": "chemicals-factory", "name": "Химический завод", "category": "basic", "cycleSeconds": 60, "inputs": [{ "goodId": "carbon", "amount": 1 }, { "goodId": "water", "amount": 5 }, { "goodId": "nitrogen", "amount": 5 }, { "goodId": "hydrogen", "amount": 5 }, { "goodId": "oxygen", "amount": 5 }, { "goodId": "bio-gas", "amount": 1 }, { "goodId": "energy-cell", "amount": 10 }], "outputs": [{ "goodId": "chemicals", "amount": 2 }] },
-  { "id": "carbon-extractor", "name": "Экстрактор углерода", "category": "basic", "cycleSeconds": 60, "inputs": [{ "goodId": "wheat", "amount": 64 }], "outputs": [{ "goodId": "carbon", "amount": 5 }] },
-  { "id": "textile-factory", "name": "Текстильная фабрика", "category": "basic", "cycleSeconds": 60, "inputs": [{ "goodId": "sheep", "amount": 15 }], "outputs": [{ "goodId": "fabric", "amount": 30 }] },
-  { "id": "paint-factory", "name": "Завод краски", "category": "basic", "cycleSeconds": 60, "inputs": [{ "goodId": "chemicals", "amount": 1 }, { "goodId": "plastic", "amount": 1 }], "outputs": [{ "goodId": "paint", "amount": 5 }] },
-  { "id": "adhesive-factory", "name": "Завод клея", "category": "basic", "cycleSeconds": 60, "inputs": [{ "goodId": "chemicals", "amount": 1 }, { "goodId": "rubber", "amount": 1 }], "outputs": [{ "goodId": "adhesive", "amount": 1 }] },
-  { "id": "ammunition-factory", "name": "Завод боеприпасов тип 3", "category": "basic", "cycleSeconds": 60, "inputs": [{ "goodId": "steel", "amount": 1 }, { "goodId": "chemicals", "amount": 15 }], "outputs": [{ "goodId": "ammunition", "amount": 5 }] },
-  { "id": "fuel-factory", "name": "Топливный завод", "category": "basic", "cycleSeconds": 60, "inputs": [{ "goodId": "hydrogen", "amount": 1 }, { "goodId": "nitrogen", "amount": 1 }, { "goodId": "chlorine", "amount": 1 }, { "goodId": "fluorine", "amount": 1 }], "outputs": [{ "goodId": "fuel", "amount": 1 }] },
-  { "id": "scrap-trader", "name": "Торговец металлоломом", "category": "basic", "cycleSeconds": 60, "inputs": [], "outputs": [{ "goodId": "scrap-metal", "amount": 60 }] },
-  { "id": "crystal-farm", "name": "Кристаллическая ферма", "category": "basic", "cycleSeconds": 60, "inputs": [{ "goodId": "water", "amount": 1 }, { "goodId": "energy-cell", "amount": 1 }], "outputs": [{ "goodId": "crystal", "amount": 10 }] },
-
-  { "id": "conductor-factory", "name": "Завод проводников", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "steel", "amount": 2 }, { "goodId": "gold", "amount": 1 }, { "goodId": "platinum", "amount": 1 }, { "goodId": "zinc", "amount": 2 }, { "goodId": "energy-cell", "amount": 1 }], "outputs": [{ "goodId": "conductor", "amount": 20 }] },
-  { "id": "wire-factory", "name": "Завод проводов", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "steel", "amount": 1 }, { "goodId": "plastic", "amount": 1 }, { "goodId": "gold", "amount": 1 }], "outputs": [{ "goodId": "wire", "amount": 15 }] },
-  { "id": "semi-conductor-factory", "name": "Завод полупроводников", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "steel", "amount": 1 }, { "goodId": "gold", "amount": 1 }, { "goodId": "silicon", "amount": 1 }, { "goodId": "energy-cell", "amount": 1 }], "outputs": [{ "goodId": "semi-conductor", "amount": 15 }] },
-  { "id": "transformator-factory", "name": "Трансформаторный завод", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "steel", "amount": 2 }, { "goodId": "silver", "amount": 1 }, { "goodId": "plastic", "amount": 1 }, { "goodId": "silicon", "amount": 1 }, { "goodId": "energy-cell", "amount": 1 }], "outputs": [{ "goodId": "transformator", "amount": 10 }] },
-  { "id": "servo-factory", "name": "Завод сервоприводов", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "aluminium", "amount": 2 }, { "goodId": "conductor", "amount": 2 }, { "goodId": "steel", "amount": 4 }, { "goodId": "plastic", "amount": 1 }], "outputs": [{ "goodId": "servo", "amount": 2 }] },
-  { "id": "steel-tube-factory", "name": "Завод стальных труб", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "aluminium", "amount": 2 }, { "goodId": "steel", "amount": 4 }, { "goodId": "energy-cell", "amount": 1, "optional": true }], "outputs": [{ "goodId": "steel-tube", "amount": 3 }] },
-  { "id": "high-pressure-tube-factory", "name": "Завод труб высокого давления", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "steel-tube", "amount": 2 }, { "goodId": "adhesive", "amount": 2 }, { "goodId": "carbon", "amount": 2 }, { "goodId": "steel", "amount": 1 }, { "goodId": "aluminium", "amount": 1 }], "outputs": [{ "goodId": "high-pressure-tube", "amount": 3 }] },
-  { "id": "metal-plate-factory", "name": "Завод металлопластин", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "steel", "amount": 3 }, { "goodId": "silver", "amount": 1 }], "outputs": [{ "goodId": "metal-plate", "amount": 2 }] },
-  { "id": "electromagnet-factory", "name": "Завод электромагнитов", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "conductor", "amount": 2 }, { "goodId": "transformator", "amount": 2 }, { "goodId": "steel", "amount": 1 }, { "goodId": "copper", "amount": 1 }], "outputs": [{ "goodId": "electromagnet", "amount": 4 }] },
-  { "id": "microchip-factory", "name": "Завод микросхем", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "wire", "amount": 4 }, { "goodId": "semi-conductor", "amount": 12 }, { "goodId": "energy-cell", "amount": 4 }], "outputs": [{ "goodId": "microchip", "amount": 3 }] },
-  { "id": "nanobot-factory", "name": "Завод наноботов", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "semi-conductor", "amount": 15 }, { "goodId": "crystal", "amount": 15 }], "outputs": [{ "goodId": "nanobot", "amount": 5 }] },
-  { "id": "energy-container-factory", "name": "Завод энергоконтейнеров", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "transformator", "amount": 9 }, { "goodId": "energy-cell", "amount": 9 }], "outputs": [{ "goodId": "energy-container", "amount": 3 }] },
-  { "id": "plasma-cell-factory", "name": "Завод плазменных ячеек", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "neon", "amount": 1 }, { "goodId": "helium", "amount": 1 }, { "goodId": "energy-cell", "amount": 10 }], "outputs": [{ "goodId": "plasma-cell", "amount": 10 }] },
-  { "id": "energy-tube-factory", "name": "Завод энерготрубок", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "steel-tube", "amount": 1 }, { "goodId": "plasma-cell", "amount": 1 }, { "goodId": "energy-cell", "amount": 1 }], "outputs": [{ "goodId": "energy-tube", "amount": 1 }] },
-  { "id": "power-unit-factory", "name": "Завод энергоблоков", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "plasma-cell", "amount": 2 }, { "goodId": "transformator", "amount": 2 }, { "goodId": "energy-cell", "amount": 2 }], "outputs": [{ "goodId": "power-unit", "amount": 1 }] },
-  { "id": "turbine-factory", "name": "Турбинный завод", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "power-unit", "amount": 2 }, { "goodId": "servo", "amount": 4 }, { "goodId": "steel", "amount": 10 }], "outputs": [{ "goodId": "turbine", "amount": 1 }] },
-  { "id": "gauss-rail-factory", "name": "Завод рельсов Гаусса", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "electromagnet", "amount": 6 }, { "goodId": "energy-tube", "amount": 2 }, { "goodId": "high-pressure-tube", "amount": 1 }, { "goodId": "transformator", "amount": 1 }, { "goodId": "energy-cell", "amount": 10 }], "outputs": [{ "goodId": "gauss-rail", "amount": 2 }] },
-  { "id": "ammunition-1-factory", "name": "Завод боеприпасов тип 1", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "lead", "amount": 10 }, { "goodId": "steel", "amount": 10 }], "outputs": [{ "goodId": "ammunition-1", "amount": 15 }] },
-  { "id": "ammunition-2-factory", "name": "Завод боеприпасов тип 2", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "lead", "amount": 10 }, { "goodId": "steel", "amount": 10 }, { "goodId": "chemicals", "amount": 5 }], "outputs": [{ "goodId": "ammunition-2", "amount": 10 }] },
-  { "id": "solar-cell-factory", "name": "Завод солнечных элементов", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "silicon", "amount": 2 }, { "goodId": "platinum", "amount": 2 }, { "goodId": "gold", "amount": 1 }, { "goodId": "zinc", "amount": 1 }, { "goodId": "energy-cell", "amount": 1 }], "outputs": [{ "goodId": "solar-cell", "amount": 10 }] },
-  { "id": "solar-panel-factory", "name": "Завод солнечных панелей", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "solar-cell", "amount": 10 }, { "goodId": "transformator", "amount": 1 }], "outputs": [{ "goodId": "solar-panel", "amount": 1 }] },
-  { "id": "computer-component-factory", "name": "Завод компьютерных компонентов", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "gold", "amount": 5 }, { "goodId": "platinum", "amount": 5 }, { "goodId": "copper", "amount": 5 }, { "goodId": "wire", "amount": 15 }, { "goodId": "semi-conductor", "amount": 5 }, { "goodId": "microchip", "amount": 7 }], "outputs": [{ "goodId": "computer-component", "amount": 1 }] },
-  { "id": "laser-head-factory", "name": "Завод лазерных головок", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "aluminium", "amount": 15 }, { "goodId": "conductor", "amount": 1 }, { "goodId": "glass", "amount": 1 }, { "goodId": "energy-cell", "amount": 1 }], "outputs": [{ "goodId": "laser-head", "amount": 1 }] },
-  { "id": "gun-factory", "name": "Оружейный завод", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "ammunition", "amount": 1 }, { "goodId": "plastic", "amount": 1 }, { "goodId": "steel", "amount": 1 }, { "goodId": "aluminium", "amount": 1 }], "outputs": [{ "goodId": "gun", "amount": 5 }] },
-  { "id": "warhead-factory", "name": "Завод боеголовок", "category": "mid", "cycleSeconds": 60, "inputs": [{ "goodId": "conductor", "amount": 5 }, { "goodId": "metal-plate", "amount": 3 }, { "goodId": "chemicals", "amount": 2 }], "outputs": [{ "goodId": "warhead", "amount": 1 }] },
-
-  { "id": "laser-compressor-factory", "name": "Завод лазерных компрессоров", "category": "adv", "cycleSeconds": 60, "inputs": [{ "goodId": "energy-tube", "amount": 1 }, { "goodId": "plasma-cell", "amount": 1 }, { "goodId": "transformator", "amount": 1 }, { "goodId": "wire", "amount": 15 }], "outputs": [{ "goodId": "laser-compressor", "amount": 1 }] },
-  { "id": "laser-modulator-factory", "name": "Завод лазерных модуляторов", "category": "adv", "cycleSeconds": 60, "inputs": [{ "goodId": "energy-tube", "amount": 2 }, { "goodId": "servo", "amount": 4 }, { "goodId": "transformator", "amount": 2 }, { "goodId": "energy-cell", "amount": 4 }], "outputs": [{ "goodId": "laser-modulator", "amount": 1 }] },
-  { "id": "energy-invertor-factory", "name": "Завод энергоинверторов", "category": "adv", "cycleSeconds": 60, "inputs": [{ "goodId": "energy-tube", "amount": 1 }, { "goodId": "conductor", "amount": 2 }, { "goodId": "transformator", "amount": 2 }], "outputs": [{ "goodId": "energy-invertor", "amount": 4 }] },
-  { "id": "anti-grav-unit-factory", "name": "Завод антигравитационных блоков", "category": "adv", "cycleSeconds": 60, "inputs": [{ "goodId": "power-unit", "amount": 2 }, { "goodId": "processor", "amount": 2 }, { "goodId": "energy-cell", "amount": 1 }], "outputs": [{ "goodId": "anti-grav-unit", "amount": 1 }] },
-  { "id": "targeting-system-factory", "name": "Завод систем наведения", "category": "adv", "cycleSeconds": 60, "inputs": [{ "goodId": "conductor", "amount": 5 }, { "goodId": "processor", "amount": 1 }, { "goodId": "wire", "amount": 5 }, { "goodId": "energy-cell", "amount": 3 }], "outputs": [{ "goodId": "targeting-system", "amount": 1 }] },
-  { "id": "processor-factory", "name": "Завод процессоров", "category": "adv", "cycleSeconds": 60, "inputs": [{ "goodId": "microchip", "amount": 7 }, { "goodId": "semi-conductor", "amount": 5 }, { "goodId": "copper", "amount": 5 }, { "goodId": "gold", "amount": 5 }, { "goodId": "platinum", "amount": 5 }], "outputs": [{ "goodId": "processor", "amount": 3 }] },
-
-  { "id": "medical-factory", "name": "Завод медикаментов", "category": "end", "cycleSeconds": 60, "inputs": [{ "goodId": "chemicals", "amount": 15 }, { "goodId": "fabric", "amount": 5 }, { "goodId": "chlorine", "amount": 5 }, { "goodId": "water", "amount": 5 }, { "goodId": "zinc", "amount": 5 }], "outputs": [{ "goodId": "medical-supplies", "amount": 4 }] },
-  { "id": "tools-factory", "name": "Завод инструментов", "category": "end", "cycleSeconds": 60, "inputs": [{ "goodId": "steel", "amount": 1 }, { "goodId": "energy-cell", "amount": 1 }, { "goodId": "aluminium", "amount": 1 }, { "goodId": "platinum", "amount": 1 }, { "goodId": "silver", "amount": 1 }], "outputs": [{ "goodId": "tools", "amount": 10 }] },
-  { "id": "distillery", "name": "Дистиллерия", "category": "end", "cycleSeconds": 60, "inputs": [{ "goodId": "wheat", "amount": 50 }, { "goodId": "energy-cell", "amount": 10 }, { "goodId": "water", "amount": 250 }], "outputs": [{ "goodId": "liquor", "amount": 5 }] },
-  { "id": "body-armor-factory", "name": "Завод бронежилетов", "category": "end", "cycleSeconds": 60, "inputs": [{ "goodId": "anti-grav-unit", "amount": 1 }, { "goodId": "metal-plate", "amount": 2 }, { "goodId": "nanobot", "amount": 1 }, { "goodId": "carbon", "amount": 1 }], "outputs": [{ "goodId": "body-armor", "amount": 1 }] },
-  { "id": "vehicle-factory", "name": "Завод транспортных средств", "category": "end", "cycleSeconds": 60, "inputs": [{ "goodId": "anti-grav-unit", "amount": 1 }, { "goodId": "metal-plate", "amount": 5 }, { "goodId": "power-unit", "amount": 1 }, { "goodId": "rubber", "amount": 1 }], "outputs": [{ "goodId": "vehicle", "amount": 1 }] },
-  { "id": "war-robot-factory", "name": "Завод боевых роботов", "category": "end", "cycleSeconds": 60, "inputs": [{ "goodId": "gun", "amount": 2 }, { "goodId": "nanobot", "amount": 5 }, { "goodId": "power-unit", "amount": 1 }, { "goodId": "processor", "amount": 1 }], "outputs": [{ "goodId": "war-robot", "amount": 1 }] },
-  { "id": "mining-robot-factory", "name": "Завод горных роботов", "category": "end", "cycleSeconds": 60, "inputs": [{ "goodId": "nanobot", "amount": 5 }, { "goodId": "power-unit", "amount": 1 }, { "goodId": "processor", "amount": 1 }], "outputs": [{ "goodId": "mining-robot", "amount": 1 }] },
-  { "id": "accelerator-factory", "name": "Завод ускорителей", "category": "end", "cycleSeconds": 60, "inputs": [{ "goodId": "anti-grav-unit", "amount": 3 }, { "goodId": "energy-tube", "amount": 6 }, { "goodId": "high-pressure-tube", "amount": 6 }, { "goodId": "gauss-rail", "amount": 9 }, { "goodId": "plasma-cell", "amount": 3 }, { "goodId": "turbine", "amount": 3 }, { "goodId": "conductor", "amount": 15 }], "outputs": [{ "goodId": "accelerator", "amount": 1 }] },
-  { "id": "satellite-factory", "name": "Спутниковый завод", "category": "end", "cycleSeconds": 60, "inputs": [{ "goodId": "energy-container", "amount": 1 }, { "goodId": "processor", "amount": 2 }, { "goodId": "solar-panel", "amount": 2 }, { "goodId": "steel-tube", "amount": 1 }], "outputs": [{ "goodId": "satellite", "amount": 1 }] },
-
-  { "id": "turret-factory", "name": "Фабрика турелей", "category": "hi", "cycleSeconds": 60, "inputs": [{ "goodId": "laser-compressor", "amount": 1 }, { "goodId": "laser-head", "amount": 1 }, { "goodId": "gauss-rail", "amount": 1 }, { "goodId": "warhead", "amount": 1 }, { "goodId": "targeting-system", "amount": 1 }], "outputs": [{ "goodId": "turret", "amount": 1 }] },
-  { "id": "rocket-factory", "name": "Ракетная фабрика", "category": "hi", "cycleSeconds": 60, "inputs": [{ "goodId": "warhead", "amount": 1 }, { "goodId": "microchip", "amount": 1 }, { "goodId": "fuel", "amount": 1 }, { "goodId": "steel", "amount": 1 }], "outputs": [{ "goodId": "rocket", "amount": 1 }] },
-  { "id": "tesla-coil-factory", "name": "Завод катушек Тесла", "category": "hi", "cycleSeconds": 60, "inputs": [{ "goodId": "electromagnet", "amount": 2 }, { "goodId": "plastic", "amount": 5 }, { "goodId": "steel", "amount": 10 }, { "goodId": "copper", "amount": 3 }], "outputs": [{ "goodId": "tesla-coil", "amount": 1 }] }
+  {
+    "id": "aluminum-mine",
+    "name": "Алюминиевая шахта",
+    "category": "mine",
+    "cycleSeconds": 60,
+    "inputs": [],
+    "outputs": [
+      {
+        "goodId": "aluminum",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "id": "coal-mine",
+    "name": "Угольная шахта",
+    "category": "mine",
+    "cycleSeconds": 60,
+    "inputs": [],
+    "outputs": [
+      {
+        "goodId": "coal",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "id": "copper-mine",
+    "name": "Медная шахта",
+    "category": "mine",
+    "cycleSeconds": 60,
+    "inputs": [],
+    "outputs": [
+      {
+        "goodId": "copper",
+        "amount": 5
+      }
+    ]
+  },
+  {
+    "id": "gas-collector",
+    "name": "Газосборник",
+    "category": "mine",
+    "cycleSeconds": 60,
+    "inputs": [],
+    "outputs": [
+      {
+        "goodId": "helium",
+        "amount": 3
+      },
+      {
+        "goodId": "hydrogen",
+        "amount": 3
+      },
+      {
+        "goodId": "neon",
+        "amount": 3
+      },
+      {
+        "goodId": "chlorine",
+        "amount": 3
+      }
+    ]
+  },
+  {
+    "id": "gas-collector-v2",
+    "name": "Газосборник (вариант 2)",
+    "category": "mine",
+    "cycleSeconds": 60,
+    "inputs": [],
+    "outputs": [
+      {
+        "goodId": "helium",
+        "amount": 3
+      },
+      {
+        "goodId": "nitrogen",
+        "amount": 3
+      },
+      {
+        "goodId": "neon",
+        "amount": 3
+      },
+      {
+        "goodId": "chlorine",
+        "amount": 3
+      },
+      {
+        "goodId": "fluorine",
+        "amount": 3
+      }
+    ]
+  },
+  {
+    "id": "gas-collector-v3",
+    "name": "Газосборник (вариант 3)",
+    "category": "mine",
+    "cycleSeconds": 60,
+    "inputs": [],
+    "outputs": [
+      {
+        "goodId": "oxygen",
+        "amount": 8
+      },
+      {
+        "goodId": "hydrogen",
+        "amount": 8
+      },
+      {
+        "goodId": "nitrogen",
+        "amount": 8
+      }
+    ]
+  },
+  {
+    "id": "gas-collector-v4",
+    "name": "Газосборник (вариант 4)",
+    "category": "mine",
+    "cycleSeconds": 60,
+    "inputs": [],
+    "outputs": [
+      {
+        "goodId": "helium",
+        "amount": 3
+      },
+      {
+        "goodId": "hydrogen",
+        "amount": 3
+      },
+      {
+        "goodId": "chlorine",
+        "amount": 3
+      },
+      {
+        "goodId": "fluorine",
+        "amount": 3
+      }
+    ]
+  },
+  {
+    "id": "ice-mine",
+    "name": "Ледяная шахта",
+    "category": "mine",
+    "cycleSeconds": 60,
+    "inputs": [],
+    "outputs": [
+      {
+        "goodId": "water",
+        "amount": 75
+      }
+    ]
+  },
+  {
+    "id": "lead-mine",
+    "name": "Свинцовая шахта",
+    "category": "mine",
+    "cycleSeconds": 60,
+    "inputs": [],
+    "outputs": [
+      {
+        "goodId": "lead",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "id": "mineral-extractor",
+    "name": "Добыча минералов",
+    "category": "mine",
+    "cycleSeconds": 60,
+    "inputs": [],
+    "outputs": [
+      {
+        "goodId": "mineral",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "id": "noble-metal-mine",
+    "name": "Рудник благородных металлов",
+    "category": "mine",
+    "cycleSeconds": 60,
+    "inputs": [],
+    "outputs": [
+      {
+        "goodId": "gold",
+        "amount": 1
+      },
+      {
+        "goodId": "platinum",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "noble-metal-mine-v2",
+    "name": "Рудник благородных металлов (вариант 2)",
+    "category": "mine",
+    "cycleSeconds": 60,
+    "inputs": [],
+    "outputs": [
+      {
+        "goodId": "silver",
+        "amount": 1
+      },
+      {
+        "goodId": "platinum",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "noble-metal-mine-v3",
+    "name": "Рудник благородных металлов (вариант 3)",
+    "category": "mine",
+    "cycleSeconds": 60,
+    "inputs": [],
+    "outputs": [
+      {
+        "goodId": "silver",
+        "amount": 1
+      },
+      {
+        "goodId": "gold",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "oil-rig",
+    "name": "Нефтяная платформа",
+    "category": "mine",
+    "cycleSeconds": 60,
+    "inputs": [],
+    "outputs": [
+      {
+        "goodId": "raw-oil",
+        "amount": 5
+      }
+    ]
+  },
+  {
+    "id": "ore-mine",
+    "name": "Рудник",
+    "category": "mine",
+    "cycleSeconds": 60,
+    "inputs": [],
+    "outputs": [
+      {
+        "goodId": "ore",
+        "amount": 30
+      }
+    ]
+  },
+  {
+    "id": "plankton-collector",
+    "name": "Сборщик планктона",
+    "category": "mine",
+    "cycleSeconds": 60,
+    "inputs": [],
+    "outputs": [
+      {
+        "goodId": "plankton",
+        "amount": 35
+      }
+    ]
+  },
+  {
+    "id": "scrap-metal-trader",
+    "name": "Торговец металлоломом",
+    "category": "mine",
+    "cycleSeconds": 60,
+    "inputs": [],
+    "outputs": [
+      {
+        "goodId": "scrap-metal",
+        "amount": 60
+      }
+    ]
+  },
+  {
+    "id": "silicon-mine",
+    "name": "Кремниевая шахта",
+    "category": "mine",
+    "cycleSeconds": 60,
+    "inputs": [],
+    "outputs": [
+      {
+        "goodId": "silicon",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "id": "zinc-mine",
+    "name": "Цинковая шахта",
+    "category": "mine",
+    "cycleSeconds": 60,
+    "inputs": [],
+    "outputs": [
+      {
+        "goodId": "zinc",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "id": "ammunition-factory",
+    "name": "Завод боеприпасов тип 3",
+    "category": "basic",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "lead",
+        "amount": 10
+      },
+      {
+        "goodId": "aluminum",
+        "amount": 10
+      },
+      {
+        "goodId": "steel",
+        "amount": 10
+      },
+      {
+        "goodId": "adhesive",
+        "amount": 5
+      },
+      {
+        "goodId": "energy-cell",
+        "amount": 5
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "ammunition-s",
+        "amount": 15
+      },
+      {
+        "goodId": "ammunition-m",
+        "amount": 10
+      },
+      {
+        "goodId": "ammunition-l",
+        "amount": 5
+      }
+    ]
+  },
+  {
+    "id": "carbon-extractor",
+    "name": "Экстрактор углерода",
+    "category": "basic",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "corn",
+        "amount": 52
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "carbon",
+        "amount": 5
+      }
+    ]
+  },
+  {
+    "id": "cattle-ranch",
+    "name": "Ранчо (скот)",
+    "category": "basic",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "wheat",
+        "amount": 15
+      },
+      {
+        "goodId": "oxygen",
+        "amount": 10
+      },
+      {
+        "goodId": "water",
+        "amount": 15
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "cattle",
+        "amount": 8
+      },
+      {
+        "goodId": "bio-gas",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "crystal-farm",
+    "name": "Кристаллическая ферма",
+    "category": "basic",
+    "cycleSeconds": 60,
+    "inputs": [],
+    "outputs": [
+      {
+        "goodId": "crystal",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "id": "fuel-factory",
+    "name": "Топливный завод",
+    "category": "basic",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 2
+      },
+      {
+        "goodId": "oil",
+        "amount": 1
+      },
+      {
+        "goodId": "nitrogen",
+        "amount": 1
+      },
+      {
+        "goodId": "fluorine",
+        "amount": 1
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "fuel",
+        "amount": 1
+      },
+      {
+        "goodId": "toxic-waste",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "oil-refinery",
+    "name": "Нефтеперерабатывающий завод",
+    "category": "basic",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 5
+      },
+      {
+        "goodId": "raw-oil",
+        "amount": 10
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "oil",
+        "amount": 5
+      }
+    ]
+  },
+  {
+    "id": "rubber-factory",
+    "name": "Завод резины",
+    "category": "basic",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 1,
+        "optional": true
+      },
+      {
+        "goodId": "oil",
+        "amount": 3
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "rubber",
+        "amount": 3
+      },
+      {
+        "goodId": "toxic-waste",
+        "amount": 1,
+        "optional": true
+      },
+      {
+        "goodId": "acid",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "sheep-ranch",
+    "name": "Ранчо овец",
+    "category": "basic",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 2,
+        "optional": true
+      },
+      {
+        "goodId": "oxygen",
+        "amount": 10
+      },
+      {
+        "goodId": "wheat",
+        "amount": 18
+      },
+      {
+        "goodId": "water",
+        "amount": 12
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "sheep",
+        "amount": 15
+      },
+      {
+        "goodId": "bio-gas",
+        "amount": 1
+      },
+      {
+        "goodId": "fabric",
+        "amount": 2,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "solar-power-plant",
+    "name": "Солнечная электростанция",
+    "category": "basic",
+    "cycleSeconds": 60,
+    "inputs": [],
+    "outputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 25
+      }
+    ]
+  },
+  {
+    "id": "steel-factory",
+    "name": "Сталелитейный завод",
+    "category": "basic",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "ore",
+        "amount": 8
+      },
+      {
+        "goodId": "coal",
+        "amount": 3
+      },
+      {
+        "goodId": "carbon",
+        "amount": 1
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "steel",
+        "amount": 8
+      }
+    ]
+  },
+  {
+    "id": "water-collector",
+    "name": "Сборщик воды",
+    "category": "basic",
+    "cycleSeconds": 60,
+    "inputs": [],
+    "outputs": [
+      {
+        "goodId": "water",
+        "amount": 75
+      }
+    ]
+  },
+  {
+    "id": "wheat-farm",
+    "name": "Ферма пшеницы",
+    "category": "basic",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 4,
+        "optional": true
+      },
+      {
+        "goodId": "water",
+        "amount": 40
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "wheat",
+        "amount": 48
+      },
+      {
+        "goodId": "oxygen",
+        "amount": 4,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "carbon-extractor-v2",
+    "name": "Экстрактор углерода (вариант 2)",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "rice",
+        "amount": 95
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "carbon",
+        "amount": 5
+      }
+    ]
+  },
+  {
+    "id": "carbon-extractor-v3",
+    "name": "Экстрактор углерода (вариант 3)",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "wheat",
+        "amount": 64
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "carbon",
+        "amount": 5
+      }
+    ]
+  },
+  {
+    "id": "carbon-extractor-v4",
+    "name": "Экстрактор углерода (вариант 4)",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "potato",
+        "amount": 63
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "carbon",
+        "amount": 5
+      }
+    ]
+  },
+  {
+    "id": "cattle-ranch-v2",
+    "name": "Ранчо (скот) (вариант 2)",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "corn",
+        "amount": 15
+      },
+      {
+        "goodId": "oxygen",
+        "amount": 10
+      },
+      {
+        "goodId": "water",
+        "amount": 15
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "cattle",
+        "amount": 8
+      },
+      {
+        "goodId": "bio-gas",
+        "amount": 2
+      }
+    ]
+  },
+  {
+    "id": "cocoa-farm",
+    "name": "Какао-плантация",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 1,
+        "optional": true
+      },
+      {
+        "goodId": "water",
+        "amount": 30
+      },
+      {
+        "goodId": "fertilizer",
+        "amount": 2
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "cocoa",
+        "amount": 20
+      },
+      {
+        "goodId": "oxygen",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "cocoa-farm-v2",
+    "name": "Какао-плантация (вариант 2)",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 1,
+        "optional": true
+      },
+      {
+        "goodId": "water",
+        "amount": 35
+      },
+      {
+        "goodId": "fertilizer",
+        "amount": 2
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "coffee",
+        "amount": 10
+      },
+      {
+        "goodId": "oxygen",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "coffee-farm",
+    "name": "Кофейная плантация",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 1,
+        "optional": true
+      },
+      {
+        "goodId": "water",
+        "amount": 35
+      },
+      {
+        "goodId": "fertilizer",
+        "amount": 2
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "coffee",
+        "amount": 10
+      },
+      {
+        "goodId": "oxygen",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "computer-component-factory",
+    "name": "Завод компьютерных компонентов",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "wire",
+        "amount": 15
+      },
+      {
+        "goodId": "microchip",
+        "amount": 7
+      },
+      {
+        "goodId": "semi-conductor",
+        "amount": 5
+      },
+      {
+        "goodId": "copper",
+        "amount": 5
+      },
+      {
+        "goodId": "platinum",
+        "amount": 5
+      },
+      {
+        "goodId": "gold",
+        "amount": 5
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "display",
+        "amount": 1
+      },
+      {
+        "goodId": "targeting-card",
+        "amount": 1
+      },
+      {
+        "goodId": "processor",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "conductor-factory",
+    "name": "Завод проводников",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "zinc",
+        "amount": 2
+      },
+      {
+        "goodId": "steel",
+        "amount": 2
+      },
+      {
+        "goodId": "platinum",
+        "amount": 1
+      },
+      {
+        "goodId": "gold",
+        "amount": 1
+      },
+      {
+        "goodId": "energy-cell",
+        "amount": 1,
+        "optional": true
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "conductor",
+        "amount": 20
+      }
+    ]
+  },
+  {
+    "id": "corn-farm",
+    "name": "Кукурузная ферма",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 4,
+        "optional": true
+      },
+      {
+        "goodId": "water",
+        "amount": 60
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "corn",
+        "amount": 60
+      },
+      {
+        "goodId": "oxygen",
+        "amount": 4,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "energy-container-factory",
+    "name": "Завод энергоконтейнеров",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 9
+      },
+      {
+        "goodId": "transformator",
+        "amount": 9
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "energy-container",
+        "amount": 3
+      }
+    ]
+  },
+  {
+    "id": "energy-tube-factory",
+    "name": "Завод энерготрубок",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "plastic",
+        "amount": 1
+      },
+      {
+        "goodId": "steel",
+        "amount": 1
+      },
+      {
+        "goodId": "platinum",
+        "amount": 1
+      },
+      {
+        "goodId": "neon",
+        "amount": 1
+      },
+      {
+        "goodId": "steel-tube",
+        "amount": 1
+      },
+      {
+        "goodId": "energy-cell",
+        "amount": 1,
+        "optional": true
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "energy-tube",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "fabric-factory",
+    "name": "Текстильная фабрика",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "sheep",
+        "amount": 15
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "fabric",
+        "amount": 30
+      }
+    ]
+  },
+  {
+    "id": "fertilizer-factory",
+    "name": "Завод удобрений",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "chemicals",
+        "amount": 2
+      },
+      {
+        "goodId": "mineral",
+        "amount": 3
+      },
+      {
+        "goodId": "energy-cell",
+        "amount": 1,
+        "optional": true
+      },
+      {
+        "goodId": "solvent",
+        "amount": 1,
+        "optional": true
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "fertilizer",
+        "amount": 11
+      },
+      {
+        "goodId": "toxic-waste",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "fertilizer-factory-v2",
+    "name": "Завод удобрений (вариант 2)",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "plankton",
+        "amount": 1
+      },
+      {
+        "goodId": "mineral",
+        "amount": 4
+      },
+      {
+        "goodId": "energy-cell",
+        "amount": 1,
+        "optional": true
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "fertilizer",
+        "amount": 9
+      },
+      {
+        "goodId": "toxic-waste",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "fish-farm",
+    "name": "Рыбная ферма",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "water",
+        "amount": 23
+      },
+      {
+        "goodId": "wheat",
+        "amount": 5
+      },
+      {
+        "goodId": "oxygen",
+        "amount": 5
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "fish",
+        "amount": 8
+      },
+      {
+        "goodId": "bio-gas",
+        "amount": 1,
+        "optional": true
+      },
+      {
+        "goodId": "plankton",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "food-bar-factory",
+    "name": "Завод пищевых брикетов",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 1,
+        "optional": true
+      },
+      {
+        "goodId": "wheat",
+        "amount": 50
+      },
+      {
+        "goodId": "corn",
+        "amount": 10
+      },
+      {
+        "goodId": "rice",
+        "amount": 10
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "food-bar",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "id": "fruit-farm",
+    "name": "Фруктовая ферма",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 4,
+        "optional": true
+      },
+      {
+        "goodId": "water",
+        "amount": 80
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "fruit",
+        "amount": 40
+      },
+      {
+        "goodId": "oxygen",
+        "amount": 4,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "gauss-rail-factory",
+    "name": "Завод рельсов Гаусса",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 10
+      },
+      {
+        "goodId": "electro-magnet",
+        "amount": 6
+      },
+      {
+        "goodId": "energy-tube",
+        "amount": 2
+      },
+      {
+        "goodId": "high-pressure-tube",
+        "amount": 1
+      },
+      {
+        "goodId": "transformator",
+        "amount": 1
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "gauss-rail",
+        "amount": 2
+      }
+    ]
+  },
+  {
+    "id": "glass-manufacturer",
+    "name": "Стекольный завод",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "ore",
+        "amount": 4
+      },
+      {
+        "goodId": "crystal",
+        "amount": 4
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "glass",
+        "amount": 8
+      }
+    ]
+  },
+  {
+    "id": "gun-factory",
+    "name": "Оружейный завод",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "steel",
+        "amount": 1
+      },
+      {
+        "goodId": "ammunition",
+        "amount": 1
+      },
+      {
+        "goodId": "aluminum",
+        "amount": 1
+      },
+      {
+        "goodId": "plastic",
+        "amount": 1
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "gun",
+        "amount": 5
+      }
+    ]
+  },
+  {
+    "id": "high-pressure-tube-factory",
+    "name": "Завод труб высокого давления",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "steel",
+        "amount": 1
+      },
+      {
+        "goodId": "aluminum",
+        "amount": 1
+      },
+      {
+        "goodId": "carbon",
+        "amount": 2
+      },
+      {
+        "goodId": "adhesive",
+        "amount": 2
+      },
+      {
+        "goodId": "steel-tube",
+        "amount": 2
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "high-pressure-tube",
+        "amount": 3
+      }
+    ]
+  },
+  {
+    "id": "jewelry-manufacturer",
+    "name": "Ювелирная мастерская",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "platinum",
+        "amount": 2
+      },
+      {
+        "goodId": "gem",
+        "amount": 5
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "jewelry",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "id": "jewelry-manufacturer-v2",
+    "name": "Ювелирная мастерская (вариант 2)",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "gold",
+        "amount": 1
+      },
+      {
+        "goodId": "diamond",
+        "amount": 4
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "jewelry",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "id": "laser-head-factory",
+    "name": "Завод лазерных головок",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "glass",
+        "amount": 1
+      },
+      {
+        "goodId": "conductor",
+        "amount": 1
+      },
+      {
+        "goodId": "aluminum",
+        "amount": 15
+      },
+      {
+        "goodId": "energy-cell",
+        "amount": 1,
+        "optional": true
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "laser-head",
+        "amount": 1
+      },
+      {
+        "goodId": "toxic-waste",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "metal-plate-factory",
+    "name": "Завод металлопластин",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "steel",
+        "amount": 3
+      },
+      {
+        "goodId": "silver",
+        "amount": 1
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "metal-plate",
+        "amount": 2
+      }
+    ]
+  },
+  {
+    "id": "microchip-factory",
+    "name": "Завод микросхем",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "wire",
+        "amount": 4
+      },
+      {
+        "goodId": "semi-conductor",
+        "amount": 12
+      },
+      {
+        "goodId": "energy-cell",
+        "amount": 4,
+        "optional": true
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "microchip",
+        "amount": 3
+      }
+    ]
+  },
+  {
+    "id": "nanobot-factory",
+    "name": "Завод наноботов",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "crystal",
+        "amount": 15
+      },
+      {
+        "goodId": "semi-conductor",
+        "amount": 15
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "nanobot",
+        "amount": 5
+      }
+    ]
+  },
+  {
+    "id": "paper-factory",
+    "name": "Бумажная фабрика",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "water",
+        "amount": 10
+      },
+      {
+        "goodId": "wood",
+        "amount": 2
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "paper",
+        "amount": 40
+      }
+    ]
+  },
+  {
+    "id": "plant-farm",
+    "name": "Плантация",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 6,
+        "optional": true
+      },
+      {
+        "goodId": "water",
+        "amount": 30
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "plant",
+        "amount": 60
+      },
+      {
+        "goodId": "oxygen",
+        "amount": 6,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "plasma-cell-factory",
+    "name": "Завод плазменных ячеек",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 10
+      },
+      {
+        "goodId": "steel",
+        "amount": 1
+      },
+      {
+        "goodId": "bio-gas",
+        "amount": 1
+      },
+      {
+        "goodId": "neon",
+        "amount": 1
+      },
+      {
+        "goodId": "helium",
+        "amount": 1
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "plasma-cell",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "id": "plastic-manufacturer",
+    "name": "Завод пластика",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "oil",
+        "amount": 3
+      },
+      {
+        "goodId": "energy-cell",
+        "amount": 3,
+        "optional": true
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "plastic",
+        "amount": 15
+      }
+    ]
+  },
+  {
+    "id": "potato-farm",
+    "name": "Картофельная ферма",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 6,
+        "optional": true
+      },
+      {
+        "goodId": "water",
+        "amount": 30
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "potato",
+        "amount": 35
+      },
+      {
+        "goodId": "oxygen",
+        "amount": 8,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "power-unit-factory",
+    "name": "Завод энергоблоков",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "transformator",
+        "amount": 2
+      },
+      {
+        "goodId": "energy-cell",
+        "amount": 2
+      },
+      {
+        "goodId": "plasma-cell",
+        "amount": 2
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "power-unit",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "rice-farm",
+    "name": "Рисовая ферма",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 4,
+        "optional": true
+      },
+      {
+        "goodId": "water",
+        "amount": 40
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "rice",
+        "amount": 76
+      },
+      {
+        "goodId": "oxygen",
+        "amount": 4,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "semi-conductor-manufacturer",
+    "name": "Завод полупроводников",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "steel",
+        "amount": 1
+      },
+      {
+        "goodId": "silicon",
+        "amount": 1
+      },
+      {
+        "goodId": "gold",
+        "amount": 1
+      },
+      {
+        "goodId": "energy-cell",
+        "amount": 1,
+        "optional": true
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "semi-conductor",
+        "amount": 15
+      }
+    ]
+  },
+  {
+    "id": "servo-factory",
+    "name": "Завод сервоприводов",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "steel",
+        "amount": 4
+      },
+      {
+        "goodId": "aluminum",
+        "amount": 2
+      },
+      {
+        "goodId": "conductor",
+        "amount": 2
+      },
+      {
+        "goodId": "plastic",
+        "amount": 1
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "servo",
+        "amount": 2
+      }
+    ]
+  },
+  {
+    "id": "sheep-ranch-v2",
+    "name": "Ранчо овец (вариант 2)",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 1,
+        "optional": true
+      },
+      {
+        "goodId": "corn",
+        "amount": 10
+      },
+      {
+        "goodId": "oxygen",
+        "amount": 10
+      },
+      {
+        "goodId": "water",
+        "amount": 20
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "sheep",
+        "amount": 15
+      },
+      {
+        "goodId": "bio-gas",
+        "amount": 1
+      },
+      {
+        "goodId": "fabric",
+        "amount": 2,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "solar-cell-factory",
+    "name": "Завод солнечных элементов",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "zinc",
+        "amount": 1
+      },
+      {
+        "goodId": "silicon",
+        "amount": 2
+      },
+      {
+        "goodId": "platinum",
+        "amount": 2
+      },
+      {
+        "goodId": "gold",
+        "amount": 1
+      },
+      {
+        "goodId": "energy-cell",
+        "amount": 1,
+        "optional": true
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "solar-cell",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "id": "solar-panel-factory",
+    "name": "Завод солнечных панелей",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "solar-cell",
+        "amount": 10
+      },
+      {
+        "goodId": "transformator",
+        "amount": 1
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "solar-panel",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "spices-farm",
+    "name": "Плантация специй",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 1,
+        "optional": true
+      },
+      {
+        "goodId": "water",
+        "amount": 35
+      },
+      {
+        "goodId": "fertilizer",
+        "amount": 5
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "spices",
+        "amount": 12
+      },
+      {
+        "goodId": "oxygen",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "steel-factory-v2",
+    "name": "Сталелитейный завод (вариант 2)",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "scrap-metal",
+        "amount": 12
+      },
+      {
+        "goodId": "coal",
+        "amount": 4
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "steel",
+        "amount": 6
+      }
+    ]
+  },
+  {
+    "id": "steel-tube-factory",
+    "name": "Завод стальных труб",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "steel",
+        "amount": 4
+      },
+      {
+        "goodId": "aluminum",
+        "amount": 2
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "steel-tube",
+        "amount": 3
+      }
+    ]
+  },
+  {
+    "id": "tea-farm",
+    "name": "Чайная плантация",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 4,
+        "optional": true
+      },
+      {
+        "goodId": "water",
+        "amount": 100
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "tea",
+        "amount": 75
+      },
+      {
+        "goodId": "oxygen",
+        "amount": 4,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "transformator-factory",
+    "name": "Трансформаторный завод",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "steel",
+        "amount": 2
+      },
+      {
+        "goodId": "plastic",
+        "amount": 1
+      },
+      {
+        "goodId": "silicon",
+        "amount": 1
+      },
+      {
+        "goodId": "silver",
+        "amount": 1
+      },
+      {
+        "goodId": "energy-cell",
+        "amount": 1,
+        "optional": true
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "transformator",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "id": "turbine-factory",
+    "name": "Турбинный завод",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "servo",
+        "amount": 4
+      },
+      {
+        "goodId": "steel",
+        "amount": 10
+      },
+      {
+        "goodId": "coolant",
+        "amount": 3
+      },
+      {
+        "goodId": "power-unit",
+        "amount": 2
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "turbine",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "vegetable-farm",
+    "name": "Овощная ферма",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 4,
+        "optional": true
+      },
+      {
+        "goodId": "water",
+        "amount": 40
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "vegetable",
+        "amount": 35
+      },
+      {
+        "goodId": "oxygen",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "id": "warhead-factory",
+    "name": "Завод боеголовок",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "conductor",
+        "amount": 5
+      },
+      {
+        "goodId": "chemicals",
+        "amount": 2
+      },
+      {
+        "goodId": "metal-plate",
+        "amount": 3
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "warhead",
+        "amount": 1
+      },
+      {
+        "goodId": "scrap-metal",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "wood-farm",
+    "name": "Лесная ферма",
+    "category": "mid",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 3,
+        "optional": true
+      },
+      {
+        "goodId": "water",
+        "amount": 75
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "wood",
+        "amount": 6
+      },
+      {
+        "goodId": "oxygen",
+        "amount": 3,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "book-factory",
+    "name": "Типография",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "paper",
+        "amount": 20
+      },
+      {
+        "goodId": "energy-cell",
+        "amount": 1,
+        "optional": true
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "book",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "id": "brewery",
+    "name": "Пивоварня",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "water",
+        "amount": 150
+      },
+      {
+        "goodId": "wheat",
+        "amount": 50
+      },
+      {
+        "goodId": "fungus",
+        "amount": 10
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "beer",
+        "amount": 30
+      }
+    ]
+  },
+  {
+    "id": "chemical-factory",
+    "name": "Химический завод",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "water",
+        "amount": 5
+      },
+      {
+        "goodId": "nitrogen",
+        "amount": 5
+      },
+      {
+        "goodId": "hydrogen",
+        "amount": 5
+      },
+      {
+        "goodId": "oxygen",
+        "amount": 5
+      },
+      {
+        "goodId": "bio-gas",
+        "amount": 1
+      },
+      {
+        "goodId": "carbon",
+        "amount": 1
+      },
+      {
+        "goodId": "energy-cell",
+        "amount": 10
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "chemicals",
+        "amount": 2
+      },
+      {
+        "goodId": "adhesive",
+        "amount": 1
+      },
+      {
+        "goodId": "coolant",
+        "amount": 2
+      },
+      {
+        "goodId": "solvent",
+        "amount": 2
+      },
+      {
+        "goodId": "acid",
+        "amount": 2
+      }
+    ]
+  },
+  {
+    "id": "clothes-factory",
+    "name": "Швейная фабрика",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "fabric",
+        "amount": 80
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "clothes",
+        "amount": 100
+      }
+    ]
+  },
+  {
+    "id": "dairy-farm",
+    "name": "Молочная ферма",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "cattle",
+        "amount": 10
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "dairy",
+        "amount": 180
+      },
+      {
+        "goodId": "leather",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "id": "drone-factory",
+    "name": "Завод дронов",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "fuel",
+        "amount": 1
+      },
+      {
+        "goodId": "plasma-cell",
+        "amount": 2
+      },
+      {
+        "goodId": "metal-plate",
+        "amount": 5
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "drone",
+        "amount": 1
+      },
+      {
+        "goodId": "scrap-metal",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "electro-magnet-factory",
+    "name": "Завод электромагнитов",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "steel",
+        "amount": 1
+      },
+      {
+        "goodId": "copper",
+        "amount": 1
+      },
+      {
+        "goodId": "conductor",
+        "amount": 2
+      },
+      {
+        "goodId": "transformator",
+        "amount": 2
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "electro-magnet",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "id": "energy-inverter-factory",
+    "name": "Завод энергоинверторов",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-tube",
+        "amount": 1
+      },
+      {
+        "goodId": "conductor",
+        "amount": 2
+      },
+      {
+        "goodId": "transformator",
+        "amount": 2
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "energy-inverter",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "id": "explosive-charge-factory",
+    "name": "Завод взрывных зарядов",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "fluorine",
+        "amount": 4
+      },
+      {
+        "goodId": "steel",
+        "amount": 1
+      },
+      {
+        "goodId": "energy-cell",
+        "amount": 2
+      },
+      {
+        "goodId": "plastic",
+        "amount": 2
+      },
+      {
+        "goodId": "chemicals",
+        "amount": 2
+      },
+      {
+        "goodId": "acid",
+        "amount": 2
+      },
+      {
+        "goodId": "adhesive",
+        "amount": 2
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "explosive-charge",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "id": "food-factory",
+    "name": "Пищевой завод",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "wheat",
+        "amount": 50
+      },
+      {
+        "goodId": "meat",
+        "amount": 10
+      },
+      {
+        "goodId": "corn",
+        "amount": 10
+      },
+      {
+        "goodId": "vegetable",
+        "amount": 10
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "food",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "id": "force-generator-factory",
+    "name": "Завод силовых генераторов",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "fluorine",
+        "amount": 4
+      },
+      {
+        "goodId": "steel",
+        "amount": 1
+      },
+      {
+        "goodId": "energy-cell",
+        "amount": 2
+      },
+      {
+        "goodId": "plastic",
+        "amount": 2
+      },
+      {
+        "goodId": "chemicals",
+        "amount": 2
+      },
+      {
+        "goodId": "acid",
+        "amount": 2
+      },
+      {
+        "goodId": "adhesive",
+        "amount": 2
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "explosive-charge",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "id": "fungus-farm",
+    "name": "Грибная ферма",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "bio-gas",
+        "amount": 1
+      },
+      {
+        "goodId": "mineral",
+        "amount": 1
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "fungus",
+        "amount": 25
+      },
+      {
+        "goodId": "toxic-waste",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "fusion-core-factory",
+    "name": "Завод термоядерных ядер",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "hydrogen",
+        "amount": 1
+      },
+      {
+        "goodId": "gold",
+        "amount": 1
+      },
+      {
+        "goodId": "plasma-cell",
+        "amount": 2
+      },
+      {
+        "goodId": "transformator",
+        "amount": 2
+      },
+      {
+        "goodId": "energy-tube",
+        "amount": 2
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "fusion-core",
+        "amount": 2
+      }
+    ]
+  },
+  {
+    "id": "high-capacity-lens-factory",
+    "name": "Завод линз высокой ёмкости",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "glass",
+        "amount": 4
+      },
+      {
+        "goodId": "carbon",
+        "amount": 2
+      },
+      {
+        "goodId": "plastic",
+        "amount": 2
+      },
+      {
+        "goodId": "diamond",
+        "amount": 2
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "high-capacity-lens",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "laser-compressor-factory",
+    "name": "Завод лазерных компрессоров",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "plasma-cell",
+        "amount": 1
+      },
+      {
+        "goodId": "transformator",
+        "amount": 1
+      },
+      {
+        "goodId": "energy-tube",
+        "amount": 1
+      },
+      {
+        "goodId": "wire",
+        "amount": 15
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "laser-compressor",
+        "amount": 1
+      },
+      {
+        "goodId": "scrap-metal",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "laser-modulator-factory",
+    "name": "Завод лазерных модуляторов",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "servo",
+        "amount": 4
+      },
+      {
+        "goodId": "energy-tube",
+        "amount": 2
+      },
+      {
+        "goodId": "transformator",
+        "amount": 2
+      },
+      {
+        "goodId": "energy-cell",
+        "amount": 4
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "laser-modulator",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "meat-factory",
+    "name": "Мясокомбинат",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "cattle",
+        "amount": 10
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "meat",
+        "amount": 85
+      },
+      {
+        "goodId": "leather",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "id": "medical-supplies-factory",
+    "name": "Завод медикаментов",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "water",
+        "amount": 5
+      },
+      {
+        "goodId": "chemicals",
+        "amount": 15
+      },
+      {
+        "goodId": "fabric",
+        "amount": 5
+      },
+      {
+        "goodId": "zinc",
+        "amount": 5
+      },
+      {
+        "goodId": "chlorine",
+        "amount": 5
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "medical-supplies",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "id": "paint-manufacturer",
+    "name": "Завод краски",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "oil",
+        "amount": 1
+      },
+      {
+        "goodId": "water",
+        "amount": 1
+      },
+      {
+        "goodId": "chemicals",
+        "amount": 1
+      },
+      {
+        "goodId": "solvent",
+        "amount": 1
+      },
+      {
+        "goodId": "acid",
+        "amount": 1
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "paint",
+        "amount": 5
+      },
+      {
+        "goodId": "toxic-waste",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "processor-factory",
+    "name": "Завод процессоров",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "microchip",
+        "amount": 7
+      },
+      {
+        "goodId": "semi-conductor",
+        "amount": 5
+      },
+      {
+        "goodId": "copper",
+        "amount": 5
+      },
+      {
+        "goodId": "platinum",
+        "amount": 5
+      },
+      {
+        "goodId": "gold",
+        "amount": 5
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "processor",
+        "amount": 3
+      }
+    ]
+  },
+  {
+    "id": "protein-factory",
+    "name": "Завод белков",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "meat",
+        "amount": 25
+      },
+      {
+        "goodId": "dairy",
+        "amount": 80
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "protein",
+        "amount": 100
+      }
+    ]
+  },
+  {
+    "id": "targeting-system-factory",
+    "name": "Завод систем наведения",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "targeting-card",
+        "amount": 1
+      },
+      {
+        "goodId": "processor",
+        "amount": 1
+      },
+      {
+        "goodId": "energy-cell",
+        "amount": 3
+      },
+      {
+        "goodId": "conductor",
+        "amount": 5
+      },
+      {
+        "goodId": "wire",
+        "amount": 5
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "targeting-system",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "wine-factory",
+    "name": "Винодельня",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "fruit",
+        "amount": 50
+      },
+      {
+        "goodId": "fungus",
+        "amount": 10
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "wine",
+        "amount": 25
+      }
+    ]
+  },
+  {
+    "id": "wire-manufacturer",
+    "name": "Завод проводов",
+    "category": "adv",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "plastic",
+        "amount": 1
+      },
+      {
+        "goodId": "steel",
+        "amount": 1
+      },
+      {
+        "goodId": "gold",
+        "amount": 1
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "wire",
+        "amount": 15
+      }
+    ]
+  },
+  {
+    "id": "accelerator-factory",
+    "name": "Завод ускорителей",
+    "category": "end",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "turbine",
+        "amount": 3
+      },
+      {
+        "goodId": "plasma-cell",
+        "amount": 3
+      },
+      {
+        "goodId": "fusion-generator",
+        "amount": 3
+      },
+      {
+        "goodId": "energy-tube",
+        "amount": 6
+      },
+      {
+        "goodId": "high-pressure-tube",
+        "amount": 6
+      },
+      {
+        "goodId": "conductor",
+        "amount": 15
+      },
+      {
+        "goodId": "gauss-rail",
+        "amount": 9
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "neutron-accelerator",
+        "amount": 1
+      },
+      {
+        "goodId": "proton-accelerator",
+        "amount": 1
+      },
+      {
+        "goodId": "electron-accelerator",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "ammunition-factory-v2",
+    "name": "Завод боеприпасов тип 3 (вариант 2)",
+    "category": "end",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "steel",
+        "amount": 1
+      },
+      {
+        "goodId": "chemicals",
+        "amount": 15
+      },
+      {
+        "goodId": "paint",
+        "amount": 15
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "ammunition",
+        "amount": 15
+      },
+      {
+        "goodId": "toxic-waste",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "body-armor-factory",
+    "name": "Завод бронежилетов",
+    "category": "end",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "metal-plate",
+        "amount": 2
+      },
+      {
+        "goodId": "coolant",
+        "amount": 1
+      },
+      {
+        "goodId": "teleporter",
+        "amount": 1
+      },
+      {
+        "goodId": "antigrav-unit",
+        "amount": 1
+      },
+      {
+        "goodId": "carbon",
+        "amount": 1
+      },
+      {
+        "goodId": "nanobot",
+        "amount": 1
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "body-armor",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "display-factory",
+    "name": "Завод дисплеев",
+    "category": "end",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "glass",
+        "amount": 1
+      },
+      {
+        "goodId": "microchip",
+        "amount": 5
+      },
+      {
+        "goodId": "semi-conductor",
+        "amount": 3
+      },
+      {
+        "goodId": "plasma-cell",
+        "amount": 1
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "display",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "distillery",
+    "name": "Дистиллерия",
+    "category": "end",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 10
+      },
+      {
+        "goodId": "wheat",
+        "amount": 50
+      },
+      {
+        "goodId": "water",
+        "amount": 250
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "liquor",
+        "amount": 5
+      }
+    ]
+  },
+  {
+    "id": "electromagnetic-charge-factory",
+    "name": "Завод электромагнитных зарядов",
+    "category": "end",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-container",
+        "amount": 10
+      },
+      {
+        "goodId": "electro-magnet",
+        "amount": 6
+      },
+      {
+        "goodId": "energy-tube",
+        "amount": 2
+      },
+      {
+        "goodId": "transformator",
+        "amount": 2
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "electromagnetic-charge",
+        "amount": 2
+      }
+    ]
+  },
+  {
+    "id": "energy-generator-factory",
+    "name": "Завод энергогенераторов",
+    "category": "end",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 15
+      },
+      {
+        "goodId": "microchip",
+        "amount": 10
+      },
+      {
+        "goodId": "conductor",
+        "amount": 10
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "energy-generator",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "fusion-generator-factory",
+    "name": "Завод термоядерных генераторов",
+    "category": "end",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "fusion-core",
+        "amount": 4
+      },
+      {
+        "goodId": "steel",
+        "amount": 10
+      },
+      {
+        "goodId": "plasma-cell",
+        "amount": 15
+      },
+      {
+        "goodId": "power-unit",
+        "amount": 2
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "fusion-generator",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "luxury-food-factory",
+    "name": "Завод деликатесов",
+    "category": "end",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "energy-cell",
+        "amount": 1,
+        "optional": true
+      },
+      {
+        "goodId": "wheat",
+        "amount": 50
+      },
+      {
+        "goodId": "fruit",
+        "amount": 10
+      },
+      {
+        "goodId": "spices",
+        "amount": 6
+      },
+      {
+        "goodId": "wine",
+        "amount": 7
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "luxury-food",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "mining-robot-factory",
+    "name": "Завод горных роботов",
+    "category": "end",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "power-unit",
+        "amount": 1
+      },
+      {
+        "goodId": "processor",
+        "amount": 1
+      },
+      {
+        "goodId": "display",
+        "amount": 1
+      },
+      {
+        "goodId": "nanobot",
+        "amount": 5
+      },
+      {
+        "goodId": "drill",
+        "amount": 2
+      },
+      {
+        "goodId": "coolant",
+        "amount": 1
+      },
+      {
+        "goodId": "teleporter",
+        "amount": 1
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "mining-robot",
+        "amount": 1
+      },
+      {
+        "goodId": "scrap-metal",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "satellite-factory",
+    "name": "Спутниковый завод",
+    "category": "end",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "solar-panel",
+        "amount": 2
+      },
+      {
+        "goodId": "processor",
+        "amount": 2
+      },
+      {
+        "goodId": "display",
+        "amount": 2
+      },
+      {
+        "goodId": "energy-container",
+        "amount": 1
+      },
+      {
+        "goodId": "steel-tube",
+        "amount": 1
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "satellite",
+        "amount": 1
+      },
+      {
+        "goodId": "scrap-metal",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "targeting-card-factory",
+    "name": "Завод карт наведения",
+    "category": "end",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "microchip",
+        "amount": 1
+      },
+      {
+        "goodId": "copper",
+        "amount": 1
+      },
+      {
+        "goodId": "processor",
+        "amount": 2
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "targeting-card",
+        "amount": 2
+      }
+    ]
+  },
+  {
+    "id": "tools-factory",
+    "name": "Завод инструментов",
+    "category": "end",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "steel",
+        "amount": 1
+      },
+      {
+        "goodId": "platinum",
+        "amount": 1
+      },
+      {
+        "goodId": "silver",
+        "amount": 1
+      },
+      {
+        "goodId": "aluminum",
+        "amount": 1
+      },
+      {
+        "goodId": "energy-cell",
+        "amount": 1,
+        "optional": true
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "tools",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "id": "vehicle-factory",
+    "name": "Завод транспортных средств",
+    "category": "end",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "rubber",
+        "amount": 1
+      },
+      {
+        "goodId": "power-unit",
+        "amount": 1
+      },
+      {
+        "goodId": "energy-generator",
+        "amount": 1
+      },
+      {
+        "goodId": "metal-plate",
+        "amount": 5
+      },
+      {
+        "goodId": "antigrav-unit",
+        "amount": 1
+      },
+      {
+        "goodId": "display",
+        "amount": 1
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "vehicle",
+        "amount": 1
+      },
+      {
+        "goodId": "scrap-metal",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "war-robot-factory",
+    "name": "Завод боевых роботов",
+    "category": "end",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "power-unit",
+        "amount": 1
+      },
+      {
+        "goodId": "processor",
+        "amount": 1
+      },
+      {
+        "goodId": "display",
+        "amount": 1
+      },
+      {
+        "goodId": "nanobot",
+        "amount": 5
+      },
+      {
+        "goodId": "gun",
+        "amount": 2
+      },
+      {
+        "goodId": "teleporter",
+        "amount": 1
+      },
+      {
+        "goodId": "coolant",
+        "amount": 1
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "war-robot",
+        "amount": 1
+      },
+      {
+        "goodId": "scrap-metal",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "antigrav-generator-factory",
+    "name": "Завод антигравитационных генераторов",
+    "category": "hi",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "electro-magnet",
+        "amount": 4
+      },
+      {
+        "goodId": "servo",
+        "amount": 5
+      },
+      {
+        "goodId": "wire",
+        "amount": 10
+      },
+      {
+        "goodId": "antigrav-unit",
+        "amount": 1
+      },
+      {
+        "goodId": "energy-generator",
+        "amount": 1
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "antigrav-generator",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "antigrav-unit-factory",
+    "name": "Завод антигравитационных блоков",
+    "category": "hi",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "power-unit",
+        "amount": 2
+      },
+      {
+        "goodId": "processor",
+        "amount": 2
+      },
+      {
+        "goodId": "energy-cell",
+        "amount": 1,
+        "optional": true
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "antigrav-unit",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "computation-mainframe-factory",
+    "name": "Завод вычислительных мейнфреймов",
+    "category": "hi",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "processor",
+        "amount": 2
+      },
+      {
+        "goodId": "power-unit",
+        "amount": 1
+      },
+      {
+        "goodId": "microchip",
+        "amount": 1
+      },
+      {
+        "goodId": "display",
+        "amount": 1
+      },
+      {
+        "goodId": "wire",
+        "amount": 15
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "computation-mainframe",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "drill-factory",
+    "name": "Завод буров",
+    "category": "hi",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "laser-head",
+        "amount": 1
+      },
+      {
+        "goodId": "processor",
+        "amount": 1
+      },
+      {
+        "goodId": "steel",
+        "amount": 2
+      },
+      {
+        "goodId": "diamond",
+        "amount": 2
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "drill",
+        "amount": 1
+      },
+      {
+        "goodId": "scrap-metal",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "rocket-factory",
+    "name": "Ракетная фабрика",
+    "category": "hi",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "warhead",
+        "amount": 1
+      },
+      {
+        "goodId": "fuel",
+        "amount": 1
+      },
+      {
+        "goodId": "steel",
+        "amount": 1
+      },
+      {
+        "goodId": "microchip",
+        "amount": 1
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "rocket",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "teleporter-factory",
+    "name": "Завод телепортеров",
+    "category": "hi",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "metal-plate",
+        "amount": 1
+      },
+      {
+        "goodId": "power-unit",
+        "amount": 1
+      },
+      {
+        "goodId": "antigrav-unit",
+        "amount": 1
+      },
+      {
+        "goodId": "plasma-cell",
+        "amount": 2
+      },
+      {
+        "goodId": "conductor",
+        "amount": 1
+      },
+      {
+        "goodId": "transformator",
+        "amount": 1
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "teleporter",
+        "amount": 1
+      },
+      {
+        "goodId": "scrap-metal",
+        "amount": 1,
+        "optional": true
+      }
+    ]
+  },
+  {
+    "id": "tesla-coil-factory",
+    "name": "Завод катушек Тесла",
+    "category": "hi",
+    "cycleSeconds": 60,
+    "inputs": [
+      {
+        "goodId": "steel",
+        "amount": 10
+      },
+      {
+        "goodId": "copper",
+        "amount": 3
+      },
+      {
+        "goodId": "fusion-core",
+        "amount": 2
+      },
+      {
+        "goodId": "plastic",
+        "amount": 5
+      }
+    ],
+    "outputs": [
+      {
+        "goodId": "military-tesla-coil",
+        "amount": 1
+      },
+      {
+        "goodId": "industrial-tesla-coil",
+        "amount": 1
+      }
+    ]
+  }
 ]

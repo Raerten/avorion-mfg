@@ -8,11 +8,30 @@ import GoodIcon from './GoodIcon.vue'
 const props = defineProps<{ factoryId: string }>()
 const emit = defineEmits<{ select: [factoryId: string] }>()
 
-const { getFactory, getGood, getConsumers, findRoots } = useGameData()
+const { getFactory, getGood, getConsumers, getProducers, findRoots } = useGameData()
 
 const factory = computed(() => getFactory(props.factoryId))
 const style = computed(() => (factory.value ? CATEGORY_STYLES[factory.value.category] : null))
 const headerIcon = computed(() => factory.value?.outputs[0]?.goodId ?? '')
+
+/**
+ * Alternate recipes producing any of the same outputs as the current factory.
+ * e.g. viewing `steel-factory` lists `steel-factory-v2` (scrap-metal variant).
+ */
+const alternates = computed(() => {
+  if (!factory.value) return []
+  const seen = new Set<string>([factory.value.id])
+  const result = []
+  for (const out of factory.value.outputs) {
+    for (const p of getProducers(out.goodId)) {
+      if (!seen.has(p.id)) {
+        seen.add(p.id)
+        result.push(p)
+      }
+    }
+  }
+  return result
+})
 
 /** Set of distinct downstream factories that consume any of our outputs. */
 const consumers = computed(() => {
@@ -72,6 +91,20 @@ const roots = computed(() => {
             <FactoryChip :good-id="inp.goodId" :optional="inp.optional" @select="emit('select', $event)" />
           </template>
         </div>
+      </div>
+    </section>
+
+    <section v-if="alternates.length">
+      <h3 class="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+        Альтернативные рецепты
+      </h3>
+      <div class="flex flex-wrap gap-1.5">
+        <FactoryChip
+          v-for="a in alternates"
+          :key="a.id"
+          :factory-id="a.id"
+          @select="emit('select', $event)"
+        />
       </div>
     </section>
 
