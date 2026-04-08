@@ -358,6 +358,12 @@ function onClear() {
   --vf-handle: hsl(190 85% 55%);
   background: transparent;
 }
+.supply-flow .vue-flow__node {
+  cursor: default;
+}
+.supply-flow .vue-flow__node.dragging {
+  cursor: grabbing;
+}
 .supply-flow .vue-flow__edge-path {
   stroke: hsl(190 85% 55% / 0.7);
   stroke-width: 1.5;
