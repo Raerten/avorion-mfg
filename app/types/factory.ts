@@ -25,6 +25,11 @@ export interface Good {
   id: GoodId
   name: string
   category: GoodCategory
+  /**
+   * Canonical in-game credit price per unit, sourced from the Sovgut
+   * manufactory database. Drives factory build/upgrade cost derivation.
+   */
+  price: number
 }
 
 export interface FactoryIO {

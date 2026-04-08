@@ -37,6 +37,7 @@ const props = defineProps<NodeProps<{ factoryId: string; lines: number; disabled
 const emit = defineEmits<{
   pick: [payload: { nodeId: string; direction: 'in' | 'out'; goodId: string }]
   remove: [nodeId: string]
+  info: [factoryId: string]
 }>()
 
 const { getFactory, getGood } = useGameData()
@@ -196,6 +197,13 @@ function isValidConnection(connection: Connection): boolean {
             @mousedown.stop
           >
         </label>
+        <button
+          v-tooltip="'Подробнее'"
+          type="button"
+          class="nodrag text-sm leading-none w-5 h-5 rounded hover:bg-black/40 opacity-70 hover:opacity-100"
+          @click.stop="emit('info', props.data.factoryId)"
+          @mousedown.stop
+        >ⓘ</button>
         <button
           v-tooltip="props.data.disabled ? 'Включить' : 'Отключить'"
           type="button"

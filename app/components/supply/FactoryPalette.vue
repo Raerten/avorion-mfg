@@ -5,6 +5,12 @@ import { useGameData } from '~/composables/useGameData'
 import { CATEGORY_GROUPS, CATEGORY_STYLES } from '~/lib/categories'
 import { goodIconUrl } from '~/lib/icons'
 import type { Factory, FactoryCategory } from '~/types/factory'
+import {
+  FACTORY_SIZES,
+  buildCost,
+  formatCredits,
+  upgradeCost,
+} from '~/lib/factoryCost'
 import GoodIcon from '~/components/GoodIcon.vue'
 
 /**
@@ -51,6 +57,27 @@ function columnHtml(title: string, emptyLabel: string, rowsHtml: string): string
     `<div class="app-tooltip__title">${title}</div>${body}</div>`
 }
 
+function costSectionHtml(factory: Factory): string {
+  const build = formatCredits(buildCost(factory, getGood))
+  const upgradeCells = FACTORY_SIZES
+    .map(
+      size =>
+        `<li class="app-tooltip__size"><span class="app-tooltip__size-label">${size}</span>` +
+        `<span class="app-tooltip__size-value">${escapeHtml(formatCredits(upgradeCost(factory, size, getGood)))}</span></li>`,
+    )
+    .join('')
+  return (
+    '<div class="app-tooltip__costs">' +
+    '<div class="app-tooltip__cost-row">' +
+    '<span class="app-tooltip__title">Постройка</span>' +
+    `<span class="app-tooltip__cost-value">${escapeHtml(build)}</span>` +
+    '</div>' +
+    '<div class="app-tooltip__title" style="margin-top:4px">Апгрейд до размера</div>' +
+    `<ul class="app-tooltip__sizes">${upgradeCells}</ul>` +
+    '</div>'
+  )
+}
+
 function inputsTooltipHtml(factory: Factory): string {
   const inputsRows = factory.inputs
     .map(inp => goodRowHtml(inp.goodId, inp.optional))
@@ -61,7 +88,8 @@ function inputsTooltipHtml(factory: Factory): string {
   return '<div class="app-tooltip__cols">' +
     columnHtml('Входы', 'Без входов', inputsRows) +
     columnHtml('Выходы', 'Без выходов', outputsRows) +
-    '</div>'
+    '</div>' +
+    costSectionHtml(factory)
 }
 
 const query = ref('')

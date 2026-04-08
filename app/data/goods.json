@@ -2,656 +2,787 @@
   {
     "id": "coal",
     "name": "Уголь",
-    "category": "raw"
+    "category": "raw",
+    "price": 200
   },
   {
     "id": "copper",
     "name": "Медь",
-    "category": "raw"
+    "category": "raw",
+    "price": 350
   },
   {
     "id": "diamond",
     "name": "Алмаз",
-    "category": "raw"
+    "category": "raw",
+    "price": 750
   },
   {
     "id": "gem",
     "name": "Самоцвет",
-    "category": "raw"
+    "category": "raw",
+    "price": 400
   },
   {
     "id": "gold",
     "name": "Золото",
-    "category": "raw"
+    "category": "raw",
+    "price": 600
   },
   {
     "id": "lead",
     "name": "Свинец",
-    "category": "raw"
+    "category": "raw",
+    "price": 200
   },
   {
     "id": "platinum",
     "name": "Платина",
-    "category": "raw"
+    "category": "raw",
+    "price": 750
   },
   {
     "id": "raw-oil",
     "name": "Сырая нефть",
-    "category": "raw"
+    "category": "raw",
+    "price": 150
   },
   {
     "id": "silicon",
     "name": "Кремний",
-    "category": "raw"
+    "category": "raw",
+    "price": 500
   },
   {
     "id": "silver",
     "name": "Серебро",
-    "category": "raw"
+    "category": "raw",
+    "price": 300
   },
   {
     "id": "zinc",
     "name": "Цинк",
-    "category": "raw"
+    "category": "raw",
+    "price": 250
   },
   {
     "id": "adhesive",
     "name": "Клей",
-    "category": "basic"
+    "category": "basic",
+    "price": 402
   },
   {
     "id": "aluminum",
     "name": "Алюминий",
-    "category": "basic"
+    "category": "basic",
+    "price": 200
   },
   {
     "id": "ammunition",
     "name": "Боеприпасы",
-    "category": "basic"
+    "category": "basic",
+    "price": 3786
   },
   {
     "id": "bio-gas",
     "name": "Биогаз",
-    "category": "basic"
+    "category": "basic",
+    "price": 213
   },
   {
     "id": "carbon",
     "name": "Углерод",
-    "category": "basic"
+    "category": "basic",
+    "price": 423
   },
   {
     "id": "chemicals",
     "name": "Химикаты",
-    "category": "basic"
+    "category": "basic",
+    "price": 402
   },
   {
     "id": "chlorine",
     "name": "Хлор",
-    "category": "basic"
+    "category": "basic",
+    "price": 150
   },
   {
     "id": "crystal",
     "name": "Кристаллы",
-    "category": "basic"
+    "category": "basic",
+    "price": 190
   },
   {
     "id": "energy-cell",
     "name": "Энергоячейки",
-    "category": "basic"
+    "category": "basic",
+    "price": 50
   },
   {
     "id": "fabric",
     "name": "Ткань",
-    "category": "basic"
+    "category": "basic",
+    "price": 91
   },
   {
     "id": "fluorine",
     "name": "Фтор",
-    "category": "basic"
+    "category": "basic",
+    "price": 250
   },
   {
     "id": "fuel",
     "name": "Топливо",
-    "category": "basic"
+    "category": "basic",
+    "price": 1232
   },
   {
     "id": "glass",
     "name": "Стекло",
-    "category": "basic"
+    "category": "basic",
+    "price": 182
   },
   {
     "id": "helium",
     "name": "Гелий",
-    "category": "basic"
+    "category": "basic",
+    "price": 50
   },
   {
     "id": "hydrogen",
     "name": "Водород",
-    "category": "basic"
+    "category": "basic",
+    "price": 150
   },
   {
     "id": "mineral",
     "name": "Минералы",
-    "category": "basic"
+    "category": "basic",
+    "price": 500
   },
   {
     "id": "neon",
     "name": "Неон",
-    "category": "basic"
+    "category": "basic",
+    "price": 200
   },
   {
     "id": "nitrogen",
     "name": "Азот",
-    "category": "basic"
+    "category": "basic",
+    "price": 40
   },
   {
     "id": "oil",
     "name": "Нефть",
-    "category": "basic"
+    "category": "basic",
+    "price": 490
   },
   {
     "id": "ore",
     "name": "Руда",
-    "category": "basic"
+    "category": "basic",
+    "price": 70
   },
   {
     "id": "oxygen",
     "name": "Кислород",
-    "category": "basic"
+    "category": "basic",
+    "price": 80
   },
   {
     "id": "paint",
     "name": "Краска",
-    "category": "basic"
+    "category": "basic",
+    "price": 481
   },
   {
     "id": "plankton",
     "name": "Планктон",
-    "category": "basic"
+    "category": "basic",
+    "price": 50
   },
   {
     "id": "plastic",
     "name": "Пластик",
-    "category": "basic"
+    "category": "basic",
+    "price": 137
   },
   {
     "id": "rubber",
     "name": "Резина",
-    "category": "basic"
+    "category": "basic",
+    "price": 686
   },
   {
     "id": "scrap-metal",
     "name": "Металлолом",
-    "category": "basic"
+    "category": "basic",
+    "price": 25
   },
   {
     "id": "sheep",
     "name": "Овцы",
-    "category": "basic"
+    "category": "basic",
+    "price": 130
   },
   {
     "id": "steel",
     "name": "Сталь",
-    "category": "basic"
+    "category": "basic",
+    "price": 277
   },
   {
     "id": "water",
     "name": "Вода",
-    "category": "basic"
+    "category": "basic",
+    "price": 20
   },
   {
     "id": "wheat",
     "name": "Пшеница",
-    "category": "basic"
+    "category": "basic",
+    "price": 23
   },
   {
     "id": "acid",
     "name": "Кислота",
-    "category": "mid"
+    "category": "mid",
+    "price": 402
   },
   {
     "id": "cattle",
     "name": "Скот",
-    "category": "mid"
+    "category": "mid",
+    "price": 254
   },
   {
     "id": "cocoa",
     "name": "Какао",
-    "category": "mid"
+    "category": "mid",
+    "price": 87
   },
   {
     "id": "coffee",
     "name": "Кофе",
-    "category": "mid"
+    "category": "mid",
+    "price": 187
   },
   {
     "id": "conductor",
     "name": "Проводник",
-    "category": "mid"
+    "category": "mid",
+    "price": 168
   },
   {
     "id": "corn",
     "name": "Кукуруза",
-    "category": "mid"
+    "category": "mid",
+    "price": 28
   },
   {
     "id": "energy-container",
     "name": "Энергоконтейнер",
-    "category": "mid"
+    "category": "mid",
+    "price": 1087
   },
   {
     "id": "energy-tube",
     "name": "Энерготрубка",
-    "category": "mid"
+    "category": "mid",
+    "price": 2895
   },
   {
     "id": "fertilizer",
     "name": "Удобрение",
-    "category": "mid"
+    "category": "mid",
+    "price": 319
   },
   {
     "id": "fish",
     "name": "Рыба",
-    "category": "mid"
+    "category": "mid",
+    "price": 152
   },
   {
     "id": "food-bar",
     "name": "Пищевой брикет",
-    "category": "mid"
+    "category": "mid",
+    "price": 223
   },
   {
     "id": "fruit",
     "name": "Фрукты",
-    "category": "mid"
+    "category": "mid",
+    "price": 56
   },
   {
     "id": "gauss-rail",
     "name": "Рельс Гаусса",
-    "category": "mid"
+    "category": "mid",
+    "price": 7735
   },
   {
     "id": "gun",
     "name": "Оружие",
-    "category": "mid"
+    "category": "mid",
+    "price": 1232
   },
   {
     "id": "high-pressure-tube",
     "name": "Труба высокого давления",
-    "category": "mid"
+    "category": "mid",
+    "price": 1650
   },
   {
     "id": "jewelry",
     "name": "Ювелирные изделия",
-    "category": "mid"
+    "category": "mid",
+    "price": 1260
   },
   {
     "id": "laser-head",
     "name": "Лазерная головка",
-    "category": "mid"
+    "category": "mid",
+    "price": 4690
   },
   {
     "id": "metal-plate",
     "name": "Металлопластина",
-    "category": "mid"
+    "category": "mid",
+    "price": 792
   },
   {
     "id": "microchip",
     "name": "Микросхема",
-    "category": "mid"
+    "category": "mid",
+    "price": 896
   },
   {
     "id": "nanobot",
     "name": "Нанобот",
-    "category": "mid"
+    "category": "mid",
+    "price": 1338
   },
   {
     "id": "paper",
     "name": "Бумага",
-    "category": "mid"
+    "category": "mid",
+    "price": 46
   },
   {
     "id": "plant",
     "name": "Растения",
-    "category": "mid"
+    "category": "mid",
+    "price": 14
   },
   {
     "id": "plasma-cell",
     "name": "Плазменная ячейка",
-    "category": "mid"
+    "category": "mid",
+    "price": 174
   },
   {
     "id": "potato",
     "name": "Картофель",
-    "category": "mid"
+    "category": "mid",
+    "price": 24
   },
   {
     "id": "power-unit",
     "name": "Энергоблок",
-    "category": "mid"
+    "category": "mid",
+    "price": 1211
   },
   {
     "id": "rice",
     "name": "Рис",
-    "category": "mid"
+    "category": "mid",
+    "price": 15
   },
   {
     "id": "semi-conductor",
     "name": "Полупроводник",
-    "category": "mid"
+    "category": "mid",
+    "price": 129
   },
   {
     "id": "servo",
     "name": "Сервопривод",
-    "category": "mid"
+    "category": "mid",
+    "price": 1387
   },
   {
     "id": "solar-cell",
     "name": "Солнечный элемент",
-    "category": "mid"
+    "category": "mid",
+    "price": 469
   },
   {
     "id": "solar-panel",
     "name": "Солнечная панель",
-    "category": "mid"
+    "category": "mid",
+    "price": 6858
   },
   {
     "id": "spices",
     "name": "Специи",
-    "category": "mid"
+    "category": "mid",
+    "price": 268
   },
   {
     "id": "steel-tube",
     "name": "Стальная труба",
-    "category": "mid"
+    "category": "mid",
+    "price": 704
   },
   {
     "id": "tea",
     "name": "Чай",
-    "category": "mid"
+    "category": "mid",
+    "price": 37
   },
   {
     "id": "toxic-waste",
     "name": "Токсичные отходы",
-    "category": "mid"
+    "category": "mid",
+    "price": 15
   },
   {
     "id": "transformator",
     "name": "Трансформатор",
-    "category": "mid"
+    "category": "mid",
+    "price": 209
   },
   {
     "id": "turbine",
     "name": "Турбина",
-    "category": "mid"
+    "category": "mid",
+    "price": 16729
   },
   {
     "id": "vegetable",
     "name": "Овощи",
-    "category": "mid"
+    "category": "mid",
+    "price": 32
   },
   {
     "id": "warhead",
     "name": "Боеголовка",
-    "category": "mid"
+    "category": "mid",
+    "price": 5630
   },
   {
     "id": "wire",
     "name": "Провода",
-    "category": "mid"
+    "category": "mid",
+    "price": 95
   },
   {
     "id": "wood",
     "name": "Древесина",
-    "category": "mid"
+    "category": "mid",
+    "price": 350
   },
   {
     "id": "ammunition-l",
     "name": "Боеприпасы (крупные)",
-    "category": "adv"
+    "category": "adv",
+    "price": 422
   },
   {
     "id": "ammunition-m",
     "name": "Боеприпасы (средние)",
-    "category": "adv"
+    "category": "adv",
+    "price": 422
   },
   {
     "id": "ammunition-s",
     "name": "Боеприпасы (малые)",
-    "category": "adv"
+    "category": "adv",
+    "price": 422
   },
   {
     "id": "beer",
     "name": "Пиво",
-    "category": "adv"
+    "category": "adv",
+    "price": 216
   },
   {
     "id": "book",
     "name": "Книга",
-    "category": "adv"
+    "category": "adv",
+    "price": 319
   },
   {
     "id": "clothes",
     "name": "Одежда",
-    "category": "adv"
+    "category": "adv",
+    "price": 102
   },
   {
     "id": "coolant",
     "name": "Охладитель",
-    "category": "adv"
+    "category": "adv",
+    "price": 402
   },
   {
     "id": "dairy",
     "name": "Молочные продукты",
-    "category": "adv"
+    "category": "adv",
+    "price": 19
   },
   {
     "id": "drone",
     "name": "Дрон",
-    "category": "adv"
+    "category": "adv",
+    "price": 7754
   },
   {
     "id": "electro-magnet",
     "name": "Электромагнит",
-    "category": "adv"
+    "category": "adv",
+    "price": 483
   },
   {
     "id": "energy-inverter",
     "name": "Энергоинвертор",
-    "category": "adv"
+    "category": "adv",
+    "price": 1277
   },
   {
     "id": "explosive-charge",
     "name": "Взрывной заряд",
-    "category": "adv"
+    "category": "adv",
+    "price": 1423
   },
   {
     "id": "food",
     "name": "Пища",
-    "category": "adv"
+    "category": "adv",
+    "price": 300
   },
   {
     "id": "fungus",
     "name": "Грибы",
-    "category": "adv"
+    "category": "adv",
+    "price": 46
   },
   {
     "id": "fusion-core",
     "name": "Термоядерное ядро",
-    "category": "adv"
+    "category": "adv",
+    "price": 5114
   },
   {
     "id": "high-capacity-lens",
     "name": "Линза высокой ёмкости",
-    "category": "adv"
+    "category": "adv",
+    "price": 4689
   },
   {
     "id": "laser-compressor",
     "name": "Лазерный компрессор",
-    "category": "adv"
+    "category": "adv",
+    "price": 6577
   },
   {
     "id": "laser-modulator",
     "name": "Лазерный модулятор",
-    "category": "adv"
+    "category": "adv",
+    "price": 16742
   },
   {
     "id": "leather",
     "name": "Кожа",
-    "category": "adv"
+    "category": "adv",
+    "price": 37
   },
   {
     "id": "meat",
     "name": "Мясо",
-    "category": "adv"
+    "category": "adv",
+    "price": 37
   },
   {
     "id": "processor",
     "name": "Процессор",
-    "category": "adv"
+    "category": "adv",
+    "price": 7858
   },
   {
     "id": "protein",
     "name": "Белок",
-    "category": "adv"
+    "category": "adv",
+    "price": 34
   },
   {
     "id": "solvent",
     "name": "Растворитель",
-    "category": "adv"
+    "category": "adv",
+    "price": 402
   },
   {
     "id": "targeting-system",
     "name": "Система наведения",
-    "category": "adv"
+    "category": "adv",
+    "price": 29674
   },
   {
     "id": "wine",
     "name": "Вино",
-    "category": "adv"
+    "category": "adv",
+    "price": 182
   },
   {
     "id": "body-armor",
     "name": "Бронежилет",
-    "category": "end"
+    "category": "end",
+    "price": 95906
   },
   {
     "id": "display",
     "name": "Дисплей",
-    "category": "end"
+    "category": "end",
+    "price": 7858
   },
   {
     "id": "electromagnetic-charge",
     "name": "Электромагнитный заряд",
-    "category": "end"
+    "category": "end",
+    "price": 13985
   },
   {
     "id": "energy-generator",
     "name": "Энергогенератор",
-    "category": "end"
+    "category": "end",
+    "price": 15957
   },
   {
     "id": "fusion-generator",
     "name": "Термоядерный генератор",
-    "category": "end"
+    "category": "end",
+    "price": 39553
   },
   {
     "id": "industrial-tesla-coil",
     "name": "Промышленная катушка Тесла",
-    "category": "end"
+    "category": "end",
+    "price": 10314
   },
   {
     "id": "liquor",
     "name": "Ликёр",
-    "category": "end"
+    "category": "end",
+    "price": 1867
   },
   {
     "id": "luxury-food",
     "name": "Дорогая еда",
-    "category": "end"
+    "category": "end",
+    "price": 6452
   },
   {
     "id": "medical-supplies",
     "name": "Медикаменты",
-    "category": "end"
+    "category": "end",
+    "price": 3006
   },
   {
     "id": "military-tesla-coil",
     "name": "Военная катушка Тесла",
-    "category": "end"
+    "category": "end",
+    "price": 10314
   },
   {
     "id": "mining-robot",
     "name": "Горный робот",
-    "category": "end"
+    "category": "end",
+    "price": 145977
   },
   {
     "id": "satellite",
     "name": "Спутник",
-    "category": "end"
+    "category": "end",
+    "price": 65714
   },
   {
     "id": "targeting-card",
     "name": "Карта наведения",
-    "category": "end"
+    "category": "end",
+    "price": 11873
   },
   {
     "id": "tools",
     "name": "Инструменты",
-    "category": "end"
+    "category": "end",
+    "price": 214
   },
   {
     "id": "vehicle",
     "name": "Транспорт",
-    "category": "end"
+    "category": "end",
+    "price": 77087
   },
   {
     "id": "war-robot",
     "name": "Боевой робот",
-    "category": "end"
+    "category": "end",
+    "price": 92186
   },
   {
     "id": "antigrav-generator",
     "name": "Антигравитационный генератор",
-    "category": "hi"
+    "category": "hi",
+    "price": 71632
   },
   {
     "id": "antigrav-unit",
     "name": "Антигравитационный блок",
-    "category": "hi"
+    "category": "hi",
+    "price": 25391
   },
   {
     "id": "computation-mainframe",
     "name": "Вычислительный мейнфрейм",
-    "category": "hi"
+    "category": "hi",
+    "price": 37940
   },
   {
     "id": "drill",
     "name": "Бур",
-    "category": "hi"
+    "category": "hi",
+    "price": 20443
   },
   {
     "id": "electron-accelerator",
     "name": "Электронный ускоритель",
-    "category": "hi"
+    "category": "hi",
+    "price": 125431
   },
   {
     "id": "neutron-accelerator",
     "name": "Нейтронный ускоритель",
-    "category": "hi"
+    "category": "hi",
+    "price": 125431
   },
   {
     "id": "proton-accelerator",
     "name": "Протонный ускоритель",
-    "category": "hi"
+    "category": "hi",
+    "price": 125431
   },
   {
     "id": "rocket",
     "name": "Ракета",
-    "category": "hi"
+    "category": "hi",
+    "price": 11250
   },
   {
     "id": "teleporter",
     "name": "Телепортер",
-    "category": "hi"
+    "category": "hi",
+    "price": 39365
   }
 ]

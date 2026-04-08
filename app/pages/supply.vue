@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { VueFlow, useVueFlow, type Connection, type GraphNode } from '@vue-flow/core'
 import { Background } from '@vue-flow/background'
 import { Controls } from '@vue-flow/controls'
@@ -13,6 +13,7 @@ import '@vue-flow/minimap/dist/style.css'
 import FactoryNode from '~/components/supply/FactoryNode.vue'
 import FactoryPalette from '~/components/supply/FactoryPalette.vue'
 import FactoryPicker from '~/components/supply/FactoryPicker.vue'
+import FactoryCard from '~/components/FactoryCard.vue'
 import { useGameData } from '~/composables/useGameData'
 import {
   type FactoryFlowNode,
@@ -237,6 +238,17 @@ function onNodeRemove(id: string) {
   removeNodes([id])
 }
 
+// --- Node info popup ----------------------------------------------------------
+
+const infoFactoryId = ref<string | null>(null)
+const infoFactory = computed(() =>
+  infoFactoryId.value ? getFactory(infoFactoryId.value) : null,
+)
+
+function onNodeInfo(factoryId: string) {
+  infoFactoryId.value = factoryId
+}
+
 // --- Clear all ----------------------------------------------------------------
 
 function onClear() {
@@ -280,6 +292,7 @@ function onClear() {
               v-bind="nodeProps"
               @pick="onNodePick"
               @remove="onNodeRemove"
+              @info="onNodeInfo"
             />
           </template>
 
@@ -315,6 +328,24 @@ function onClear() {
       @close="picker = null"
       @select="onPickerSelect"
     />
+
+    <div
+      v-if="infoFactory"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-background/70 backdrop-blur-sm p-4"
+      @click.self="infoFactoryId = null"
+    >
+      <div class="relative w-[min(420px,95vw)]">
+        <button
+          type="button"
+          aria-label="Закрыть"
+          class="absolute -top-3 -right-3 w-7 h-7 rounded-full bg-card border border-border shadow-md text-muted-foreground hover:text-foreground hover:border-ring flex items-center justify-center text-sm leading-none z-10 cursor-pointer"
+          @click="infoFactoryId = null"
+        >✕</button>
+        <div class="max-h-[90vh] overflow-y-auto rounded-md">
+          <FactoryCard :factory="infoFactory" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
