@@ -90,7 +90,7 @@ body,
   top: 0;
   left: 0;
   z-index: 9999;
-  max-width: 280px;
+  max-width: 380px;
   padding: 6px 10px;
   border-radius: var(--radius-sm);
   background: hsl(222 28% 10% / 0.98);
@@ -120,6 +120,14 @@ body,
   letter-spacing: 0.08em;
   color: var(--color-muted-foreground);
   margin-bottom: 4px;
+}
+.app-tooltip__cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.app-tooltip__col {
+  min-width: 0;
 }
 .app-tooltip__list {
   list-style: none;

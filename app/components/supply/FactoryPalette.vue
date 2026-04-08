@@ -31,24 +31,36 @@ function escapeHtml(s: string): string {
     .replace(/"/g, '&quot;')
 }
 
+function goodRowHtml(goodId: string, optional?: boolean): string {
+  const name = escapeHtml(getGood(goodId)?.name ?? goodId)
+  const url = escapeHtml(goodIconUrl(goodId))
+  const opt = optional
+    ? '<span class="app-tooltip__muted">опц.</span>'
+    : ''
+  return `<li class="app-tooltip__row${optional ? ' is-optional' : ''}">` +
+    `<img class="app-tooltip__icon" src="${url}" alt="" />` +
+    `<span class="app-tooltip__name">${name}</span>${opt}</li>`
+}
+
+function columnHtml(title: string, emptyLabel: string, rowsHtml: string): string {
+  const body = rowsHtml
+    ? `<ul class="app-tooltip__list">${rowsHtml}</ul>`
+    : `<div class="app-tooltip__muted">${emptyLabel}</div>`
+  return `<div class="app-tooltip__col">` +
+    `<div class="app-tooltip__title">${title}</div>${body}</div>`
+}
+
 function inputsTooltipHtml(factory: Factory): string {
-  if (factory.inputs.length === 0) {
-    return '<div class="app-tooltip__title">Без входов</div>'
-  }
-  const rows = factory.inputs
-    .map(inp => {
-      const name = escapeHtml(getGood(inp.goodId)?.name ?? inp.goodId)
-      const url = escapeHtml(goodIconUrl(inp.goodId))
-      const opt = inp.optional
-        ? '<span class="app-tooltip__muted">опц.</span>'
-        : ''
-      return `<li class="app-tooltip__row${inp.optional ? ' is-optional' : ''}">` +
-        `<img class="app-tooltip__icon" src="${url}" alt="" />` +
-        `<span class="app-tooltip__name">${name}</span>${opt}</li>`
-    })
+  const inputsRows = factory.inputs
+    .map(inp => goodRowHtml(inp.goodId, inp.optional))
     .join('')
-  return '<div class="app-tooltip__title">Входы</div>' +
-    `<ul class="app-tooltip__list">${rows}</ul>`
+  const outputsRows = factory.outputs
+    .map(out => goodRowHtml(out.goodId))
+    .join('')
+  return '<div class="app-tooltip__cols">' +
+    columnHtml('Входы', 'Без входов', inputsRows) +
+    columnHtml('Выходы', 'Без выходов', outputsRows) +
+    '</div>'
 }
 
 const query = ref('')
