@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue'
 import { useGameData } from '~/composables/useGameData'
 import { CATEGORY_GROUPS, CATEGORY_STYLES } from '~/lib/categories'
+import { goodIconUrl } from '~/lib/icons'
 import type { Factory, FactoryCategory } from '~/types/factory'
 import GoodIcon from '~/components/GoodIcon.vue'
 
@@ -18,7 +19,41 @@ const emit = defineEmits<{
   quickAdd: [factoryId: string]
 }>()
 
-const { factories } = useGameData()
+const { factories, getGood } = useGameData()
+
+/**
+ * Rich popper tooltip listing a factory's input goods as a column with
+ * an icon next to each name. Rendered as trusted HTML — all values here
+ * come from bundled game data so there's no user input to escape beyond
+ * a few characters for safety.
+ */
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
+
+function inputsTooltipHtml(factory: Factory): string {
+  if (factory.inputs.length === 0) {
+    return '<div class="app-tooltip__title">Без входов</div>'
+  }
+  const rows = factory.inputs
+    .map(inp => {
+      const name = escapeHtml(getGood(inp.goodId)?.name ?? inp.goodId)
+      const url = escapeHtml(goodIconUrl(inp.goodId))
+      const opt = inp.optional
+        ? '<span class="app-tooltip__muted">опц.</span>'
+        : ''
+      return `<li class="app-tooltip__row${inp.optional ? ' is-optional' : ''}">` +
+        `<img class="app-tooltip__icon" src="${url}" alt="" />` +
+        `<span class="app-tooltip__name">${name}</span>${opt}</li>`
+    })
+    .join('')
+  return '<div class="app-tooltip__title">Входы</div>' +
+    `<ul class="app-tooltip__list">${rows}</ul>`
+}
 
 const query = ref('')
 
@@ -76,6 +111,7 @@ function onDragStart(event: DragEvent, factoryId: string) {
             v-for="f in group.items"
             :key="f.id"
             :draggable="true"
+            v-tooltip="{ html: inputsTooltipHtml(f), placement: 'bottom' }"
             class="group px-2 py-1 rounded text-sm cursor-grab active:cursor-grabbing border border-transparent hover:border-border hover:bg-muted flex items-center gap-2"
             @dragstart="onDragStart($event, f.id)"
             @click="emit('quickAdd', f.id)"

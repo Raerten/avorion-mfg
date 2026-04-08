@@ -138,8 +138,8 @@ const roots = computed(() => {
         <span
           v-for="gid in roots.missing"
           :key="gid"
+          v-tooltip="'У этого ресурса нет производителя — покупается у NPC'"
           class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-border bg-muted/60 text-xs font-medium text-muted-foreground"
-          title="У этого ресурса нет производителя — покупается у NPC"
         >
           <GoodIcon :good-id="gid" class="w-4 h-4" />
           ⚠ {{ getGood(gid)?.name ?? gid }} (у NPC)

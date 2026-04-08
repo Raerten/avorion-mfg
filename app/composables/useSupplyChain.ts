@@ -19,6 +19,12 @@ export interface FactoryNodeData {
   factoryId: string
   /** Number of parallel production lines for this factory instance. */
   lines: number
+  /**
+   * When true, the node contributes nothing to the supply graph — it
+   * produces no output and its input requirements are ignored. Used to
+   * temporarily "turn off" a factory without deleting it.
+   */
+  disabled?: boolean
 }
 
 export type FactoryFlowNode = Node<FactoryNodeData>
@@ -52,6 +58,7 @@ export function loadSupplyChain(): Persisted | null {
         data: {
           factoryId: n.data?.factoryId ?? '',
           lines: Math.max(1, Math.floor(n.data?.lines ?? 1)),
+          disabled: n.data?.disabled === true,
         },
       })),
       edges: (s.edges ?? []).map(e => ({
@@ -87,6 +94,7 @@ export function saveSupplyChain(
           data: {
             factoryId: d?.factoryId ?? '',
             lines: Math.max(1, Math.floor(d?.lines ?? 1)),
+            disabled: d?.disabled === true,
           },
         }
       }),

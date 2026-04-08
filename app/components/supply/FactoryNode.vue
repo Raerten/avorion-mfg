@@ -32,7 +32,7 @@ const NODE_STYLES: Record<FactoryCategory, { border: string; header: string }> =
  * a contextual picker that adds a connected factory for that good.
  */
 
-const props = defineProps<NodeProps<{ factoryId: string; lines: number }>>()
+const props = defineProps<NodeProps<{ factoryId: string; lines: number; disabled?: boolean }>>()
 
 const emit = defineEmits<{
   pick: [payload: { nodeId: string; direction: 'in' | 'out'; goodId: string }]
@@ -93,6 +93,8 @@ function suppliedRate(goodId: string): number {
     if (!src) continue
     const srcData = src.data as FactoryNodeData | undefined
     if (!srcData) continue
+    // Disabled upstream factories are offline — they deliver nothing.
+    if (srcData.disabled) continue
     const srcFactory = getFactory(srcData.factoryId)
     if (!srcFactory) continue
     const out = srcFactory.outputs.find(o => o.goodId === goodId)
@@ -112,6 +114,9 @@ function suppliedRate(goodId: string): number {
  *   'ok'    — supply matches demand within rounding (green)
  */
 function inputStatus(goodId: string, amount: number): 'none' | 'short' | 'over' | 'ok' {
+  // A disabled node consumes nothing — skip the demand/supply comparison
+  // entirely so its inputs don't light up red while it's offline.
+  if (props.data.disabled) return 'none'
   const handle = 'in-' + goodId
   const hasConnection = allEdges.value.some(
     e => e.target === props.id && e.targetHandle === handle,
@@ -130,6 +135,10 @@ function setLines(value: number) {
   // Mutating props.data is the documented way to update vue-flow node data;
   // the store reacts and our autosave watcher picks it up.
   props.data.lines = n
+}
+
+function toggleDisabled() {
+  props.data.disabled = !props.data.disabled
 }
 
 /**
@@ -152,8 +161,11 @@ function isValidConnection(connection: Connection): boolean {
 <template>
   <div
     v-if="factory && nodeStyle"
-    class="rounded-sm border-2 shadow-2xl min-w-[260px] font-mono bg-zinc-900 text-zinc-100 overflow-hidden"
-    :class="nodeStyle.border"
+    class="rounded-sm border-2 shadow-2xl min-w-[260px] font-mono bg-zinc-900 text-zinc-100 overflow-hidden transition-opacity"
+    :class="[
+      nodeStyle.border,
+      props.data.disabled ? 'opacity-50 grayscale border-dashed' : '',
+    ]"
   >
     <div
       class="px-3 py-1 flex items-center justify-between gap-2"
@@ -169,8 +181,8 @@ function isValidConnection(connection: Connection): boolean {
       </div>
       <div class="flex items-center gap-1.5 shrink-0">
         <label
+          v-tooltip="'Линий производства'"
           class="flex items-center gap-1 text-[10px] uppercase tracking-wider opacity-80"
-          title="Линий производства"
         >
           <span>×</span>
           <input
@@ -185,9 +197,16 @@ function isValidConnection(connection: Connection): boolean {
           >
         </label>
         <button
+          v-tooltip="props.data.disabled ? 'Включить' : 'Отключить'"
+          type="button"
+          class="nodrag text-sm leading-none w-5 h-5 rounded hover:bg-black/40 opacity-70 hover:opacity-100"
+          @click.stop="toggleDisabled"
+          @mousedown.stop
+        >⏻</button>
+        <button
+          v-tooltip="'Удалить'"
           type="button"
           class="text-sm leading-none w-5 h-5 rounded hover:bg-black/40 opacity-70 hover:opacity-100"
-          title="Удалить"
           @click.stop="emit('remove', props.id)"
         >✕</button>
       </div>
@@ -226,19 +245,21 @@ function isValidConnection(connection: Connection): boolean {
               'text-rose-300 font-semibold': inputStatus(inp.goodId, inp.amount) === 'short',
               'text-amber-300 font-semibold': inputStatus(inp.goodId, inp.amount) === 'over',
             }"
-            :title="
-              cycleTooltip(inp.amount) + '\n' + (
-                inputStatus(inp.goodId, inp.amount) === 'short'
-                  ? 'Не хватает: поступает ' + formatRate(suppliedRate(inp.goodId)) + '/ч'
-                  : inputStatus(inp.goodId, inp.amount) === 'over'
-                  ? 'Избыток: поступает ' + formatRate(suppliedRate(inp.goodId)) + '/ч'
-                  : inputStatus(inp.goodId, inp.amount) === 'ok'
-                  ? 'Покрыто'
-                  : inp.optional
-                  ? 'Опциональный вход не подключён'
-                  : 'Нет поставщика'
-              )
-            "
+            v-tooltip="{
+              placement: 'top',
+              content:
+                cycleTooltip(inp.amount) + '\n' + (
+                  inputStatus(inp.goodId, inp.amount) === 'short'
+                    ? 'Не хватает: поступает ' + formatRate(suppliedRate(inp.goodId)) + '/ч'
+                    : inputStatus(inp.goodId, inp.amount) === 'over'
+                    ? 'Избыток: поступает ' + formatRate(suppliedRate(inp.goodId)) + '/ч'
+                    : inputStatus(inp.goodId, inp.amount) === 'ok'
+                    ? 'Покрыто'
+                    : inp.optional
+                    ? 'Опциональный вход не подключён'
+                    : 'Нет поставщика'
+                )
+            }"
           >
             <span class="inline-block w-3 text-center mr-0.5">
               <template v-if="inputStatus(inp.goodId, inp.amount) === 'short'">⚠</template>
@@ -262,8 +283,8 @@ function isValidConnection(connection: Connection): boolean {
           class="relative flex items-center justify-end gap-2 pr-4 pl-2 py-1 text-right"
         >
           <span
+            v-tooltip="{ content: cycleTooltip(out.amount), placement: 'top' }"
             class="mr-auto pr-2 text-[12px] tabular-nums shrink-0 text-sky-300 font-semibold"
-            :title="cycleTooltip(out.amount)"
           >
             {{ formatRate(ratePerHour(out.amount)) }}/ч
           </span>
