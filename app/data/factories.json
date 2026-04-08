@@ -350,7 +350,7 @@
   },
   {
     "id": "carbon-extractor",
-    "name": "Экстрактор углерода",
+    "name": "Экстрактор углеволокна",
     "category": "basic",
     "cycleSeconds": 15,
     "inputs": [
@@ -368,7 +368,7 @@
   },
   {
     "id": "cattle-ranch",
-    "name": "Ранчо (скот)",
+    "name": "Ранчо крупного рогатого скота",
     "category": "basic",
     "cycleSeconds": 15,
     "inputs": [
@@ -622,7 +622,7 @@
   },
   {
     "id": "carbon-extractor-v2",
-    "name": "Экстрактор углерода (вариант 2)",
+    "name": "Экстрактор углеволокна (вариант 2)",
     "category": "mid",
     "cycleSeconds": 15,
     "inputs": [
@@ -640,7 +640,7 @@
   },
   {
     "id": "carbon-extractor-v3",
-    "name": "Экстрактор углерода (вариант 3)",
+    "name": "Экстрактор углеволокна (вариант 3)",
     "category": "mid",
     "cycleSeconds": 15,
     "inputs": [
@@ -658,7 +658,7 @@
   },
   {
     "id": "carbon-extractor-v4",
-    "name": "Экстрактор углерода (вариант 4)",
+    "name": "Экстрактор углеволокна (вариант 4)",
     "category": "mid",
     "cycleSeconds": 15,
     "inputs": [
@@ -676,7 +676,7 @@
   },
   {
     "id": "cattle-ranch-v2",
-    "name": "Ранчо (скот) (вариант 2)",
+    "name": "Ранчо крупного рогатого скота (вариант 2)",
     "category": "mid",
     "cycleSeconds": 15,
     "inputs": [
@@ -911,7 +911,7 @@
   },
   {
     "id": "energy-container-factory",
-    "name": "Завод энергоконтейнеров",
+    "name": "Завод аккумуляторов",
     "category": "mid",
     "cycleSeconds": 15,
     "inputs": [
@@ -933,7 +933,7 @@
   },
   {
     "id": "energy-tube-factory",
-    "name": "Завод энерготрубок",
+    "name": "Завод энергетических труб",
     "category": "mid",
     "cycleSeconds": 15,
     "inputs": [
@@ -1095,7 +1095,7 @@
   },
   {
     "id": "food-bar-factory",
-    "name": "Завод пищевых брикетов",
+    "name": "Завод пищевых батончиков",
     "category": "mid",
     "cycleSeconds": 15,
     "inputs": [
@@ -1210,7 +1210,7 @@
   },
   {
     "id": "gun-factory",
-    "name": "Оружейный завод",
+    "name": "Завод стволов",
     "category": "mid",
     "cycleSeconds": 15,
     "inputs": [
@@ -1354,7 +1354,7 @@
   },
   {
     "id": "metal-plate-factory",
-    "name": "Завод металлопластин",
+    "name": "Завод металлических пластин",
     "category": "mid",
     "cycleSeconds": 15,
     "inputs": [
@@ -1403,7 +1403,7 @@
   },
   {
     "id": "nanobot-factory",
-    "name": "Завод наноботов",
+    "name": "Завод нанороботов",
     "category": "mid",
     "cycleSeconds": 15,
     "inputs": [
@@ -1475,7 +1475,7 @@
   },
   {
     "id": "plasma-cell-factory",
-    "name": "Завод плазменных ячеек",
+    "name": "Завод плазменных элементов",
     "category": "mid",
     "cycleSeconds": 15,
     "inputs": [
@@ -1509,7 +1509,7 @@
   },
   {
     "id": "plastic-manufacturer",
-    "name": "Завод пластика",
+    "name": "Завод пластмассы",
     "category": "mid",
     "cycleSeconds": 15,
     "inputs": [
@@ -1560,7 +1560,7 @@
   },
   {
     "id": "power-unit-factory",
-    "name": "Завод энергоблоков",
+    "name": "Завод силовых установок",
     "category": "mid",
     "cycleSeconds": 15,
     "inputs": [
@@ -1645,7 +1645,7 @@
   },
   {
     "id": "servo-factory",
-    "name": "Завод сервоприводов",
+    "name": "Завод сервомеханизмов",
     "category": "mid",
     "cycleSeconds": 15,
     "inputs": [
@@ -1715,7 +1715,7 @@
   },
   {
     "id": "solar-cell-factory",
-    "name": "Завод солнечных элементов",
+    "name": "Завод фотоэлементов",
     "category": "mid",
     "cycleSeconds": 15,
     "inputs": [
@@ -2235,7 +2235,7 @@
   },
   {
     "id": "energy-inverter-factory",
-    "name": "Завод энергоинверторов",
+    "name": "Завод инверторов энергии",
     "category": "adv",
     "cycleSeconds": 15,
     "inputs": [
@@ -2261,7 +2261,7 @@
   },
   {
     "id": "explosive-charge-factory",
-    "name": "Завод взрывных зарядов",
+    "name": "Завод зарядов взрывчатого вещества",
     "category": "adv",
     "cycleSeconds": 15,
     "inputs": [
@@ -2553,7 +2553,7 @@
   },
   {
     "id": "medical-supplies-factory",
-    "name": "Завод медикаментов",
+    "name": "Завод медицинских принадлежностей",
     "category": "adv",
     "cycleSeconds": 15,
     "inputs": [
@@ -2845,7 +2845,7 @@
   },
   {
     "id": "body-armor-factory",
-    "name": "Завод бронежилетов",
+    "name": "Завод доспехов",
     "category": "end",
     "cycleSeconds": 15,
     "inputs": [
@@ -2969,7 +2969,7 @@
   },
   {
     "id": "energy-generator-factory",
-    "name": "Завод энергогенераторов",
+    "name": "Завод энергетических генераторов",
     "category": "end",
     "cycleSeconds": 15,
     "inputs": [
@@ -3060,7 +3060,7 @@
   },
   {
     "id": "mining-robot-factory",
-    "name": "Завод горных роботов",
+    "name": "Завод добывающих роботов",
     "category": "end",
     "cycleSeconds": 15,
     "inputs": [
@@ -3207,7 +3207,7 @@
   },
   {
     "id": "vehicle-factory",
-    "name": "Завод транспортных средств",
+    "name": "Завод сухопутного транспорта",
     "category": "end",
     "cycleSeconds": 15,
     "inputs": [
@@ -3358,7 +3358,7 @@
   },
   {
     "id": "computation-mainframe-factory",
-    "name": "Завод вычислительных мейнфреймов",
+    "name": "Завод мейнфреймов",
     "category": "hi",
     "cycleSeconds": 15,
     "inputs": [
@@ -3457,7 +3457,7 @@
   },
   {
     "id": "teleporter-factory",
-    "name": "Завод телепортеров",
+    "name": "Завод телепортов",
     "category": "hi",
     "cycleSeconds": 15,
     "inputs": [
@@ -3500,7 +3500,7 @@
   },
   {
     "id": "tesla-coil-factory",
-    "name": "Завод катушек Тесла",
+    "name": "Завод трансформаторов Тесла",
     "category": "hi",
     "cycleSeconds": 15,
     "inputs": [
