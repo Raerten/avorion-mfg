@@ -67,6 +67,18 @@ function formatRate(n: number): string {
 }
 
 /**
+ * Per-cycle breakdown tooltip: "N шт/цикл · 15с · ×lines линий".
+ * Clarifies where the displayed /ч rate comes from when players question it.
+ */
+function cycleTooltip(amount: number): string {
+  if (!factory.value) return ''
+  const lines = Math.max(1, Math.floor(props.data.lines ?? 1))
+  const parts = [`${amount} шт/цикл`, `цикл ${factory.value.cycleSeconds}с`]
+  if (lines > 1) parts.push(`×${lines} линий`)
+  return parts.join(' · ')
+}
+
+/**
  * Sum the per-hour rate of all upstream factories feeding `goodId` into
  * this node. Walks the edges that target our matching `in-<goodId>`
  * handle, and uses each source node's factory + line count to compute
@@ -215,15 +227,17 @@ function isValidConnection(connection: Connection): boolean {
               'text-amber-300 font-semibold': inputStatus(inp.goodId, inp.amount) === 'over',
             }"
             :title="
-              inputStatus(inp.goodId, inp.amount) === 'short'
-                ? 'Не хватает: поступает ' + formatRate(suppliedRate(inp.goodId)) + '/ч'
-                : inputStatus(inp.goodId, inp.amount) === 'over'
-                ? 'Избыток: поступает ' + formatRate(suppliedRate(inp.goodId)) + '/ч'
-                : inputStatus(inp.goodId, inp.amount) === 'ok'
-                ? 'Покрыто'
-                : inp.optional
-                ? 'Опциональный вход не подключён'
-                : 'Нет поставщика'
+              cycleTooltip(inp.amount) + '\n' + (
+                inputStatus(inp.goodId, inp.amount) === 'short'
+                  ? 'Не хватает: поступает ' + formatRate(suppliedRate(inp.goodId)) + '/ч'
+                  : inputStatus(inp.goodId, inp.amount) === 'over'
+                  ? 'Избыток: поступает ' + formatRate(suppliedRate(inp.goodId)) + '/ч'
+                  : inputStatus(inp.goodId, inp.amount) === 'ok'
+                  ? 'Покрыто'
+                  : inp.optional
+                  ? 'Опциональный вход не подключён'
+                  : 'Нет поставщика'
+              )
             "
           >
             <span class="inline-block w-3 text-center mr-0.5">
@@ -247,7 +261,10 @@ function isValidConnection(connection: Connection): boolean {
           :key="out.goodId"
           class="relative flex items-center justify-end gap-2 pr-4 pl-2 py-1 text-right"
         >
-          <span class="mr-auto pr-2 text-[12px] tabular-nums shrink-0 text-sky-300 font-semibold">
+          <span
+            class="mr-auto pr-2 text-[12px] tabular-nums shrink-0 text-sky-300 font-semibold"
+            :title="cycleTooltip(out.amount)"
+          >
             {{ formatRate(ratePerHour(out.amount)) }}/ч
           </span>
           <button
