@@ -1,9 +1,9 @@
 /**
- * Mapping from Good id to its icon filename in `public/icons/`.
+ * Mapping from Good id to its icon filename in `assets/icons/`.
  *
  * The PNGs are sourced from https://github.com/Sovgut/avorion-tools (CC-BY).
- * They live under `public/icons/{file}.png` and are served at `/icons/{file}.png`
- * by Nuxt's static asset pipeline. Several goods intentionally share the same
+ * They live under `app/assets/icons/{file}.png` and are bundled by Vite's
+ * asset pipeline with content hashes. Several goods intentionally share the same
  * file (e.g. gold/silver/platinum all use `metal-bar`) — that mirrors the
  * upstream choice.
  *
@@ -155,9 +155,20 @@ const ICON_FILES: Record<string, string> = {
   'military-tesla-coil': 'industrial-tesla-coil',
 }
 
-const FALLBACK = '/icons/rock.png'
+const iconModules = import.meta.glob<{ default: string }>(
+  '~/assets/icons/*.png',
+  { eager: true },
+)
+
+const iconUrls: Record<string, string> = {}
+for (const [path, mod] of Object.entries(iconModules)) {
+  const name = path.split('/').pop()!.replace('.png', '')
+  iconUrls[name] = mod.default
+}
+
+const FALLBACK = iconUrls['rock'] ?? ''
 
 export function goodIconUrl(id: string): string {
   const file = ICON_FILES[id]
-  return file ? `/icons/${file}.png` : FALLBACK
+  return (file ? iconUrls[file] : undefined) ?? FALLBACK
 }
