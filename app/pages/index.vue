@@ -144,9 +144,5 @@ const tools = [
       </NuxtLink>
     </div>
 
-    <!-- Footer hint -->
-    <p class="mt-16 text-xs text-muted-foreground/60 tracking-wide">
-      Данные актуальны для версии Avorion 2.x
-    </p>
   </div>
 </template>
