@@ -118,7 +118,7 @@ const byCategory = computed(() => {
           ref="searchInput"
           v-model="query"
           type="text"
-          placeholder="Поиск по названию, входам, выходам…"
+          placeholder="Поиск…"
           class="w-full h-8 px-2 pr-7 rounded border border-border bg-background text-sm outline-none focus:border-ring"
           @focus="searchFocused = true"
           @blur="searchFocused = false"

@@ -213,7 +213,6 @@ function onDragStart(event: DragEvent, factoryId: string) {
 <template>
   <aside class="w-72 shrink-0 h-full border-r border-border bg-card/40 backdrop-blur flex flex-col">
     <div class="px-3 py-3 border-b border-border space-y-2">
-      <h2 class="text-xs font-mono uppercase tracking-wider text-muted-foreground">Фабрики</h2>
       <div class="group/search relative">
         <input
           ref="searchInput"
