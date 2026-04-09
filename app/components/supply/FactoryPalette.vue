@@ -93,6 +93,8 @@ function inputsTooltipHtml(factory: Factory): string {
 }
 
 const query = ref('')
+const searchFocused = ref(false)
+const searchInput = ref<HTMLInputElement>()
 
 interface PaletteItem {
   factory: Factory
@@ -212,12 +214,26 @@ function onDragStart(event: DragEvent, factoryId: string) {
   <aside class="w-72 shrink-0 h-full border-r border-border bg-card/40 backdrop-blur flex flex-col">
     <div class="px-3 py-3 border-b border-border space-y-2">
       <h2 class="text-xs font-mono uppercase tracking-wider text-muted-foreground">Фабрики</h2>
-      <input
-        v-model="query"
-        type="search"
-        placeholder="Поиск…"
-        class="w-full h-8 px-2 rounded border border-border bg-background text-sm outline-none focus:border-ring"
-      >
+      <div class="group/search relative">
+        <input
+          ref="searchInput"
+          v-model="query"
+          type="text"
+          placeholder="Поиск…"
+          class="w-full h-8 px-2 pr-7 rounded border border-border bg-background text-sm outline-none focus:border-ring"
+          @focus="searchFocused = true"
+          @blur="searchFocused = false"
+        >
+        <button
+          v-if="query"
+          type="button"
+          class="absolute right-1.5 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center rounded-sm text-muted-foreground hover:text-foreground hover:bg-muted opacity-0 group-hover/search:opacity-100 transition-opacity"
+          :class="{ 'opacity-100': searchFocused }"
+          @click="query = ''; searchInput?.focus()"
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 4l6 6M10 4l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /></svg>
+        </button>
+      </div>
       <p class="text-[11px] text-muted-foreground leading-snug">
         Перетащите фабрику на холст или кликните по слоту входа/выхода существующей фабрики, чтобы добавить связанную.
       </p>

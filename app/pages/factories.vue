@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import FactoryDetail from '~/components/FactoryDetail.vue'
-import FactorySearch from '~/components/FactorySearch.vue'
 import FactorySidebar from '~/components/FactorySidebar.vue'
-import { CATEGORY_STYLES } from '~/lib/categories'
 
 useHead({ title: 'Фабрики · Avorion MFG' })
 definePageMeta({ layout: false })
@@ -19,20 +17,7 @@ function select(id: string) {
     <header class="flex items-center gap-3 px-4 py-3 border-b border-border bg-card/40">
       <NuxtLink to="/" class="font-mono text-sm text-primary tracking-wider">AVORION/MFG</NuxtLink>
       <h1 class="text-base font-semibold">⛏ Фабрики</h1>
-      <div class="flex-1" />
-      <FactorySearch @select="select" />
     </header>
-
-    <div class="flex items-center gap-3 flex-wrap px-4 py-1.5 border-b border-border bg-card/20 text-[11px] text-muted-foreground">
-      <div
-        v-for="(s, key) in CATEGORY_STYLES"
-        :key="key"
-        class="inline-flex items-center gap-1.5"
-      >
-        <span class="w-2.5 h-2.5 rounded-sm" :class="s.dot" />
-        <span>{{ s.label }}</span>
-      </div>
-    </div>
 
     <div class="flex flex-1 min-h-0">
       <FactorySidebar :active-id="selectedId" @select="select" />
