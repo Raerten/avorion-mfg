@@ -14,10 +14,7 @@ function select(id: string) {
 
 <template>
   <div class="flex flex-col h-screen bg-background text-foreground">
-    <header class="flex items-center gap-3 px-4 py-3 border-b border-border bg-card/40">
-      <NuxtLink to="/" class="font-mono text-sm text-primary tracking-wider">AVORION/MFG</NuxtLink>
-      <h1 class="text-base font-semibold">⛏ Фабрики</h1>
-    </header>
+    <AppHeader />
 
     <div class="flex flex-1 min-h-0">
       <FactorySidebar :active-id="selectedId" @select="select" />

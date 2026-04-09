@@ -261,20 +261,13 @@ function onClear() {
 
 <template>
   <div class="h-screen w-screen flex flex-col bg-background text-foreground">
-    <header class="h-12 shrink-0 border-b border-border bg-card/40 backdrop-blur flex items-center gap-4 px-4">
-      <NuxtLink to="/" class="font-mono text-sm tracking-wider text-primary">AVORION/MFG</NuxtLink>
-      <span class="text-sm text-muted-foreground">Supply Chain</span>
-      <div class="flex-1" />
+    <AppHeader>
       <button
         type="button"
         class="text-xs px-3 py-1.5 rounded border border-border hover:bg-muted text-muted-foreground hover:text-foreground"
         @click="onClear"
       >Очистить</button>
-      <NuxtLink
-        to="/"
-        class="text-xs px-3 py-1.5 rounded border border-border hover:bg-muted text-muted-foreground hover:text-foreground"
-      >← Назад</NuxtLink>
-    </header>
+    </AppHeader>
 
     <div class="flex-1 flex min-h-0">
       <FactoryPalette />
