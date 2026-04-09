@@ -59,21 +59,11 @@ function columnHtml(title: string, emptyLabel: string, rowsHtml: string): string
 
 function costSectionHtml(factory: Factory): string {
   const build = formatCredits(buildCost(factory, getGood))
-  const upgradeCells = FACTORY_SIZES
-    .map(
-      size =>
-        `<li class="app-tooltip__size"><span class="app-tooltip__size-label">${size}</span>` +
-        `<span class="app-tooltip__size-value">${escapeHtml(formatCredits(upgradeCost(factory, size, getGood)))}</span></li>`,
-    )
-    .join('')
   return (
     '<div class="app-tooltip__costs">' +
     '<div class="app-tooltip__cost-row">' +
     '<span class="app-tooltip__title">Постройка</span>' +
     `<span class="app-tooltip__cost-value">${escapeHtml(build)}</span>` +
-    '</div>' +
-    '<div class="app-tooltip__title" style="margin-top:4px">Апгрейд до размера</div>' +
-    `<ul class="app-tooltip__sizes">${upgradeCells}</ul>` +
     '</div>'
   )
 }
