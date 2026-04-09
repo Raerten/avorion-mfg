@@ -1,9 +1,8 @@
 <script setup lang="ts">
 const nav = [
   { to: '/', label: 'Overview' },
-  { to: '/chains', label: 'Chain Browser' },
-  { to: '/supply', label: 'Supply Chain' },
   { to: '/factories', label: 'Factories' },
+  { to: '/supply', label: 'Supply Chain' },
 ]
 </script>
 
