@@ -8,6 +8,17 @@ export default defineNuxtConfig({
   css: ['~/assets/css/tailwind.css'],
   vite: {
     plugins: [tailwindcss()],
+    optimizeDeps: {
+      include: [
+        '@popperjs/core',
+        '@vue-flow/core',
+        '@vue-flow/background',
+        '@vue-flow/controls',
+        '@vue-flow/minimap',
+        'fuse.js',
+        'lucide-vue-next',
+      ],
+    },
   },
   shadcn: {
     prefix: '',
