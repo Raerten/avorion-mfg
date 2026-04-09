@@ -13,11 +13,13 @@ import '@vue-flow/minimap/dist/style.css'
 import FactoryNode from '~/components/supply/FactoryNode.vue'
 import FactoryPalette from '~/components/supply/FactoryPalette.vue'
 import FactoryPicker from '~/components/supply/FactoryPicker.vue'
+import SupplyToolbar from '~/components/supply/SupplyToolbar.vue'
 import FactoryCard from '~/components/FactoryCard.vue'
 import { useGameData } from '~/composables/useGameData'
 import {
   type FactoryFlowNode,
   clearSupplyChainStorage,
+  ensureIndex,
   loadSupplyChain,
   nextNodeId,
   saveSupplyChain,
@@ -81,18 +83,8 @@ onEdgeDoubleClick(({ edge }) => {
 const hydrated = ref(false)
 
 onPaneReady(() => {
-  const saved = loadSupplyChain()
-  if (saved) {
-    setNodes(saved.nodes)
-    setEdges(saved.edges)
-    if (saved.viewport) {
-      // Restore the exact pan/zoom the user left the canvas at.
-      setViewport(saved.viewport)
-    } else if (saved.nodes.length > 0) {
-      // First time after older save without viewport — fit to content.
-      setTimeout(() => fitView({ padding: 0.2 }), 0)
-    }
-  }
+  ensureIndex() // migrate legacy data if needed
+  hydrateCanvas()
   hydrated.value = true
 })
 
@@ -249,6 +241,28 @@ function onNodeInfo(factoryId: string) {
   infoFactoryId.value = factoryId
 }
 
+// --- Canvas switching --------------------------------------------------------
+
+function hydrateCanvas(canvasId?: string) {
+  const saved = loadSupplyChain(canvasId)
+  if (saved) {
+    setNodes(saved.nodes)
+    setEdges(saved.edges)
+    if (saved.viewport) {
+      setViewport(saved.viewport)
+    } else if (saved.nodes.length > 0) {
+      setTimeout(() => fitView({ padding: 0.2 }), 0)
+    }
+  } else {
+    setNodes([])
+    setEdges([])
+  }
+}
+
+function onCanvasSwitch(id: string) {
+  hydrateCanvas(id)
+}
+
 // --- Clear all ----------------------------------------------------------------
 
 function onClear() {
@@ -262,11 +276,10 @@ function onClear() {
 <template>
   <div class="h-screen w-screen flex flex-col bg-background text-foreground">
     <AppHeader>
-      <button
-        type="button"
-        class="text-xs px-3 py-1.5 rounded border border-border hover:bg-muted text-muted-foreground hover:text-foreground"
-        @click="onClear"
-      >Очистить</button>
+      <SupplyToolbar
+        @switch="onCanvasSwitch"
+        @clear="onClear"
+      />
     </AppHeader>
 
     <div class="flex-1 flex min-h-0">

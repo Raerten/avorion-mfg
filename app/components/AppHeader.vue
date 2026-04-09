@@ -6,7 +6,7 @@ const nav = [
 </script>
 
 <template>
-  <header class="h-12 shrink-0 border-b border-border bg-card/40 backdrop-blur flex items-center gap-6 px-4">
+  <header class="h-12 shrink-0 border-b border-border bg-card/40 backdrop-blur flex items-center gap-6 px-4 relative z-20">
     <NuxtLink to="/" class="font-mono text-sm tracking-wider text-primary">
       AVORION/MFG
     </NuxtLink>
