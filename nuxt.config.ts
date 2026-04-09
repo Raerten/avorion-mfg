@@ -29,6 +29,7 @@ export default defineNuxtConfig({
   },
   ssr: false,
   app: {
+    baseURL: process.env.NUXT_APP_BASE_URL || '/',
     head: {
       title: 'Avorion Manufactory Helper',
       meta: [
