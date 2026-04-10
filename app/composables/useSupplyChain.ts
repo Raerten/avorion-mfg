@@ -1,4 +1,5 @@
-import type { Edge, GraphEdge, GraphNode, Node, Viewport } from '@vue-flow/core'
+import type { Edge, GraphEdge, GraphNode, Node, ViewportTransform } from '@vue-flow/core'
+import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from 'lz-string'
 
 /**
  * Multi-canvas persistence for the supply chain builder.
@@ -31,7 +32,7 @@ export interface Persisted {
   nodes: FactoryFlowNode[]
   edges: Edge[]
   counter: number
-  viewport?: Viewport
+  viewport?: ViewportTransform
 }
 
 export interface CanvasMeta {
@@ -49,6 +50,10 @@ let counter = 0
 export function nextNodeId(): string {
   counter += 1
   return `n${counter}`
+}
+
+export function ensureCounterAtLeast(min: number) {
+  counter = Math.max(counter, min)
 }
 
 // ---------------------------------------------------------------------------
@@ -87,7 +92,7 @@ export function ensureIndex(): CanvasIndex {
 
   // Migrate legacy single-canvas data
   const defaultId = generateId()
-  idx = { active: defaultId, list: [{ id: defaultId, name: 'Холст 1' }] }
+  idx = { active: defaultId, list: [{ id: defaultId, name: 'Схема 1' }] }
 
   if (import.meta.client) {
     try {
@@ -148,10 +153,10 @@ export function deleteCanvas(id: string) {
     if (idx.list.length === 0) {
       // Always keep at least one canvas
       const newId = generateId()
-      idx.list.push({ id: newId, name: 'Холст 1' })
+      idx.list.push({ id: newId, name: 'Схема 1' })
       idx.active = newId
     } else {
-      idx.active = idx.list[0].id
+      idx.active = idx.list[0]!.id
     }
   }
   writeIndex(idx)
@@ -234,7 +239,7 @@ export function loadSupplyChain(canvasId?: string): Persisted | null {
 export function saveSupplyChain(
   nodes: GraphNode[],
   edges: GraphEdge[],
-  viewport?: Viewport,
+  viewport?: ViewportTransform,
   canvasId?: string,
 ) {
   if (!import.meta.client) return
@@ -307,4 +312,43 @@ export function importCanvas(json: string): string {
   } catch { /* quota */ }
 
   return id
+}
+
+// ---------------------------------------------------------------------------
+// Share via URL
+// ---------------------------------------------------------------------------
+
+/**
+ * Compress current canvas state into a URL-safe string for the `?s=` param.
+ */
+export function encodeCanvasForUrl(canvasId?: string): string | null {
+  const exported = exportCanvas(canvasId)
+  if (!exported) return null
+  // Strip viewport — the recipient doesn't need our camera position
+  const { viewport: _, ...data } = exported.data
+  const minimal = { n: exported.name, d: data }
+  return compressToEncodedURIComponent(JSON.stringify(minimal))
+}
+
+/**
+ * Decode a `?s=` param back into an ExportedCanvas-like object.
+ * Returns null if the string is invalid.
+ */
+export function decodeCanvasFromUrl(encoded: string): { name: string; data: Persisted } | null {
+  try {
+    const json = decompressFromEncodedURIComponent(encoded)
+    if (!json) return null
+    const parsed = JSON.parse(json) as { n: string; d: Omit<Persisted, 'viewport'> }
+    if (!parsed.d || !Array.isArray(parsed.d.nodes)) return null
+    return {
+      name: parsed.n || 'Общая Схема',
+      data: {
+        nodes: parsePersistedNodes(parsed.d.nodes),
+        edges: parsePersistedEdges(parsed.d.edges),
+        counter: parsed.d.counter ?? 0,
+      },
+    }
+  } catch {
+    return null
+  }
 }

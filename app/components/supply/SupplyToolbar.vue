@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { push } from 'notivue'
 import {
   getCanvasList,
   getActiveCanvasId,
@@ -9,6 +10,7 @@ import {
   deleteCanvas,
   exportCanvas,
   importCanvas,
+  encodeCanvasForUrl,
   type CanvasMeta,
 } from '~/composables/useSupplyChain'
 
@@ -42,7 +44,7 @@ function onSwitch(id: string) {
 // --- Create ---
 
 function onCreate() {
-  const name = prompt('Название нового холста:', `Холст ${list.value.length + 1}`)
+  const name = prompt('Название новой схемы:', `Схема ${list.value.length + 1}`)
   if (!name) return
   const id = createCanvas(name)
   refresh()
@@ -66,7 +68,7 @@ function onDelete() {
   if (list.value.length <= 1) return
   const current = activeCanvas.value
   if (!current) return
-  if (!confirm(`Удалить холст «${current.name}»?`)) return
+  if (!confirm(`Удалить схему «${current.name}»?`)) return
   deleteCanvas(current.id)
   refresh()
   emit('switch', getActiveCanvasId())
@@ -113,6 +115,34 @@ function onFileChange(event: Event) {
   input.value = ''
 }
 
+// --- Share ---
+
+const shareCopied = ref(false)
+
+async function onShare() {
+  const encoded = encodeCanvasForUrl()
+  if (!encoded) return
+  const url = `${window.location.origin}${window.location.pathname}?s=${encoded}`
+  try {
+    await navigator.clipboard.writeText(url)
+  } catch {
+    // Fallback for environments where clipboard API is unavailable
+    const ta = document.createElement('textarea')
+    ta.value = url
+    ta.style.position = 'fixed'
+    ta.style.opacity = '0'
+    document.body.appendChild(ta)
+    ta.select()
+    document.execCommand('copy')
+    document.body.removeChild(ta)
+  }
+  shareCopied.value = true
+  push.success('Ссылка скопирована в буфер обмена')
+  setTimeout(() => { shareCopied.value = false }, 2000)
+}
+
+defineExpose({ refresh })
+
 const dropdownRef = ref<HTMLElement | null>(null)
 const toggleRef = ref<HTMLElement | null>(null)
 
@@ -138,7 +168,7 @@ onUnmounted(() => document.removeEventListener('click', onDocumentClick))
         class="text-xs px-3 py-1.5 rounded border border-border hover:bg-muted text-muted-foreground hover:text-foreground flex items-center gap-1.5 max-w-48 cursor-pointer"
         @click="dropdownOpen = !dropdownOpen"
       >
-        <span class="truncate">{{ activeCanvas?.name ?? 'Холст' }}</span>
+        <span class="truncate">{{ activeCanvas?.name ?? 'Схема' }}</span>
         <svg class="w-3 h-3 shrink-0 opacity-60" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M3 5l3 3 3-3" />
         </svg>
@@ -168,14 +198,14 @@ onUnmounted(() => document.removeEventListener('click', onDocumentClick))
           type="button"
           class="w-full text-left text-xs px-3 py-1.5 hover:bg-muted text-muted-foreground cursor-pointer"
           @click="onCreate(); dropdownOpen = false"
-        >+ Новый холст</button>
+        >+ Новая схема</button>
       </div>
     </div>
 
     <!-- Rename -->
     <button
       type="button"
-      title="Переименовать холст"
+      title="Переименовать схему"
       class="text-xs px-2 py-1.5 rounded border border-border hover:bg-muted text-muted-foreground hover:text-foreground cursor-pointer"
       @click="onRename"
     >
@@ -187,7 +217,7 @@ onUnmounted(() => document.removeEventListener('click', onDocumentClick))
     <!-- Delete -->
     <button
       type="button"
-      title="Удалить холст"
+      title="Удалить схему"
       class="text-xs px-2 py-1.5 rounded border border-border hover:bg-muted text-muted-foreground hover:text-foreground disabled:opacity-30 cursor-pointer"
       :disabled="list.length <= 1"
       @click="onDelete"
@@ -202,7 +232,7 @@ onUnmounted(() => document.removeEventListener('click', onDocumentClick))
     <!-- Download -->
     <button
       type="button"
-      title="Скачать холст"
+      title="Скачать схему"
       class="text-xs px-2 py-1.5 rounded border border-border hover:bg-muted text-muted-foreground hover:text-foreground cursor-pointer"
       @click="onDownload"
     >
@@ -214,7 +244,7 @@ onUnmounted(() => document.removeEventListener('click', onDocumentClick))
     <!-- Upload -->
     <button
       type="button"
-      title="Загрузить холст"
+      title="Загрузить схему"
       class="text-xs px-2 py-1.5 rounded border border-border hover:bg-muted text-muted-foreground hover:text-foreground cursor-pointer"
       @click="onUploadClick"
     >
@@ -230,14 +260,34 @@ onUnmounted(() => document.removeEventListener('click', onDocumentClick))
       @change="onFileChange"
     >
 
+    <!-- Share -->
+    <button
+      type="button"
+      title="Поделиться схемой"
+      class="text-xs px-2 py-1.5 rounded border hover:bg-muted cursor-pointer"
+      :class="shareCopied ? 'border-green-500/50 text-green-400' : 'border-border text-muted-foreground hover:text-foreground'"
+      @click="onShare"
+    >
+      <svg v-if="!shareCopied" class="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="3" r="2" />
+        <circle cx="12" cy="13" r="2" />
+        <circle cx="4" cy="8" r="2" />
+        <path d="M5.8 7l4.4-3M5.8 9l4.4 3" />
+      </svg>
+      <svg v-else class="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M3 8.5l3.5 3.5L13 4" />
+      </svg>
+    </button>
+
     <div class="w-px h-5 bg-border mx-0.5" />
 
     <!-- Clear canvas -->
     <button
       type="button"
-      title="Очистить холст"
+      title="Очистить схему"
       class="text-xs px-3 py-1.5 rounded border border-border hover:bg-muted text-muted-foreground hover:text-foreground cursor-pointer"
       @click="$emit('clear')"
     >Очистить</button>
   </div>
 </template>
+

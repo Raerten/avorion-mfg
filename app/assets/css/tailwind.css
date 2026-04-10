@@ -41,6 +41,63 @@
 
 :root {
   color-scheme: dark;
+
+  /* Notivue — match app card/popover style */
+  --nv-global-bg: var(--color-card);
+  --nv-global-fg: var(--color-foreground);
+  --nv-global-accent: var(--color-primary);
+  --nv-global-border: var(--color-border);
+  --nv-width: 320px;
+  --nv-radius: var(--radius-md);
+  --nv-spacing: 0.55rem;
+  --nv-border-width: 1px;
+  --nv-title-size: 0.8rem;
+  --nv-message-size: 0.8rem;
+  --nv-shadow:
+    0 4px 12px hsl(0 0% 0% / 0.35),
+    0 0 0 1px hsl(190 85% 55% / 0.06);
+  --nv-icon-size: 1.1rem;
+  --nv-tip-width: 3px;
+
+  --nv-success-accent: hsl(152 60% 48%);
+  --nv-success-bg: var(--color-card);
+  --nv-success-fg: var(--color-foreground);
+  --nv-success-border: hsl(152 30% 18%);
+
+  --nv-error-accent: var(--color-destructive);
+  --nv-error-bg: var(--color-card);
+  --nv-error-fg: var(--color-foreground);
+  --nv-error-border: hsl(0 30% 18%);
+
+  --nv-warning-accent: var(--color-accent);
+  --nv-warning-bg: var(--color-card);
+  --nv-warning-fg: var(--color-foreground);
+  --nv-warning-border: hsl(38 30% 18%);
+
+  --nv-info-accent: var(--color-primary);
+  --nv-info-bg: var(--color-card);
+  --nv-info-fg: var(--color-foreground);
+  --nv-info-border: hsl(190 30% 18%);
+
+  --nv-promise-accent: var(--color-primary);
+  --nv-promise-bg: var(--color-card);
+  --nv-promise-fg: var(--color-foreground);
+  --nv-promise-border: var(--color-border);
+}
+
+/* Notivue component overrides */
+.Notivue__notification {
+  font-family: var(--font-sans);
+  backdrop-filter: blur(8px);
+}
+.Notivue__content-message {
+  color: var(--color-muted-foreground);
+}
+.Notivue__close {
+  opacity: 0.5;
+}
+.Notivue__close:hover {
+  opacity: 1;
 }
 
 html,

@@ -16,11 +16,16 @@ import FactoryCard from '~/components/FactoryCard.vue'
 import { useGameData } from '~/composables/useGameData'
 import {
   type FactoryFlowNode,
+  type Persisted,
   clearSupplyChainStorage,
+  createCanvas,
+  decodeCanvasFromUrl,
+  ensureCounterAtLeast,
   ensureIndex,
   loadSupplyChain,
   nextNodeId,
   saveSupplyChain,
+  setActiveCanvas,
 } from '~/composables/useSupplyChain'
 
 definePageMeta({ layout: false })
@@ -51,6 +56,44 @@ const {
   setCenter,
 } = useVueFlow()
 
+// --- Shared canvas from URL --------------------------------------------------
+
+const route = useRoute()
+const router = useRouter()
+const sharedCanvas = ref<{ name: string; data: Persisted } | null>(null)
+
+function loadSharedFromUrl() {
+  const encoded = route.query.s as string | undefined
+  if (!encoded) return
+  const decoded = decodeCanvasFromUrl(encoded)
+  if (!decoded) return
+  sharedCanvas.value = decoded
+  // Load shared data into the flow without saving to localStorage
+  setNodes(decoded.data.nodes)
+  setEdges(decoded.data.edges)
+  // Update counter so new nodes don't collide
+  ensureCounterAtLeast(decoded.data.counter)
+  setTimeout(() => fitView({ padding: 0.2 }), 0)
+}
+
+function onSaveShared() {
+  if (!sharedCanvas.value) return
+  const id = createCanvas(sharedCanvas.value.name)
+  saveSupplyChain(nodes.value, edges.value, getViewport(), id)
+  setActiveCanvas(id)
+  sharedCanvas.value = null
+  // Remove ?s= from the URL without reload
+  router.replace({ query: {} })
+  toolbarRef.value?.refresh()
+}
+
+function onDiscardShared() {
+  sharedCanvas.value = null
+  router.replace({ query: {} })
+  // Re-hydrate the user's own active canvas
+  hydrateCanvas()
+}
+
 /**
  * MiniMap node fill = the factory's category color, so the preview
  * mirrors what the user sees on the canvas instead of vue-flow's
@@ -79,28 +122,34 @@ onEdgeDoubleClick(({ edge }) => {
 // --- Persistence: hydrate once VueFlow is ready, then autosave on change ----
 
 const hydrated = ref(false)
+const toolbarRef = ref<InstanceType<typeof SupplyToolbar> | null>(null)
 
 onPaneReady(() => {
   ensureIndex() // migrate legacy data if needed
-  hydrateCanvas()
+  const hasShared = !!(route.query.s as string)
+  if (hasShared) {
+    loadSharedFromUrl()
+  } else {
+    hydrateCanvas()
+  }
   hydrated.value = true
 })
 
 watch(
   [nodes, edges],
   () => {
-    if (!hydrated.value) return
+    if (!hydrated.value || sharedCanvas.value) return
     saveSupplyChain(nodes.value, edges.value, getViewport())
   },
   { deep: true },
 )
 
 onNodeDragStop(() => {
-  if (hydrated.value) saveSupplyChain(nodes.value, edges.value, getViewport())
+  if (hydrated.value && !sharedCanvas.value) saveSupplyChain(nodes.value, edges.value, getViewport())
 })
 
 onViewportChangeEnd(() => {
-  if (hydrated.value) saveSupplyChain(nodes.value, edges.value, getViewport())
+  if (hydrated.value && !sharedCanvas.value) saveSupplyChain(nodes.value, edges.value, getViewport())
 })
 
 // --- Adding factories ---------------------------------------------------------
@@ -264,7 +313,7 @@ function onCanvasSwitch(id: string) {
 // --- Clear all ----------------------------------------------------------------
 
 function onClear() {
-  if (!confirm('Очистить весь холст?')) return
+  if (!confirm('Очистить всю схему?')) return
   setNodes([])
   setEdges([])
   clearSupplyChainStorage()
@@ -275,10 +324,32 @@ function onClear() {
   <div class="h-screen w-screen flex flex-col bg-background text-foreground">
     <AppHeader>
       <SupplyToolbar
+        ref="toolbarRef"
         @switch="onCanvasSwitch"
         @clear="onClear"
       />
     </AppHeader>
+
+    <!-- Shared canvas banner -->
+    <div
+      v-if="sharedCanvas"
+      class="flex items-center gap-3 px-4 py-2 bg-primary/10 border-b border-primary/30 text-sm"
+    >
+      <span class="text-primary font-medium">Общая схема: «{{ sharedCanvas.name }}»</span>
+      <span class="text-muted-foreground">- сохраните к себе или закройте</span>
+      <div class="ml-auto flex items-center gap-2">
+        <button
+          type="button"
+          class="px-3 py-1 rounded text-xs bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer"
+          @click="onSaveShared"
+        >Сохранить</button>
+        <button
+          type="button"
+          class="px-3 py-1 rounded text-xs border border-border hover:bg-muted text-muted-foreground cursor-pointer"
+          @click="onDiscardShared"
+        >Закрыть</button>
+      </div>
+    </div>
 
     <div class="flex-1 flex min-h-0">
       <FactoryPalette />
@@ -349,6 +420,7 @@ function onClear() {
         </div>
       </div>
     </div>
+
   </div>
 </template>
 

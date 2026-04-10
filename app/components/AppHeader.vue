@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const nav = [
   { to: '/factories', label: '⛏ Фабрики' },
-  { to: '/supply', label: '🔗 Цепь поставок' },
+  { to: '/supply', label: '🔗 План производства' },
 ]
 
 const { hasUpdate } = useVersionNotice()

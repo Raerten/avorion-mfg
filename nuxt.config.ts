@@ -4,8 +4,23 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineNuxtConfig({
   compatibilityDate: '2026-04-07',
   devtools: { enabled: true },
-  modules: ['shadcn-nuxt'],
-  css: ['~/assets/css/tailwind.css'],
+  modules: ['shadcn-nuxt', 'notivue/nuxt'],
+  css: [
+    '~/assets/css/tailwind.css',
+    'notivue/notification.css',
+    'notivue/animations.css',
+  ],
+  notivue: {
+    position: 'top-center',
+    limit: 3,
+    enqueue: false,
+    pauseOnHover: true,
+    notifications: {
+      global: {
+        duration: 3000,
+      },
+    },
+  },
   vite: {
     plugins: [tailwindcss()],
     optimizeDeps: {

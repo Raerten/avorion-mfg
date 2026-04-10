@@ -31,7 +31,6 @@ dismiss()
             :key="i"
             class="flex items-start gap-2"
           >
-            <span class="text-muted-foreground/50 mt-0.5">—</span>
             <span>{{ change }}</span>
           </li>
         </ul>

@@ -224,7 +224,7 @@ function onDragStart(event: DragEvent, factoryId: string) {
         </button>
       </div>
       <p class="text-[11px] text-muted-foreground leading-snug">
-        Перетащите фабрику на холст или кликните по слоту входа/выхода существующей фабрики, чтобы добавить связанную.
+        Перетащите фабрику на схему или кликните по слоту входа/выхода существующей фабрики, чтобы добавить связанную.
       </p>
       <p class="text-[11px] text-muted-foreground/70 leading-snug">
         Двойной клик по связи или Delete удаляет её.
