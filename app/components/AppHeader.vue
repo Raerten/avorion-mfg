@@ -3,6 +3,8 @@ const nav = [
   { to: '/factories', label: '⛏ Фабрики' },
   { to: '/supply', label: '🔗 Цепь поставок' },
 ]
+
+const { hasUpdate } = useVersionNotice()
 </script>
 
 <template>
@@ -22,6 +24,13 @@ const nav = [
       </NuxtLink>
     </nav>
     <div class="flex-1" />
+    <NuxtLink
+      v-if="hasUpdate"
+      to="/changelog"
+      class="text-xs px-2.5 py-1 rounded-md bg-primary/15 text-primary border border-primary/30 hover:bg-primary/25 transition-colors"
+    >
+      Обновление
+    </NuxtLink>
     <slot />
   </header>
 </template>
