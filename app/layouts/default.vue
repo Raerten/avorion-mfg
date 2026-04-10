@@ -16,6 +16,7 @@ import { APP_VERSION } from '~/data/changelog'
     <footer class="relative z-10 border-t border-border py-6 px-6">
       <div class="mx-auto max-w-7xl flex items-center justify-between text-xs text-muted-foreground">
         <span>© {{ new Date().getFullYear() }} Raerten</span>
+        <span>Данные хранятся в вашем браузере и не отправляются на сервер</span>
         <div class="flex items-center gap-4">
           <NuxtLink
             to="/changelog"
