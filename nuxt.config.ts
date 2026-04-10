@@ -13,7 +13,6 @@ export default defineNuxtConfig({
         '@popperjs/core',
         '@vue-flow/core',
         '@vue-flow/background',
-        '@vue-flow/controls',
         '@vue-flow/minimap',
         'fuse.js',
         'lucide-vue-next',
