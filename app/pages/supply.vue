@@ -322,6 +322,7 @@ function onClear() {
 
 <template>
   <div class="h-screen w-screen flex flex-col bg-background text-foreground">
+    <div v-if="hydrated && nodes.length === 0" class="bg-grid" />
     <AppHeader>
       <SupplyToolbar
         ref="toolbarRef"

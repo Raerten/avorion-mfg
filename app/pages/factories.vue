@@ -14,6 +14,7 @@ function select(id: string) {
 
 <template>
   <div class="flex flex-col h-screen bg-background text-foreground">
+    <div v-if="!selectedId" class="bg-grid" />
     <AppHeader />
 
     <div class="flex flex-1 min-h-0">
