@@ -2,6 +2,7 @@
 import { useGameData } from '~/composables/useGameData'
 import { CATEGORY_STYLES } from '~/lib/categories'
 import {
+  FACTORY_SIZE_LABELS,
   FACTORY_SIZES,
   buildCost,
   formatCredits,
@@ -96,7 +97,7 @@ function goodName(id: string): string {
       </div>
       <div>
         <div class="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">
-          Апгрейд до размера
+          Размеры
         </div>
         <ul class="grid grid-cols-5 gap-1">
           <li
@@ -105,7 +106,7 @@ function goodName(id: string): string {
             class="px-1 py-1 rounded bg-muted/50 border border-border/60 text-center"
           >
             <div class="text-[9px] font-mono uppercase text-muted-foreground">
-              {{ size }}
+              {{ FACTORY_SIZE_LABELS[size] }}
             </div>
             <div class="text-[10px] font-mono tabular-nums">
               {{ formatCredits(upgradeCost(factory, size, getGood)) }}

@@ -18,6 +18,13 @@ import type { Factory, Good, GoodId } from '~/types/factory'
 
 export type FactorySize = 1 | 2 | 3 | 4 | 5
 export const FACTORY_SIZES: readonly FactorySize[] = [1, 2, 3, 4, 5] as const
+export const FACTORY_SIZE_LABELS: Record<FactorySize, string> = {
+  1: 'S',
+  2: 'M',
+  3: 'L',
+  4: 'XL',
+  5: 'XXL',
+}
 
 /**
  * Per-cycle credit margin (outputs − inputs). Optional inputs are

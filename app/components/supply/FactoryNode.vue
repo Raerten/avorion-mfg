@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { Handle, Position, useVueFlow, type Connection, type NodeProps } from '@vue-flow/core'
 import { Info, Power, PowerOff, Trash2 } from 'lucide-vue-next'
 import { useGameData } from '~/composables/useGameData'
+import { FACTORY_SIZE_LABELS, FACTORY_SIZES } from '~/lib/factoryCost'
 import type { FactoryCategory } from '~/types/factory'
 import type { FactoryNodeData } from '~/composables/useSupplyChain'
 import GoodIcon from '~/components/GoodIcon.vue'
@@ -217,22 +218,21 @@ function isValidConnection(connection: Connection): boolean {
         <span class="truncate">{{ factory.name }}</span>
       </div>
       <div class="flex items-center gap-1.5 shrink-0">
-        <label
-          v-tooltip="'Линий производства'"
-          class="flex items-center gap-1 text-[10px] uppercase tracking-wider opacity-80"
+        <select
+          v-tooltip="'Размер фабрики'"
+          :value="props.data.lines ?? 1"
+          class="nodrag h-6 px-1 rounded bg-black/50 border border-white/20 text-sm outline-none focus:border-white/60 text-white cursor-pointer"
+          @change="setLines(Number(($event.target as HTMLSelectElement).value))"
+          @click.stop
+          @mousedown.stop
         >
-          <span>×</span>
-          <input
-            type="number"
-            min="1"
-            step="1"
-            :value="props.data.lines ?? 1"
-            class="nodrag w-12 h-6 px-1 rounded bg-black/50 border border-white/20 text-sm text-right outline-none focus:border-white/60 text-white"
-            @input="setLines(Number(($event.target as HTMLInputElement).value))"
-            @click.stop
-            @mousedown.stop
-          >
-        </label>
+          <option
+            v-for="size in FACTORY_SIZES"
+            :key="size"
+            :value="size"
+            class="bg-zinc-900 text-white"
+          >{{ FACTORY_SIZE_LABELS[size] }}</option>
+        </select>
       </div>
     </div>
 
