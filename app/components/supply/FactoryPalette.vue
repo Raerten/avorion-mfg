@@ -22,6 +22,8 @@ import GoodIcon from '~/components/GoodIcon.vue'
  * spawn nodes when scanning the list.
  */
 
+const collapsed = ref(false)
+
 const { factories, getGood } = useGameData()
 
 /**
@@ -201,9 +203,29 @@ function onDragStart(event: DragEvent, factoryId: string) {
 </script>
 
 <template>
-  <aside class="w-72 shrink-0 h-full border-r border-border bg-card/40 backdrop-blur flex flex-col">
+  <aside
+    :class="[
+      'shrink-0 h-full border-r border-border bg-card/40 backdrop-blur flex flex-col transition-[width] duration-200',
+      collapsed ? 'w-10' : 'w-72',
+    ]"
+  >
+    <!-- Collapsed strip -->
+    <div v-if="collapsed" class="flex flex-col items-center py-2 gap-2">
+      <button
+        type="button"
+        class="w-7 h-7 flex items-center justify-center rounded hover:bg-muted text-muted-foreground hover:text-foreground cursor-pointer"
+        title="Развернуть панель"
+        @click="collapsed = false"
+      >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      </button>
+    </div>
+
+    <!-- Expanded content -->
+    <template v-else>
     <div class="px-3 py-3 border-b border-border space-y-2">
-      <div class="group/search relative">
+      <div class="flex items-center gap-1">
+        <div class="group/search relative flex-1">
         <input
           ref="searchInput"
           v-model="query"
@@ -221,6 +243,15 @@ function onDragStart(event: DragEvent, factoryId: string) {
           @click="query = ''; searchInput?.focus()"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 4l6 6M10 4l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /></svg>
+        </button>
+        </div>
+        <button
+          type="button"
+          class="w-7 h-7 shrink-0 flex items-center justify-center rounded hover:bg-muted text-muted-foreground hover:text-foreground cursor-pointer"
+          title="Свернуть панель"
+          @click="collapsed = true"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3l-5 5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
         </button>
       </div>
       <p class="text-[11px] text-muted-foreground leading-snug">
@@ -278,5 +309,6 @@ function onDragStart(event: DragEvent, factoryId: string) {
         </ul>
       </div>
     </div>
+    </template>
   </aside>
 </template>
