@@ -361,6 +361,8 @@ function onClear() {
           :min-zoom="0.2"
           :max-zoom="2"
           :delete-key-code="['Delete', 'Backspace']"
+          selection-key-code="Shift"
+          multi-selection-key-code="Shift"
           class="supply-flow"
         >
           <template #node-factory="nodeProps">
@@ -439,6 +441,16 @@ function onClear() {
 }
 .supply-flow .vue-flow__node.dragging {
   cursor: grabbing;
+}
+.supply-flow .vue-flow__node.selected > div {
+  outline: 2px solid hsl(190 85% 55%);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.supply-flow .vue-flow__selection {
+  background: hsl(190 85% 55% / 0.08);
+  border: 1px solid hsl(190 85% 55% / 0.4);
+  border-radius: 3px;
 }
 .supply-flow .vue-flow__edge-path {
   stroke: hsl(190 85% 55% / 0.7);
