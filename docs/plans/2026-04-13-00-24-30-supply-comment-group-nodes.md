@@ -32,12 +32,12 @@ Add a special "comment" node type to the supply chain builder. These nodes rende
 **Files:**
 - Create: `app/components/supply/CommentNode.vue`
 
-- [ ] Build a resizable container div with a `<textarea>` or `contenteditable` element for text input
-- [ ] Style with semi-transparent background, dashed/subtle border, muted colors -- visually distinct from factory nodes
-- [ ] Support resizing via drag handle in bottom-right corner (CSS `resize` or manual drag)
-- [ ] Use `updateNode` from Vue Flow to persist text/size changes back to node data
-- [ ] Use `NodeResizer` from `@vue-flow/node-resizer` package for proper resize handling (install if needed)
-- [ ] Optional color selector (3-4 preset muted colors) -- keep simple, just a few clickable dots in corner
+- [x] Build a resizable container div with a `<textarea>` or `contenteditable` element for text input
+- [x] Style with semi-transparent background, dashed/subtle border, muted colors -- visually distinct from factory nodes
+- [x] Support resizing via drag handle in bottom-right corner (CSS `resize` or manual drag)
+- [x] Use `updateNode` from Vue Flow to persist text/size changes back to node data
+- [x] Use `NodeResizer` from `@vue-flow/node-resizer` package for proper resize handling (install if needed)
+- [x] Optional color selector (3-4 preset muted colors) -- keep simple, just a few clickable dots in corner
 
 ### Task 3: Register comment node type in supply page
 
