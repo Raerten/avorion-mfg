@@ -55,9 +55,9 @@ Add a special "comment" node type to the supply chain builder. These nodes rende
 **Files:**
 - Modify: `app/components/supply/SupplyToolbar.vue`
 
-- [ ] Add a "Добавить заметку" button to the toolbar
-- [ ] Emit event to supply.vue which creates a comment node at center of current viewport
-- [ ] Style button consistently with existing toolbar actions
+- [x] Add a "Добавить заметку" button to the toolbar
+- [x] Emit event to supply.vue which creates a comment node at center of current viewport
+- [x] Style button consistently with existing toolbar actions
 
 ### Task 5: MiniMap and selection integration
 

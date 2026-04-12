@@ -17,6 +17,7 @@ import {
 const emit = defineEmits<{
   switch: [id: string]
   clear: []
+  addComment: []
 }>()
 
 const list = ref<CanvasMeta[]>(getCanvasList())
@@ -276,6 +277,21 @@ onUnmounted(() => document.removeEventListener('click', onDocumentClick))
       </svg>
       <svg v-else class="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
         <path d="M3 8.5l3.5 3.5L13 4" />
+      </svg>
+    </button>
+
+    <div class="w-px h-5 bg-border mx-0.5" />
+
+    <!-- Add comment -->
+    <button
+      type="button"
+      title="Добавить заметку"
+      class="text-xs px-2 py-1.5 rounded border border-border hover:bg-muted text-muted-foreground hover:text-foreground cursor-pointer"
+      @click="$emit('addComment')"
+    >
+      <svg class="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="2" y="2" width="12" height="10" rx="1" />
+        <path d="M5 6h6M5 9h3" />
       </svg>
     </button>
 

@@ -343,6 +343,16 @@ function onCanvasSwitch(id: string) {
   hydrateCanvas(id)
 }
 
+// --- Add comment from toolbar ------------------------------------------------
+
+function onAddComment() {
+  const vp = getViewport()
+  // Place at center of the visible viewport
+  const centerX = (-vp.x + window.innerWidth / 2) / vp.zoom
+  const centerY = (-vp.y + window.innerHeight / 2) / vp.zoom
+  addCommentAt({ x: centerX - 150, y: centerY - 100 })
+}
+
 // --- Clear all ----------------------------------------------------------------
 
 function onClear() {
@@ -361,6 +371,7 @@ function onClear() {
         ref="toolbarRef"
         @switch="onCanvasSwitch"
         @clear="onClear"
+        @add-comment="onAddComment"
       />
     </AppHeader>
 
