@@ -28,8 +28,19 @@ export interface FactoryNodeData {
 
 export type FactoryFlowNode = Node<FactoryNodeData>
 
+export interface CommentNodeData {
+  text: string
+  width: number
+  height: number
+  color?: string
+}
+
+export type CommentFlowNode = Node<CommentNodeData>
+
+export type AnyFlowNode = FactoryFlowNode | CommentFlowNode
+
 export interface Persisted {
-  nodes: FactoryFlowNode[]
+  nodes: AnyFlowNode[]
   edges: Edge[]
   counter: number
   viewport?: ViewportTransform
@@ -166,17 +177,33 @@ export function deleteCanvas(id: string) {
 // Canvas data persistence
 // ---------------------------------------------------------------------------
 
-function parsePersistedNodes(nodes: FactoryFlowNode[]): FactoryFlowNode[] {
-  return (nodes ?? []).map(n => ({
-    id: n.id,
-    type: n.type ?? 'factory',
-    position: { x: n.position.x, y: n.position.y },
-    data: {
-      factoryId: n.data?.factoryId ?? '',
-      lines: Math.max(1, Math.floor(n.data?.lines ?? 1)),
-      disabled: n.data?.disabled === true,
-    },
-  }))
+function parsePersistedNodes(nodes: AnyFlowNode[]): AnyFlowNode[] {
+  return (nodes ?? []).map(n => {
+    if (n.type === 'comment') {
+      const d = n.data as CommentNodeData
+      return {
+        id: n.id,
+        type: 'comment' as const,
+        position: { x: n.position.x, y: n.position.y },
+        data: {
+          text: d?.text ?? '',
+          width: d?.width ?? 300,
+          height: d?.height ?? 200,
+          color: d?.color,
+        },
+      } as CommentFlowNode
+    }
+    return {
+      id: n.id,
+      type: n.type ?? 'factory',
+      position: { x: n.position.x, y: n.position.y },
+      data: {
+        factoryId: (n.data as FactoryNodeData)?.factoryId ?? '',
+        lines: Math.max(1, Math.floor((n.data as FactoryNodeData)?.lines ?? 1)),
+        disabled: (n.data as FactoryNodeData)?.disabled === true,
+      },
+    } as FactoryFlowNode
+  })
 }
 
 function parsePersistedEdges(edges: Edge[]): Edge[] {
@@ -190,8 +217,22 @@ function parsePersistedEdges(edges: Edge[]): Edge[] {
   }))
 }
 
-function serializeNodes(nodes: GraphNode[]): FactoryFlowNode[] {
+function serializeNodes(nodes: GraphNode[]): AnyFlowNode[] {
   return nodes.map(n => {
+    if (n.type === 'comment') {
+      const d = n.data as CommentNodeData | undefined
+      return {
+        id: n.id,
+        type: 'comment' as const,
+        position: { x: n.position.x, y: n.position.y },
+        data: {
+          text: d?.text ?? '',
+          width: d?.width ?? 300,
+          height: d?.height ?? 200,
+          color: d?.color,
+        },
+      } as CommentFlowNode
+    }
     const d = n.data as FactoryNodeData | undefined
     return {
       id: n.id,
@@ -202,7 +243,7 @@ function serializeNodes(nodes: GraphNode[]): FactoryFlowNode[] {
         lines: Math.max(1, Math.floor(d?.lines ?? 1)),
         disabled: d?.disabled === true,
       },
-    }
+    } as FactoryFlowNode
   })
 }
 

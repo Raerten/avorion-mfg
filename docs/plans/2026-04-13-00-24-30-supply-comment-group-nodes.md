@@ -22,10 +22,10 @@ Add a special "comment" node type to the supply chain builder. These nodes rende
 **Files:**
 - Modify: `app/composables/useSupplyChain.ts`
 
-- [ ] Add `CommentNodeData` interface with `text: string`, `width: number`, `height: number`, `color?: string`
-- [ ] Add `CommentFlowNode` type alias (`Node<CommentNodeData>`)
-- [ ] Update `Persisted` interface: nodes array should accept both factory and comment node types
-- [ ] Ensure `saveSupplyChain` / `loadSupplyChain` handle comment nodes without breaking existing saves
+- [x] Add `CommentNodeData` interface with `text: string`, `width: number`, `height: number`, `color?: string`
+- [x] Add `CommentFlowNode` type alias (`Node<CommentNodeData>`)
+- [x] Update `Persisted` interface: nodes array should accept both factory and comment node types
+- [x] Ensure `saveSupplyChain` / `loadSupplyChain` handle comment nodes without breaking existing saves
 
 ### Task 2: Create CommentNode component
 
