@@ -8,6 +8,7 @@ import '@vue-flow/core/dist/style.css'
 import '@vue-flow/core/dist/theme-default.css'
 import '@vue-flow/minimap/dist/style.css'
 
+import CommentNode from '~/components/supply/CommentNode.vue'
 import FactoryNode from '~/components/supply/FactoryNode.vue'
 import FactoryPalette from '~/components/supply/FactoryPalette.vue'
 import FactoryPicker from '~/components/supply/FactoryPicker.vue'
@@ -15,6 +16,7 @@ import SupplyToolbar from '~/components/supply/SupplyToolbar.vue'
 import FactoryCard from '~/components/FactoryCard.vue'
 import { useGameData } from '~/composables/useGameData'
 import {
+  type CommentFlowNode,
   type FactoryFlowNode,
   type Persisted,
   clearSupplyChainStorage,
@@ -52,6 +54,7 @@ const {
   onNodeDragStop,
   onViewportChangeEnd,
   onEdgeDoubleClick,
+  onPaneClick,
   fitView,
   setCenter,
 } = useVueFlow()
@@ -119,6 +122,13 @@ onEdgeDoubleClick(({ edge }) => {
   removeEdges([edge.id])
 })
 
+onPaneClick((event: MouseEvent) => {
+  if (event.detail === 2) {
+    const position = screenToFlowCoordinate({ x: event.clientX, y: event.clientY })
+    addCommentAt(position)
+  }
+})
+
 // --- Persistence: hydrate once VueFlow is ready, then autosave on change ----
 
 const hydrated = ref(false)
@@ -161,6 +171,19 @@ function addFactoryAt(factoryId: string, position: { x: number; y: number }): st
     type: 'factory',
     position,
     data: { factoryId, lines: 1 },
+  }
+  addNodes([node])
+  return id
+}
+
+function addCommentAt(position: { x: number; y: number }): string {
+  const id = nextNodeId()
+  const node: CommentFlowNode = {
+    id,
+    type: 'comment',
+    position,
+    zIndex: -1,
+    data: { text: '', width: 300, height: 200 },
   }
   addNodes([node])
   return id
@@ -384,6 +407,13 @@ function onClear() {
             />
           </template>
 
+          <template #node-comment="nodeProps">
+            <CommentNode
+              v-bind="nodeProps"
+              @remove="onNodeRemove"
+            />
+          </template>
+
           <Background pattern-color="#2a2f3a" :gap="18" />
           <MiniMap
             pannable
@@ -461,6 +491,15 @@ function onClear() {
   background: hsl(190 85% 55% / 0.08);
   border: 1px solid hsl(190 85% 55% / 0.4);
   border-radius: 3px;
+}
+.supply-flow .vue-flow__node-comment {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+.supply-flow .vue-flow__node-comment .vue-flow__handle {
+  display: none;
 }
 .supply-flow .vue-flow__edge-path {
   stroke: hsl(190 85% 55% / 0.7);

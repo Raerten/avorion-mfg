@@ -44,11 +44,11 @@ Add a special "comment" node type to the supply chain builder. These nodes rende
 **Files:**
 - Modify: `app/pages/supply.vue`
 
-- [ ] Import CommentNode component
-- [ ] Add `#node-comment` template slot in VueFlow, rendering CommentNode
-- [ ] Add `addCommentAt()` function similar to `addFactoryAt()` -- creates a comment node with `type: 'comment'`, `zIndex: -1`, default size 300x200
-- [ ] Support drag-and-drop or double-click on empty canvas to create comment nodes
-- [ ] Add CSS for `.vue-flow__node` comment type if needed (no connection handles, transparent background)
+- [x] Import CommentNode component
+- [x] Add `#node-comment` template slot in VueFlow, rendering CommentNode
+- [x] Add `addCommentAt()` function similar to `addFactoryAt()` -- creates a comment node with `type: 'comment'`, `zIndex: -1`, default size 300x200
+- [x] Support drag-and-drop or double-click on empty canvas to create comment nodes
+- [x] Add CSS for `.vue-flow__node` comment type if needed (no connection handles, transparent background)
 
 ### Task 4: Add UI to create comment nodes
 
