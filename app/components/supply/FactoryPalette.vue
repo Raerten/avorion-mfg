@@ -22,7 +22,13 @@ import GoodIcon from '~/components/GoodIcon.vue'
  * spawn nodes when scanning the list.
  */
 
-const collapsed = ref(false)
+const PALETTE_KEY = 'avorion-palette-collapsed'
+const collapsed = ref(localStorage.getItem(PALETTE_KEY) === '1')
+
+function toggleCollapsed(value: boolean) {
+  collapsed.value = value
+  localStorage.setItem(PALETTE_KEY, value ? '1' : '0')
+}
 
 const { factories, getGood } = useGameData()
 
@@ -215,7 +221,7 @@ function onDragStart(event: DragEvent, factoryId: string) {
         type="button"
         class="w-7 h-7 flex items-center justify-center rounded hover:bg-muted text-muted-foreground hover:text-foreground cursor-pointer"
         title="Развернуть панель"
-        @click="collapsed = false"
+        @click="toggleCollapsed(false)"
       >
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
       </button>
@@ -249,7 +255,7 @@ function onDragStart(event: DragEvent, factoryId: string) {
           type="button"
           class="w-7 h-7 shrink-0 flex items-center justify-center rounded hover:bg-muted text-muted-foreground hover:text-foreground cursor-pointer"
           title="Свернуть панель"
-          @click="collapsed = true"
+          @click="toggleCollapsed(true)"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3l-5 5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
         </button>
