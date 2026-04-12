@@ -23,3 +23,6 @@ logs
 .env.*
 !.env.example
 /.claude/settings.local.json
+
+# ralphex progress logs
+.ralphex/progress/
