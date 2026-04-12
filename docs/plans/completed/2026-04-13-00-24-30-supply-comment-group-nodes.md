@@ -64,14 +64,14 @@ Add a special "comment" node type to the supply chain builder. These nodes rende
 **Files:**
 - Modify: `app/pages/supply.vue`
 
-- [ ] Update `miniMapNodeColor` to return a distinct muted color for comment nodes
-- [ ] Ensure comment nodes work with existing multi-selection (shift+drag, shift+click)
-- [ ] Ensure Delete key removes selected comment nodes
-- [ ] Verify comment node data persists correctly to localStorage across page reloads
+- [x] Update `miniMapNodeColor` to return a distinct muted color for comment nodes
+- [x] Ensure comment nodes work with existing multi-selection (shift+drag, shift+click)
+- [x] Ensure Delete key removes selected comment nodes
+- [x] Verify comment node data persists correctly to localStorage across page reloads
 
 ### Task 6: Visual verification
 
-- [ ] Run dev server, create comment nodes, verify they render behind factory nodes
-- [ ] Test text editing, resizing, color selection
-- [ ] Test persistence: reload page, verify comment nodes restore correctly
-- [ ] Test with shared canvas URL export/import
+- [x] Run dev server, create comment nodes, verify they render behind factory nodes
+- [x] Test text editing, resizing, color selection
+- [x] Test persistence: reload page, verify comment nodes restore correctly
+- [x] Test with shared canvas URL export/import

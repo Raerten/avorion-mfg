@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { NodeResizer } from '@vue-flow/node-resizer'
 import '@vue-flow/node-resizer/dist/style.css'
 import type { NodeProps } from '@vue-flow/core'
-import type { CommentNodeData } from '~/composables/useSupplyChain'
+import { COMMENT_DEFAULT_HEIGHT, COMMENT_DEFAULT_WIDTH, type CommentNodeData } from '~/composables/useSupplyChain'
 
 const COMMENT_COLORS: { id: string; bg: string; border: string }[] = [
   { id: 'zinc', bg: 'bg-zinc-800/40', border: 'border-zinc-600/40' },
@@ -42,8 +42,9 @@ function onResize({ params }: { params: { width: number; height: number } }) {
   props.data.height = params.height
 }
 
-// Sync initial text back if changed externally
+// Sync back if changed externally (e.g. undo/redo)
 watch(() => props.data.text, (v) => { text.value = v ?? '' })
+watch(() => props.data.color, (v) => { colorId.value = v ?? 'zinc' })
 </script>
 
 <template>
@@ -51,8 +52,8 @@ watch(() => props.data.text, (v) => { text.value = v ?? '' })
     class="group relative rounded-md border border-dashed transition-colors font-mono"
     :class="[currentColor.bg, currentColor.border]"
     :style="{
-      width: (props.data.width ?? 300) + 'px',
-      height: (props.data.height ?? 200) + 'px',
+      width: (props.data.width ?? COMMENT_DEFAULT_WIDTH) + 'px',
+      height: (props.data.height ?? COMMENT_DEFAULT_HEIGHT) + 'px',
     }"
   >
     <NodeResizer

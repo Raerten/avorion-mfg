@@ -47,7 +47,7 @@ app/
   lib/utils.ts              # cn() helper (clsx + tailwind-merge) — required by shadcn-vue components
   lib/icons.ts              # SVG icon strings keyed by Good id — render via <GoodIcon :good-id>
   lib/categories.ts         # Tailwind class maps + RU labels for the 6 factory categories
-  pages/                    # file-based routing: /, /calculator, /chains, /visualizer, /factories
+  pages/                    # file-based routing: /, /calculator, /chains, /visualizer, /factories, /supply
   types/factory.ts          # Good, Factory, ChainNode domain types
   app.vue                   # <NuxtLayout><NuxtPage/></NuxtLayout>
 ```

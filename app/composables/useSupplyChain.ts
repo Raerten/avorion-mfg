@@ -28,6 +28,9 @@ export interface FactoryNodeData {
 
 export type FactoryFlowNode = Node<FactoryNodeData>
 
+export const COMMENT_DEFAULT_WIDTH = 300
+export const COMMENT_DEFAULT_HEIGHT = 200
+
 export interface CommentNodeData {
   text: string
   width: number
@@ -185,10 +188,11 @@ function parsePersistedNodes(nodes: AnyFlowNode[]): AnyFlowNode[] {
         id: n.id,
         type: 'comment' as const,
         position: { x: n.position.x, y: n.position.y },
+        zIndex: -1,
         data: {
           text: d?.text ?? '',
-          width: d?.width ?? 300,
-          height: d?.height ?? 200,
+          width: d?.width ?? COMMENT_DEFAULT_WIDTH,
+          height: d?.height ?? COMMENT_DEFAULT_HEIGHT,
           color: d?.color,
         },
       } as CommentFlowNode
@@ -220,28 +224,29 @@ function parsePersistedEdges(edges: Edge[]): Edge[] {
 function serializeNodes(nodes: GraphNode[]): AnyFlowNode[] {
   return nodes.map(n => {
     if (n.type === 'comment') {
-      const d = n.data as CommentNodeData | undefined
+      const d = n.data as CommentNodeData
       return {
         id: n.id,
         type: 'comment' as const,
         position: { x: n.position.x, y: n.position.y },
+        zIndex: -1,
         data: {
-          text: d?.text ?? '',
-          width: d?.width ?? 300,
-          height: d?.height ?? 200,
-          color: d?.color,
+          text: d.text ?? '',
+          width: d.width ?? COMMENT_DEFAULT_WIDTH,
+          height: d.height ?? COMMENT_DEFAULT_HEIGHT,
+          color: d.color,
         },
       } as CommentFlowNode
     }
-    const d = n.data as FactoryNodeData | undefined
+    const d = n.data as FactoryNodeData
     return {
       id: n.id,
       type: n.type ?? 'factory',
       position: { x: n.position.x, y: n.position.y },
       data: {
-        factoryId: d?.factoryId ?? '',
-        lines: Math.max(1, Math.floor(d?.lines ?? 1)),
-        disabled: d?.disabled === true,
+        factoryId: d.factoryId ?? '',
+        lines: Math.max(1, Math.floor(d.lines ?? 1)),
+        disabled: d.disabled === true,
       },
     } as FactoryFlowNode
   })

@@ -16,6 +16,8 @@ import SupplyToolbar from '~/components/supply/SupplyToolbar.vue'
 import FactoryCard from '~/components/FactoryCard.vue'
 import { useGameData } from '~/composables/useGameData'
 import {
+  COMMENT_DEFAULT_HEIGHT,
+  COMMENT_DEFAULT_WIDTH,
   type CommentFlowNode,
   type FactoryFlowNode,
   type Persisted,
@@ -103,6 +105,7 @@ function onDiscardShared() {
  * default uniform grey.
  */
 function miniMapNodeColor(node: GraphNode): string {
+  if (node.type === 'comment') return '#6b7280'
   const data = node.data as { factoryId?: string } | undefined
   const factory = data?.factoryId ? getFactory(data.factoryId) : undefined
   return factory ? CATEGORY_HEX[factory.category] : '#3f3f46'
@@ -183,7 +186,7 @@ function addCommentAt(position: { x: number; y: number }): string {
     type: 'comment',
     position,
     zIndex: -1,
-    data: { text: '', width: 300, height: 200 },
+    data: { text: '', width: COMMENT_DEFAULT_WIDTH, height: COMMENT_DEFAULT_HEIGHT },
   }
   addNodes([node])
   return id
@@ -350,7 +353,7 @@ function onAddComment() {
   // Place at center of the visible viewport
   const centerX = (-vp.x + window.innerWidth / 2) / vp.zoom
   const centerY = (-vp.y + window.innerHeight / 2) / vp.zoom
-  addCommentAt({ x: centerX - 150, y: centerY - 100 })
+  addCommentAt({ x: centerX - COMMENT_DEFAULT_WIDTH / 2, y: centerY - COMMENT_DEFAULT_HEIGHT / 2 })
 }
 
 // --- Clear all ----------------------------------------------------------------
