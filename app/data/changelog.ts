@@ -5,6 +5,12 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    date: '2026-04-12',
+    changes: [
+      'Закрытие всплывающих окон клавишей Escape',
+    ],
+  },
+  {
     date: '2026-04-11',
     changes: [
       'Размеры фабрик теперь отображаются буквами (S, M, L, XL, XXL)',

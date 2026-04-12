@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, onUnmounted } from 'vue'
 import { useGameData } from '~/composables/useGameData'
 import { CATEGORY_STYLES } from '~/lib/categories'
 import GoodIcon from '~/components/GoodIcon.vue'
@@ -32,6 +32,12 @@ const candidates = computed<Factory[]>(() =>
 const title = computed(() =>
   props.direction === 'in' ? 'Кто производит' : 'Кто потребляет',
 )
+
+function onEscape(e: KeyboardEvent) {
+  if (e.key === 'Escape') emit('close')
+}
+onMounted(() => window.addEventListener('keydown', onEscape))
+onUnmounted(() => window.removeEventListener('keydown', onEscape))
 </script>
 
 <template>

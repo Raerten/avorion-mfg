@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, onUnmounted } from 'vue'
 import { VueFlow, useVueFlow, type Connection, type GraphNode } from '@vue-flow/core'
 import { Background } from '@vue-flow/background'
 import { MiniMap } from '@vue-flow/minimap'
@@ -287,6 +287,16 @@ const infoFactory = computed(() =>
 function onNodeInfo(factoryId: string) {
   infoFactoryId.value = factoryId
 }
+
+function onEscapeInfo(e: KeyboardEvent) {
+  if (e.key === 'Escape') infoFactoryId.value = null
+}
+watch(infoFactoryId, (v, _, onCleanup) => {
+  if (v) {
+    window.addEventListener('keydown', onEscapeInfo)
+    onCleanup(() => window.removeEventListener('keydown', onEscapeInfo))
+  }
+})
 
 // --- Canvas switching --------------------------------------------------------
 
