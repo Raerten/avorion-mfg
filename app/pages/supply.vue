@@ -8,6 +8,7 @@ import '@vue-flow/core/dist/style.css'
 import '@vue-flow/core/dist/theme-default.css'
 import '@vue-flow/minimap/dist/style.css'
 
+import CommentNode from '~/components/supply/CommentNode.vue'
 import FactoryNode from '~/components/supply/FactoryNode.vue'
 import FactoryPalette from '~/components/supply/FactoryPalette.vue'
 import FactoryPicker from '~/components/supply/FactoryPicker.vue'
@@ -15,6 +16,9 @@ import SupplyToolbar from '~/components/supply/SupplyToolbar.vue'
 import FactoryCard from '~/components/FactoryCard.vue'
 import { useGameData } from '~/composables/useGameData'
 import {
+  COMMENT_DEFAULT_HEIGHT,
+  COMMENT_DEFAULT_WIDTH,
+  type CommentFlowNode,
   type FactoryFlowNode,
   type Persisted,
   clearSupplyChainStorage,
@@ -52,6 +56,7 @@ const {
   onNodeDragStop,
   onViewportChangeEnd,
   onEdgeDoubleClick,
+  onPaneClick,
   fitView,
   setCenter,
 } = useVueFlow()
@@ -100,6 +105,7 @@ function onDiscardShared() {
  * default uniform grey.
  */
 function miniMapNodeColor(node: GraphNode): string {
+  if (node.type === 'comment') return '#6b7280'
   const data = node.data as { factoryId?: string } | undefined
   const factory = data?.factoryId ? getFactory(data.factoryId) : undefined
   return factory ? CATEGORY_HEX[factory.category] : '#3f3f46'
@@ -117,6 +123,13 @@ function onMiniMapNodeClick({ node }: { node: GraphNode }) {
 
 onEdgeDoubleClick(({ edge }) => {
   removeEdges([edge.id])
+})
+
+onPaneClick((event: MouseEvent) => {
+  if (event.detail === 2) {
+    const position = screenToFlowCoordinate({ x: event.clientX, y: event.clientY })
+    addCommentAt(position)
+  }
 })
 
 // --- Persistence: hydrate once VueFlow is ready, then autosave on change ----
@@ -161,6 +174,19 @@ function addFactoryAt(factoryId: string, position: { x: number; y: number }): st
     type: 'factory',
     position,
     data: { factoryId, lines: 1 },
+  }
+  addNodes([node])
+  return id
+}
+
+function addCommentAt(position: { x: number; y: number }): string {
+  const id = nextNodeId()
+  const node: CommentFlowNode = {
+    id,
+    type: 'comment',
+    position,
+    zIndex: -1,
+    data: { text: '', width: COMMENT_DEFAULT_WIDTH, height: COMMENT_DEFAULT_HEIGHT },
   }
   addNodes([node])
   return id
@@ -320,6 +346,16 @@ function onCanvasSwitch(id: string) {
   hydrateCanvas(id)
 }
 
+// --- Add comment from toolbar ------------------------------------------------
+
+function onAddComment() {
+  const vp = getViewport()
+  // Place at center of the visible viewport
+  const centerX = (-vp.x + window.innerWidth / 2) / vp.zoom
+  const centerY = (-vp.y + window.innerHeight / 2) / vp.zoom
+  addCommentAt({ x: centerX - COMMENT_DEFAULT_WIDTH / 2, y: centerY - COMMENT_DEFAULT_HEIGHT / 2 })
+}
+
 // --- Clear all ----------------------------------------------------------------
 
 function onClear() {
@@ -338,6 +374,7 @@ function onClear() {
         ref="toolbarRef"
         @switch="onCanvasSwitch"
         @clear="onClear"
+        @add-comment="onAddComment"
       />
     </AppHeader>
 
@@ -381,6 +418,13 @@ function onClear() {
               @pick="onNodePick"
               @remove="onNodeRemove"
               @info="onNodeInfo"
+            />
+          </template>
+
+          <template #node-comment="nodeProps">
+            <CommentNode
+              v-bind="nodeProps"
+              @remove="onNodeRemove"
             />
           </template>
 
@@ -461,6 +505,15 @@ function onClear() {
   background: hsl(190 85% 55% / 0.08);
   border: 1px solid hsl(190 85% 55% / 0.4);
   border-radius: 3px;
+}
+.supply-flow .vue-flow__node-comment {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+.supply-flow .vue-flow__node-comment .vue-flow__handle {
+  display: none;
 }
 .supply-flow .vue-flow__edge-path {
   stroke: hsl(190 85% 55% / 0.7);

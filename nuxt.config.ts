@@ -31,6 +31,8 @@ export default defineNuxtConfig({
         '@vue-flow/minimap',
         'fuse.js',
         'lucide-vue-next',
+        '@vue-flow/node-resizer',
+        'lz-string', // CJS
       ],
     },
   },
