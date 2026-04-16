@@ -42,7 +42,16 @@ const emit = defineEmits<{
   info: [factoryId: string]
 }>()
 
-const { getFactory, getGood } = useGameData()
+const { getFactory, getGood, getConsumers } = useGameData()
+
+/**
+ * True when no factory in game data consumes this good as an input.
+ * The only sink for such outputs is selling to NPC traders — we flag
+ * these on the node so players notice before wiring up a dead-end.
+ */
+function isNpcOnlyOutput(goodId: string): boolean {
+  return getConsumers(goodId).length === 0
+}
 const { edges: allEdges, nodes: allNodes } = useVueFlow()
 
 const factory = computed(() => getFactory(props.data.factoryId))
@@ -306,6 +315,7 @@ function isValidConnection(connection: Connection): boolean {
           v-for="out in factory.outputs"
           :key="out.goodId"
           class="relative flex items-center justify-end gap-2 pr-4 pl-2 py-1 text-right"
+          :class="{ 'bg-amber-500/[0.06]': isNpcOnlyOutput(out.goodId) }"
         >
           <span
             v-tooltip="{ content: cycleTooltip(out.amount), placement: 'top' }"
@@ -313,9 +323,15 @@ function isValidConnection(connection: Connection): boolean {
           >
             {{ formatRate(ratePerHour(out.amount)) }}/ч
           </span>
+          <span
+            v-if="isNpcOnlyOutput(out.goodId)"
+            v-tooltip="'Нет фабрик-потребителей — продаётся только NPC'"
+            class="nodrag text-[9px] font-bold uppercase tracking-wider px-1 py-[1px] rounded-sm bg-amber-500/15 text-amber-300 border border-amber-500/40 shrink-0 leading-none"
+          >NPC</span>
           <button
             type="button"
-            class="inline-flex items-center gap-1.5 hover:text-white truncate min-w-0 text-zinc-200"
+            class="inline-flex items-center gap-1.5 hover:text-white truncate min-w-0"
+            :class="isNpcOnlyOutput(out.goodId) ? 'text-amber-200' : 'text-zinc-200'"
             @click.stop="emit('pick', { nodeId: props.id, direction: 'out', goodId: out.goodId })"
           >
             <span class="truncate">{{ goodName(out.goodId) }}</span>
@@ -326,7 +342,8 @@ function isValidConnection(connection: Connection): boolean {
             type="source"
             :position="Position.Right"
             :is-valid-connection="isValidConnection"
-            class="!bg-white !border-0 !w-2.5 !h-2.5"
+            class="!border-0 !w-2.5 !h-2.5"
+            :class="isNpcOnlyOutput(out.goodId) ? '!bg-amber-400 !ring-2 !ring-amber-400/30' : '!bg-white'"
           />
         </div>
       </div>
