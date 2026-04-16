@@ -44,6 +44,11 @@ export const CATEGORY_STYLES: Record<FactoryCategory, CategoryStyle> = {
     chip: 'bg-red-950 border-red-700 text-red-300 hover:bg-red-900',
     dot: 'bg-red-600',
   },
+  consumer: {
+    label: 'Потребитель',
+    chip: 'bg-fuchsia-950 border-fuchsia-700 text-fuchsia-300 hover:bg-fuchsia-900',
+    dot: 'bg-fuchsia-600',
+  },
 }
 
 /**
@@ -52,12 +57,13 @@ export const CATEGORY_STYLES: Record<FactoryCategory, CategoryStyle> = {
  * e.g. the vue-flow MiniMap which paints `<rect>`s via JS props.
  */
 export const CATEGORY_HEX: Record<FactoryCategory, string> = {
-  mine: '#16a34a',  // green-600
-  basic: '#2563eb', // blue-600
-  mid: '#d97706',   // amber-600
-  adv: '#9333ea',   // purple-600
-  end: '#0d9488',   // teal-600
-  hi: '#dc2626',    // red-600
+  mine: '#16a34a',     // green-600
+  basic: '#2563eb',    // blue-600
+  mid: '#d97706',      // amber-600
+  adv: '#9333ea',      // purple-600
+  end: '#0d9488',      // teal-600
+  hi: '#dc2626',       // red-600
+  consumer: '#c026d3', // fuchsia-600
 }
 
 /** Sidebar groups in display order. */
@@ -68,4 +74,5 @@ export const CATEGORY_GROUPS: { title: string; categories: FactoryCategory[] }[]
   { title: 'Продвинутые', categories: ['adv'] },
   { title: 'Конечные продукты', categories: ['end'] },
   { title: 'Хай-тек / Турели', categories: ['hi'] },
+  { title: 'Станции-потребители', categories: ['consumer'] },
 ]

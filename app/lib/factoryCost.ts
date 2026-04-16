@@ -30,6 +30,10 @@ export const FACTORY_SIZE_LABELS: Record<FactorySize, string> = {
  * Per-cycle credit margin (outputs − inputs). Optional inputs are
  * ignored — they represent yield boosts, not required recipe slots,
  * and charging them here would understate profitability.
+ *
+ * Consumer stations have no outputs, so the naïve outputs−inputs formula
+ * would always be negative. Scale those by the value of goods they buy
+ * instead, so buildCost stays positive and grows with the station tier.
  */
 export function cycleMargin(
   factory: Factory,
@@ -46,6 +50,7 @@ export function cycleMargin(
     (sum, i) => (i.optional ? sum : sum + value(i.amount, i.goodId)),
     0,
   )
+  if (factory.outputs.length === 0) return inputValue
   return outputValue - inputValue
 }
 

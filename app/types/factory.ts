@@ -16,10 +16,11 @@ export type FactoryId = string
  *
  * Goods use `raw` for resources that come from mines / are not produced
  * by any processing factory. Factories use `mine` for the actual mining
- * structures that yield those raw goods.
+ * structures that yield those raw goods, and `consumer` for end-of-chain
+ * stations (Casino, Habitat, Shipyard, ...) that only buy goods.
  */
 export type GoodCategory = 'raw' | 'basic' | 'mid' | 'adv' | 'end' | 'hi'
-export type FactoryCategory = 'mine' | 'basic' | 'mid' | 'adv' | 'end' | 'hi'
+export type FactoryCategory = 'mine' | 'basic' | 'mid' | 'adv' | 'end' | 'hi' | 'consumer'
 
 export interface Good {
   id: GoodId

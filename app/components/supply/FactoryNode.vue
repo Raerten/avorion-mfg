@@ -21,6 +21,7 @@ const NODE_STYLES: Record<FactoryCategory, { border: string; header: string }> =
   adv: { border: 'border-purple-600/60', header: 'bg-purple-900/70 text-purple-50' },
   end: { border: 'border-teal-600/60', header: 'bg-teal-900/70 text-teal-50' },
   hi: { border: 'border-red-600/60', header: 'bg-red-900/70 text-red-50' },
+  consumer: { border: 'border-fuchsia-600/60', header: 'bg-fuchsia-900/70 text-fuchsia-50' },
 }
 
 /**

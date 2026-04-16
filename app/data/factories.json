@@ -3531,5 +3531,213 @@
         "amount": 1
       }
     ]
+  },
+  {
+    "id": "casino",
+    "name": "Казино",
+    "category": "consumer",
+    "cycleSeconds": 60,
+    "inputs": [
+      { "goodId": "beer", "amount": 1 },
+      { "goodId": "wine", "amount": 1 },
+      { "goodId": "liquor", "amount": 1 },
+      { "goodId": "food", "amount": 1 },
+      { "goodId": "luxury-food", "amount": 1 },
+      { "goodId": "water", "amount": 1 },
+      { "goodId": "medical-supplies", "amount": 1 }
+    ],
+    "outputs": []
+  },
+  {
+    "id": "habitat",
+    "name": "Жилой модуль",
+    "category": "consumer",
+    "cycleSeconds": 60,
+    "inputs": [
+      { "goodId": "beer", "amount": 1 },
+      { "goodId": "wine", "amount": 1 },
+      { "goodId": "liquor", "amount": 1 },
+      { "goodId": "food", "amount": 1 },
+      { "goodId": "tea", "amount": 1 },
+      { "goodId": "luxury-food", "amount": 1 },
+      { "goodId": "spices", "amount": 1 },
+      { "goodId": "vegetable", "amount": 1 },
+      { "goodId": "fruit", "amount": 1 },
+      { "goodId": "cocoa", "amount": 1 },
+      { "goodId": "coffee", "amount": 1 },
+      { "goodId": "wood", "amount": 1 },
+      { "goodId": "meat", "amount": 1 },
+      { "goodId": "water", "amount": 1 }
+    ],
+    "outputs": []
+  },
+  {
+    "id": "biotope",
+    "name": "Биотоп",
+    "category": "consumer",
+    "cycleSeconds": 60,
+    "inputs": [
+      { "goodId": "food", "amount": 1 },
+      { "goodId": "food-bar", "amount": 1 },
+      { "goodId": "fungus", "amount": 1 },
+      { "goodId": "wood", "amount": 1 },
+      { "goodId": "glass", "amount": 1 },
+      { "goodId": "sheep", "amount": 1 },
+      { "goodId": "cattle", "amount": 1 },
+      { "goodId": "wheat", "amount": 1 },
+      { "goodId": "corn", "amount": 1 },
+      { "goodId": "rice", "amount": 1 },
+      { "goodId": "vegetable", "amount": 1 },
+      { "goodId": "water", "amount": 1 },
+      { "goodId": "coal", "amount": 1 }
+    ],
+    "outputs": []
+  },
+  {
+    "id": "research-station",
+    "name": "Исследовательская станция",
+    "category": "consumer",
+    "cycleSeconds": 60,
+    "inputs": [
+      { "goodId": "turbine", "amount": 1 },
+      { "goodId": "high-capacity-lens", "amount": 1 },
+      { "goodId": "neutron-accelerator", "amount": 1 },
+      { "goodId": "electron-accelerator", "amount": 1 },
+      { "goodId": "proton-accelerator", "amount": 1 },
+      { "goodId": "fusion-generator", "amount": 1 },
+      { "goodId": "antigrav-generator", "amount": 1 },
+      { "goodId": "teleporter", "amount": 1 },
+      { "goodId": "drill", "amount": 1 },
+      { "goodId": "satellite", "amount": 1 }
+    ],
+    "outputs": []
+  },
+  {
+    "id": "military-outpost",
+    "name": "Военный форпост",
+    "category": "consumer",
+    "cycleSeconds": 60,
+    "inputs": [
+      { "goodId": "war-robot", "amount": 1 },
+      { "goodId": "body-armor", "amount": 1 },
+      { "goodId": "vehicle", "amount": 1 },
+      { "goodId": "gun", "amount": 1 },
+      { "goodId": "ammunition", "amount": 1 },
+      { "goodId": "ammunition-s", "amount": 1 },
+      { "goodId": "ammunition-m", "amount": 1 },
+      { "goodId": "ammunition-l", "amount": 1 },
+      { "goodId": "medical-supplies", "amount": 1 },
+      { "goodId": "explosive-charge", "amount": 1 },
+      { "goodId": "electromagnetic-charge", "amount": 1 },
+      { "goodId": "food-bar", "amount": 1 },
+      { "goodId": "targeting-system", "amount": 1 },
+      { "goodId": "military-tesla-coil", "amount": 1 }
+    ],
+    "outputs": []
+  },
+  {
+    "id": "repair-dock",
+    "name": "Ремонтный док",
+    "category": "consumer",
+    "cycleSeconds": 60,
+    "inputs": [
+      { "goodId": "fuel", "amount": 1 },
+      { "goodId": "steel", "amount": 1 },
+      { "goodId": "wire", "amount": 1 },
+      { "goodId": "metal-plate", "amount": 1 },
+      { "goodId": "nanobot", "amount": 1 },
+      { "goodId": "solar-cell", "amount": 1 },
+      { "goodId": "solar-panel", "amount": 1 },
+      { "goodId": "oxygen", "amount": 1 },
+      { "goodId": "medical-supplies", "amount": 1 }
+    ],
+    "outputs": []
+  },
+  {
+    "id": "shipyard",
+    "name": "Верфь",
+    "category": "consumer",
+    "cycleSeconds": 60,
+    "inputs": [
+      { "goodId": "energy-tube", "amount": 1 },
+      { "goodId": "aluminum", "amount": 1 },
+      { "goodId": "display", "amount": 1 },
+      { "goodId": "metal-plate", "amount": 1 },
+      { "goodId": "fusion-core", "amount": 1 },
+      { "goodId": "computation-mainframe", "amount": 1 },
+      { "goodId": "medical-supplies", "amount": 1 },
+      { "goodId": "industrial-tesla-coil", "amount": 1 },
+      { "goodId": "antigrav-generator", "amount": 1 },
+      { "goodId": "turbine", "amount": 1 },
+      { "goodId": "energy-container", "amount": 1 }
+    ],
+    "outputs": []
+  },
+  {
+    "id": "equipment-dock",
+    "name": "Док оборудования",
+    "category": "consumer",
+    "cycleSeconds": 60,
+    "inputs": [
+      { "goodId": "fuel", "amount": 1 },
+      { "goodId": "rocket", "amount": 1 },
+      { "goodId": "tools", "amount": 1 },
+      { "goodId": "laser-compressor", "amount": 1 },
+      { "goodId": "laser-head", "amount": 1 },
+      { "goodId": "fusion-core", "amount": 1 },
+      { "goodId": "warhead", "amount": 1 },
+      { "goodId": "satellite", "amount": 1 },
+      { "goodId": "drone", "amount": 1 },
+      { "goodId": "antigrav-generator", "amount": 1 },
+      { "goodId": "ammunition", "amount": 1 },
+      { "goodId": "ammunition-s", "amount": 1 },
+      { "goodId": "ammunition-m", "amount": 1 },
+      { "goodId": "ammunition-l", "amount": 1 }
+    ],
+    "outputs": []
+  },
+  {
+    "id": "turret-factory",
+    "name": "Завод турелей",
+    "category": "consumer",
+    "cycleSeconds": 60,
+    "inputs": [
+      { "goodId": "servo", "amount": 1, "optional": true },
+      { "goodId": "steel-tube", "amount": 1, "optional": true },
+      { "goodId": "steel", "amount": 1, "optional": true },
+      { "goodId": "aluminum", "amount": 1, "optional": true },
+      { "goodId": "lead", "amount": 1, "optional": true },
+      { "goodId": "copper", "amount": 1, "optional": true },
+      { "goodId": "gold", "amount": 1, "optional": true },
+      { "goodId": "zinc", "amount": 1, "optional": true },
+      { "goodId": "wire", "amount": 1, "optional": true },
+      { "goodId": "crystal", "amount": 1, "optional": true },
+      { "goodId": "fuel", "amount": 1, "optional": true },
+      { "goodId": "nanobot", "amount": 1, "optional": true },
+      { "goodId": "high-pressure-tube", "amount": 1, "optional": true },
+      { "goodId": "energy-tube", "amount": 1, "optional": true },
+      { "goodId": "energy-container", "amount": 1, "optional": true },
+      { "goodId": "energy-cell", "amount": 1, "optional": true },
+      { "goodId": "plasma-cell", "amount": 1, "optional": true },
+      { "goodId": "conductor", "amount": 1, "optional": true },
+      { "goodId": "transformator", "amount": 1, "optional": true },
+      { "goodId": "electro-magnet", "amount": 1, "optional": true },
+      { "goodId": "energy-inverter", "amount": 1, "optional": true },
+      { "goodId": "ammunition-s", "amount": 1, "optional": true },
+      { "goodId": "ammunition-m", "amount": 1, "optional": true },
+      { "goodId": "explosive-charge", "amount": 1, "optional": true },
+      { "goodId": "electromagnetic-charge", "amount": 1, "optional": true },
+      { "goodId": "rocket", "amount": 1, "optional": true },
+      { "goodId": "warhead", "amount": 1, "optional": true },
+      { "goodId": "gauss-rail", "amount": 1, "optional": true },
+      { "goodId": "laser-head", "amount": 1, "optional": true },
+      { "goodId": "laser-compressor", "amount": 1, "optional": true },
+      { "goodId": "laser-modulator", "amount": 1, "optional": true },
+      { "goodId": "high-capacity-lens", "amount": 1, "optional": true },
+      { "goodId": "targeting-card", "amount": 1, "optional": true },
+      { "goodId": "industrial-tesla-coil", "amount": 1, "optional": true },
+      { "goodId": "military-tesla-coil", "amount": 1, "optional": true }
+    ],
+    "outputs": []
   }
 ]
