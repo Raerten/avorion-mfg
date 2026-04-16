@@ -96,6 +96,10 @@ function cycleTooltip(amount: number): string {
  * this node. Walks the edges that target our matching `in-<goodId>`
  * handle, and uses each source node's factory + line count to compute
  * what it actually delivers.
+ *
+ * When a source output feeds multiple consumers, its production is
+ * split evenly across every outgoing edge from that handle — otherwise
+ * each consumer would see the source's full rate and double-count it.
  */
 function suppliedRate(goodId: string): number {
   const handle = 'in-' + goodId
@@ -113,7 +117,12 @@ function suppliedRate(goodId: string): number {
     const out = srcFactory.outputs.find(o => o.goodId === goodId)
     if (!out) continue
     const lines = Math.max(1, Math.floor(srcData.lines ?? 1))
-    total += (out.amount * 3600 / srcFactory.cycleSeconds) * lines
+    const srcRate = (out.amount * 3600 / srcFactory.cycleSeconds) * lines
+    const outgoing = allEdges.value.reduce(
+      (n, oe) => (oe.source === src.id && oe.sourceHandle === e.sourceHandle ? n + 1 : n),
+      0,
+    )
+    total += srcRate / Math.max(1, outgoing)
   }
   return total
 }
