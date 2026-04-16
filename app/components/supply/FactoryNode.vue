@@ -4,7 +4,7 @@ import { Handle, Position, useVueFlow, type Connection, type NodeProps } from '@
 import { Info, Power, PowerOff, Trash2 } from 'lucide-vue-next'
 import { useGameData } from '~/composables/useGameData'
 import { FACTORY_SIZE_LABELS, FACTORY_SIZES } from '~/lib/factoryCost'
-import type { FactoryCategory } from '~/types/factory'
+ import type { Factory, FactoryCategory } from '~/types/factory'
 import type { FactoryNodeData } from '~/composables/useSupplyChain'
 import GoodIcon from '~/components/GoodIcon.vue'
 
@@ -91,17 +91,27 @@ function cycleTooltip(amount: number): string {
   return parts.join(' · ')
 }
 
+/** Per-hour demand for one of this node's inputs, scaled by lines. */
+function demandFor(f: Factory, goodId: string, lines: number): number {
+  const inp = f.inputs.find(i => i.goodId === goodId)
+  if (!inp) return 0
+  return (inp.amount * 3600 / f.cycleSeconds) * Math.max(1, Math.floor(lines || 1))
+}
+
 /**
  * Sum the per-hour rate of all upstream factories feeding `goodId` into
  * this node. Walks the edges that target our matching `in-<goodId>`
- * handle, and uses each source node's factory + line count to compute
- * what it actually delivers.
- *
- * When a source output feeds multiple consumers, its production is
- * split evenly across every outgoing edge from that handle — otherwise
- * each consumer would see the source's full rate and double-count it.
+ * handle, and for each source allocates its output across its enabled
+ * consumers in proportion to their demand — so balanced setups read as
+ * balanced instead of being split evenly regardless of what each
+ * consumer actually needs. Disabled consumers are excluded from the
+ * demand pool since they aren't running.
  */
 function suppliedRate(goodId: string): number {
+  if (!factory.value) return 0
+  const myDemand = demandFor(factory.value, goodId, props.data.lines ?? 1)
+  if (myDemand <= 0) return 0
+
   const handle = 'in-' + goodId
   let total = 0
   for (const e of allEdges.value) {
@@ -109,20 +119,31 @@ function suppliedRate(goodId: string): number {
     const src = allNodes.value.find(n => n.id === e.source)
     if (!src) continue
     const srcData = src.data as FactoryNodeData | undefined
-    if (!srcData) continue
-    // Disabled upstream factories are offline — they deliver nothing.
-    if (srcData.disabled) continue
+    if (!srcData || srcData.disabled) continue
     const srcFactory = getFactory(srcData.factoryId)
     if (!srcFactory) continue
     const out = srcFactory.outputs.find(o => o.goodId === goodId)
     if (!out) continue
-    const lines = Math.max(1, Math.floor(srcData.lines ?? 1))
-    const srcRate = (out.amount * 3600 / srcFactory.cycleSeconds) * lines
-    const outgoing = allEdges.value.reduce(
-      (n, oe) => (oe.source === src.id && oe.sourceHandle === e.sourceHandle ? n + 1 : n),
-      0,
-    )
-    total += srcRate / Math.max(1, outgoing)
+    const srcLines = Math.max(1, Math.floor(srcData.lines ?? 1))
+    const srcRate = (out.amount * 3600 / srcFactory.cycleSeconds) * srcLines
+
+    // Total demand of every enabled consumer wired to this source handle.
+    let totalDemand = 0
+    for (const oe of allEdges.value) {
+      if (oe.source !== src.id || oe.sourceHandle !== e.sourceHandle) continue
+      const tgt = allNodes.value.find(n => n.id === oe.target)
+      if (!tgt) continue
+      const tgtData = tgt.data as FactoryNodeData | undefined
+      if (!tgtData || tgtData.disabled) continue
+      const tgtFactory = getFactory(tgtData.factoryId)
+      if (!tgtFactory) continue
+      const tgtGood = oe.targetHandle?.startsWith('in-') ? oe.targetHandle.slice(3) : null
+      if (!tgtGood) continue
+      totalDemand += demandFor(tgtFactory, tgtGood, tgtData.lines ?? 1)
+    }
+
+    if (totalDemand <= 0) continue
+    total += srcRate * (myDemand / totalDemand)
   }
   return total
 }
