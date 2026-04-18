@@ -2334,42 +2334,34 @@
   {
     "id": "force-generator-factory",
     "name": "Завод силовых генераторов",
-    "category": "adv",
+    "category": "end",
     "cycleSeconds": 15,
     "inputs": [
       {
-        "goodId": "fluorine",
+        "goodId": "electro-magnet",
         "amount": 4
       },
       {
         "goodId": "steel",
-        "amount": 1
-      },
-      {
-        "goodId": "energy-cell",
-        "amount": 2
+        "amount": 10
       },
       {
         "goodId": "plastic",
-        "amount": 2
+        "amount": 10
       },
       {
-        "goodId": "chemicals",
-        "amount": 2
+        "goodId": "nanobot",
+        "amount": 10
       },
       {
-        "goodId": "acid",
-        "amount": 2
-      },
-      {
-        "goodId": "adhesive",
-        "amount": 2
+        "goodId": "energy-generator",
+        "amount": 1
       }
     ],
     "outputs": [
       {
-        "goodId": "explosive-charge",
-        "amount": 4
+        "goodId": "force-generator",
+        "amount": 1
       }
     ]
   },
@@ -2382,6 +2374,10 @@
       {
         "goodId": "bio-gas",
         "amount": 1
+      },
+      {
+        "goodId": "water",
+        "amount": 5
       },
       {
         "goodId": "mineral",
@@ -3605,6 +3601,7 @@
       { "goodId": "electron-accelerator", "amount": 1 },
       { "goodId": "proton-accelerator", "amount": 1 },
       { "goodId": "fusion-generator", "amount": 1 },
+      { "goodId": "force-generator", "amount": 1 },
       { "goodId": "antigrav-generator", "amount": 1 },
       { "goodId": "teleporter", "amount": 1 },
       { "goodId": "drill", "amount": 1 },
@@ -3649,7 +3646,8 @@
       { "goodId": "solar-cell", "amount": 1 },
       { "goodId": "solar-panel", "amount": 1 },
       { "goodId": "oxygen", "amount": 1 },
-      { "goodId": "medical-supplies", "amount": 1 }
+      { "goodId": "medical-supplies", "amount": 1 },
+      { "goodId": "force-generator", "amount": 1 }
     ],
     "outputs": []
   },
@@ -3736,7 +3734,26 @@
       { "goodId": "high-capacity-lens", "amount": 1, "optional": true },
       { "goodId": "targeting-card", "amount": 1, "optional": true },
       { "goodId": "industrial-tesla-coil", "amount": 1, "optional": true },
-      { "goodId": "military-tesla-coil", "amount": 1, "optional": true }
+      { "goodId": "military-tesla-coil", "amount": 1, "optional": true },
+      { "goodId": "force-generator", "amount": 1, "optional": true }
+    ],
+    "outputs": []
+  },
+  {
+    "id": "travel-hub",
+    "name": "Транспортный узел",
+    "category": "consumer",
+    "cycleSeconds": 60,
+    "inputs": [
+      { "goodId": "turbine", "amount": 1 },
+      { "goodId": "neutron-accelerator", "amount": 1 },
+      { "goodId": "electron-accelerator", "amount": 1 },
+      { "goodId": "proton-accelerator", "amount": 1 },
+      { "goodId": "fusion-generator", "amount": 1 },
+      { "goodId": "force-generator", "amount": 1 },
+      { "goodId": "plasma-cell", "amount": 1 },
+      { "goodId": "energy-cell", "amount": 1 },
+      { "goodId": "fusion-core", "amount": 1 }
     ],
     "outputs": []
   }

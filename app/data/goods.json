@@ -666,6 +666,12 @@
     "price": 39553
   },
   {
+    "id": "force-generator",
+    "name": "Силовой генератор",
+    "category": "end",
+    "price": 49576
+  },
+  {
     "id": "industrial-tesla-coil",
     "name": "Промышленный трансформатор Тесла",
     "category": "end",
