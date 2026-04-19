@@ -26,3 +26,5 @@ logs
 
 # ralphex progress logs
 .ralphex/progress/
+
+.mcp.json
