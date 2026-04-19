@@ -519,6 +519,13 @@ function onClear() {
   stroke: hsl(190 85% 55% / 0.7);
   stroke-width: 1.5;
 }
+.supply-flow .vue-flow__edge.selected .vue-flow__edge-path,
+.supply-flow .vue-flow__edge:focus .vue-flow__edge-path,
+.supply-flow .vue-flow__edge:focus-visible .vue-flow__edge-path {
+  stroke: hsl(38 95% 60%);
+  stroke-width: 3;
+  filter: drop-shadow(0 0 6px hsl(38 95% 60% / 0.7));
+}
 .supply-flow .vue-flow__minimap {
   border-radius: 6px;
 }
