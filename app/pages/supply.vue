@@ -529,4 +529,20 @@ function onClear() {
 .supply-flow .supply-minimap .vue-flow__minimap-node:hover {
   opacity: 0.75;
 }
+@keyframes supply-jump-flash {
+  0%   { filter: drop-shadow(0 0 0 rgba(56, 189, 248, 0)); }
+  20%  { filter: drop-shadow(0 0 18px rgba(56, 189, 248, 0.95)); }
+  100% { filter: drop-shadow(0 0 0 rgba(56, 189, 248, 0)); }
+}
+.vue-flow__node.supply-jump-flash {
+  animation: supply-jump-flash 1.1s ease-out;
+}
+.vue-flow__node.supply-jump-flash > div {
+  animation: supply-jump-flash-ring 1.1s ease-out;
+}
+@keyframes supply-jump-flash-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+  25%  { box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.55); }
+  100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+}
 </style>

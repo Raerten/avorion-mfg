@@ -24,6 +24,11 @@ export interface FactoryNodeData {
    * produces no output and its input requirements are ignored.
    */
   disabled?: boolean
+  /**
+   * Optional user-authored label shown above the node, for tagging
+   * instances ("Сектор 12", "Основная линия стали", etc.).
+   */
+  label?: string
 }
 
 export type FactoryFlowNode = Node<FactoryNodeData>
@@ -205,6 +210,7 @@ function parsePersistedNodes(nodes: AnyFlowNode[]): AnyFlowNode[] {
         factoryId: (n.data as FactoryNodeData)?.factoryId ?? '',
         lines: Math.max(1, Math.floor((n.data as FactoryNodeData)?.lines ?? 1)),
         disabled: (n.data as FactoryNodeData)?.disabled === true,
+        label: (n.data as FactoryNodeData)?.label,
       },
     } as FactoryFlowNode
   })
@@ -247,6 +253,7 @@ function serializeNodes(nodes: GraphNode[]): AnyFlowNode[] {
         factoryId: d.factoryId ?? '',
         lines: Math.max(1, Math.floor(d.lines ?? 1)),
         disabled: d.disabled === true,
+        label: d.label,
       },
     } as FactoryFlowNode
   })

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import { Handle, Position, useVueFlow, type Connection, type NodeProps } from '@vue-flow/core'
-import { Info, Power, PowerOff, Trash2 } from 'lucide-vue-next'
+import { ArrowLeftFromLine, ArrowRightFromLine, Info, Pencil, Power, PowerOff, Trash2 } from 'lucide-vue-next'
 import { useGameData } from '~/composables/useGameData'
 import { FACTORY_SIZE_LABELS, FACTORY_SIZES } from '~/lib/factoryCost'
  import type { Factory, FactoryCategory } from '~/types/factory'
@@ -53,7 +53,7 @@ const { getFactory, getGood, getConsumers } = useGameData()
 function isNpcOnlyOutput(goodId: string): boolean {
   return getConsumers(goodId).length === 0
 }
-const { edges: allEdges, nodes: allNodes } = useVueFlow()
+const { edges: allEdges, nodes: allNodes, setCenter } = useVueFlow()
 
 const factory = computed(() => getFactory(props.data.factoryId))
 const nodeStyle = computed(() => (factory.value ? NODE_STYLES[factory.value.category] : null))
@@ -184,6 +184,133 @@ function toggleDisabled() {
   props.data.disabled = !props.data.disabled
 }
 
+const editingLabel = ref(false)
+const labelInput = ref<HTMLInputElement | null>(null)
+const labelDraft = ref('')
+
+function startEditLabel() {
+  labelDraft.value = props.data.label ?? ''
+  editingLabel.value = true
+  nextTick(() => {
+    labelInput.value?.focus()
+    labelInput.value?.select()
+  })
+}
+
+function commitLabel() {
+  const v = labelDraft.value.trim()
+  props.data.label = v === '' ? undefined : v
+  editingLabel.value = false
+}
+
+function cancelEditLabel() {
+  editingLabel.value = false
+}
+
+/**
+ * One end of a wired connection on this node, pre-formatted for the
+ * jump-to menu: which node it leads to, and how to describe it.
+ */
+interface ConnectionLink {
+  nodeId: string
+  nodeLabel: string
+  factoryName: string
+  goodName: string
+}
+
+/**
+ * Enumerate every edge attached to the given input/output handle on
+ * this node, resolving each to the node at the other end. Used by the
+ * connection-jump UI so a player can trace any individual wire back
+ * to its counterpart, even when a single handle has several wires.
+ */
+function getConnections(goodId: string, direction: 'in' | 'out'): ConnectionLink[] {
+  const handle = (direction === 'in' ? 'in-' : 'out-') + goodId
+  const out: ConnectionLink[] = []
+  for (const e of allEdges.value) {
+    let otherId: string | null = null
+    if (direction === 'in' && e.target === props.id && e.targetHandle === handle) {
+      otherId = e.source
+    } else if (direction === 'out' && e.source === props.id && e.sourceHandle === handle) {
+      otherId = e.target
+    }
+    if (!otherId) continue
+    const other = allNodes.value.find(n => n.id === otherId)
+    if (!other || other.type === 'comment') continue
+    const data = other.data as FactoryNodeData | undefined
+    const f = data?.factoryId ? getFactory(data.factoryId) : null
+    out.push({
+      nodeId: otherId,
+      nodeLabel: data?.label ?? '',
+      factoryName: f?.name ?? otherId,
+      goodName: goodName(goodId),
+    })
+  }
+  return out
+}
+
+function jumpToNode(nodeId: string) {
+  const n = allNodes.value.find(x => x.id === nodeId)
+  if (!n) return
+  const w = (n.dimensions?.width ?? 260)
+  const h = (n.dimensions?.height ?? 100)
+  setCenter(n.position.x + w / 2, n.position.y + h / 2, { zoom: 1, duration: 400 })
+  // Visual echo so the player's eye locks onto the destination after
+  // the pan — we retrigger the animation by toggling the class off
+  // first, so repeated jumps to the same node still flash.
+  const el = document.querySelector(`.vue-flow__node[data-id="${nodeId}"]`)
+  if (el) {
+    el.classList.remove('supply-jump-flash')
+    void (el as HTMLElement).offsetWidth
+    el.classList.add('supply-jump-flash')
+    window.setTimeout(() => el.classList.remove('supply-jump-flash'), 1200)
+  }
+}
+
+/**
+ * Which (direction, goodId) popover is currently open, or null. Only
+ * one popover can be open at a time per node so clicking another badge
+ * swaps the visible list instead of stacking floats.
+ */
+const connMenu = ref<{ direction: 'in' | 'out'; goodId: string } | null>(null)
+
+function toggleConnMenu(direction: 'in' | 'out', goodId: string) {
+  const links = getConnections(goodId, direction)
+  if (links.length === 0) return
+  if (links.length === 1) {
+    jumpToNode(links[0]!.nodeId)
+    connMenu.value = null
+    return
+  }
+  if (connMenu.value && connMenu.value.direction === direction && connMenu.value.goodId === goodId) {
+    connMenu.value = null
+  } else {
+    connMenu.value = { direction, goodId }
+  }
+}
+
+function onMenuJump(nodeId: string) {
+  jumpToNode(nodeId)
+  connMenu.value = null
+}
+
+/**
+ * Dismiss the open popover on any click that didn't originate inside
+ * it (the nav button's `@click.stop` prevents propagation here, so
+ * toggling the same button still works). Also close on Escape.
+ */
+watch(connMenu, (open, _prev, onCleanup) => {
+  if (!open) return
+  const onDocClick = () => { connMenu.value = null }
+  const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') connMenu.value = null }
+  document.addEventListener('click', onDocClick)
+  document.addEventListener('keydown', onKey)
+  onCleanup(() => {
+    document.removeEventListener('click', onDocClick)
+    document.removeEventListener('keydown', onKey)
+  })
+})
+
 /**
  * A connection is only valid when both ends carry the *same* good.
  * Handle ids are `out-<goodId>` / `in-<goodId>`, so we extract and
@@ -226,6 +353,13 @@ function isValidConnection(connection: Connection): boolean {
         @mousedown.stop
       ><Info class="w-[18px] h-[18px]" stroke-width="2" /></button>
       <button
+        v-tooltip="props.data.label ? 'Изменить название' : 'Добавить название'"
+        type="button"
+        class="w-10 h-10 text-zinc-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+        @click.stop="startEditLabel"
+        @mousedown.stop
+      ><Pencil class="w-[18px] h-[18px]" stroke-width="2" /></button>
+      <button
         v-tooltip="props.data.disabled ? 'Включить' : 'Отключить'"
         type="button"
         class="w-10 h-10 text-zinc-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
@@ -244,9 +378,38 @@ function isValidConnection(connection: Connection): boolean {
       ><Trash2 class="w-[18px] h-[18px]" stroke-width="2" /></button>
     </div>
 
-    <div class="overflow-hidden rounded-sm">
+    <!--
+      User-authored label sitting to the left of the node, vertically
+      centered. Always visible when set, click-to-edit via the pencil
+      tool. `absolute` keeps it outside the node's layout box.
+    -->
     <div
-      class="px-3 py-1 flex items-center justify-between gap-2"
+      v-if="props.data.label || editingLabel"
+      class="nodrag absolute bottom-full left-0 mb-1 flex items-end pointer-events-none"
+    >
+      <input
+        v-if="editingLabel"
+        ref="labelInput"
+        v-model="labelDraft"
+        type="text"
+        maxlength="80"
+        placeholder="Название узла"
+        class="pointer-events-auto px-2 py-0.5 rounded-sm bg-zinc-800/95 border border-white/30 text-[13px] text-zinc-100 font-semibold text-left outline-none focus:border-sky-400 min-w-[120px] max-w-[260px]"
+        @click.stop
+        @mousedown.stop
+        @keydown.enter.prevent="commitLabel"
+        @keydown.escape.prevent="cancelEditLabel"
+        @blur="commitLabel"
+      >
+      <span
+        v-else
+        v-tooltip="'Нажмите карандаш чтобы изменить'"
+        class="pointer-events-auto px-2 py-0.5 rounded-sm bg-zinc-800/80 text-[13px] text-zinc-100 font-semibold whitespace-nowrap max-w-[260px] truncate text-left"
+      >{{ props.data.label }}</span>
+    </div>
+
+    <div
+      class="px-3 py-1 flex items-center justify-between gap-2 rounded-t-[1px]"
       :class="nodeStyle.header"
     >
       <div class="flex items-center gap-2 text-[15px] font-semibold min-w-0">
@@ -290,6 +453,37 @@ function isValidConnection(connection: Connection): boolean {
             :is-valid-connection="isValidConnection"
             class="!bg-white !border-0 !w-2.5 !h-2.5"
           />
+          <button
+            v-if="getConnections(inp.goodId, 'in').length > 0"
+            v-tooltip="getConnections(inp.goodId, 'in').length === 1 ? 'Перейти к поставщику' : 'Показать ' + getConnections(inp.goodId, 'in').length + ' поставщиков'"
+            type="button"
+            class="nodrag inline-flex items-center gap-0.5 text-[10px] text-zinc-400 hover:text-sky-300 shrink-0 cursor-pointer"
+            @click.stop="toggleConnMenu('in', inp.goodId)"
+            @mousedown.stop
+          >
+            <ArrowLeftFromLine class="w-3 h-3" stroke-width="2.25" />
+            <span v-if="getConnections(inp.goodId, 'in').length > 1" class="tabular-nums">{{ getConnections(inp.goodId, 'in').length }}</span>
+          </button>
+          <div
+            v-if="connMenu && connMenu.direction === 'in' && connMenu.goodId === inp.goodId"
+            class="nodrag absolute z-20 left-4 top-full mt-1 min-w-[200px] rounded-sm border border-white/20 bg-zinc-900/95 shadow-xl text-[12px] text-zinc-100 py-1"
+            @click.stop
+            @mousedown.stop
+          >
+            <button
+              v-for="(link, i) in getConnections(inp.goodId, 'in')"
+              :key="link.nodeId + i"
+              type="button"
+              class="w-full text-left px-2 py-1 hover:bg-white/10 flex items-center gap-2 cursor-pointer"
+              @click.stop="onMenuJump(link.nodeId)"
+            >
+              <GoodIcon :good-id="inp.goodId" class="w-3.5 h-3.5 shrink-0" />
+              <span class="truncate">
+                <span v-if="link.nodeLabel" class="text-sky-300">«{{ link.nodeLabel }}» </span>
+                <span>{{ link.factoryName }}</span>
+              </span>
+            </button>
+          </div>
           <button
             type="button"
             class="inline-flex items-center gap-1.5 hover:text-white truncate min-w-0 text-zinc-200"
@@ -368,6 +562,17 @@ function isValidConnection(connection: Connection): boolean {
             <span class="truncate">{{ goodName(out.goodId) }}</span>
             <GoodIcon :good-id="out.goodId" class="w-3.5 h-3.5 shrink-0" />
           </button>
+          <button
+            v-if="getConnections(out.goodId, 'out').length > 0"
+            v-tooltip="getConnections(out.goodId, 'out').length === 1 ? 'Перейти к потребителю' : 'Показать ' + getConnections(out.goodId, 'out').length + ' потребителей'"
+            type="button"
+            class="nodrag inline-flex items-center gap-0.5 text-[10px] text-zinc-400 hover:text-sky-300 shrink-0 cursor-pointer"
+            @click.stop="toggleConnMenu('out', out.goodId)"
+            @mousedown.stop
+          >
+            <span v-if="getConnections(out.goodId, 'out').length > 1" class="tabular-nums">{{ getConnections(out.goodId, 'out').length }}</span>
+            <ArrowRightFromLine class="w-3 h-3" stroke-width="2.25" />
+          </button>
           <Handle
             :id="'out-' + out.goodId"
             type="source"
@@ -376,9 +581,28 @@ function isValidConnection(connection: Connection): boolean {
             class="!border-0 !w-2.5 !h-2.5"
             :class="isNpcOnlyOutput(out.goodId) ? '!bg-amber-400 !ring-2 !ring-amber-400/30' : '!bg-white'"
           />
+          <div
+            v-if="connMenu && connMenu.direction === 'out' && connMenu.goodId === out.goodId"
+            class="nodrag absolute z-20 right-4 top-full mt-1 min-w-[200px] rounded-sm border border-white/20 bg-zinc-900/95 shadow-xl text-[12px] text-zinc-100 py-1 text-left"
+            @click.stop
+            @mousedown.stop
+          >
+            <button
+              v-for="(link, i) in getConnections(out.goodId, 'out')"
+              :key="link.nodeId + i"
+              type="button"
+              class="w-full text-left px-2 py-1 hover:bg-white/10 flex items-center gap-2 cursor-pointer"
+              @click.stop="onMenuJump(link.nodeId)"
+            >
+              <GoodIcon :good-id="out.goodId" class="w-3.5 h-3.5 shrink-0" />
+              <span class="truncate">
+                <span v-if="link.nodeLabel" class="text-sky-300">«{{ link.nodeLabel }}» </span>
+                <span>{{ link.factoryName }}</span>
+              </span>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   </div>
 </template>
